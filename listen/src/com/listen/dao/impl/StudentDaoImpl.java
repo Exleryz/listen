@@ -16,6 +16,7 @@ import java.util.List;
 
 public class StudentDaoImpl extends HibernateDaoSupport implements StudentDao {
 
+
     @Override
     public Student getByStudentAccount(final String account) {
         return getHibernateTemplate().execute(new HibernateCallback<Student>() {
@@ -30,6 +31,10 @@ public class StudentDaoImpl extends HibernateDaoSupport implements StudentDao {
         });
     }
 
+    /**
+     * 初始化保存学生
+     * @param student
+     */
     @Override
     public void save(Student student) {
 //        init
@@ -40,7 +45,6 @@ public class StudentDaoImpl extends HibernateDaoSupport implements StudentDao {
 
     /**
      * 根据学生账号(学号) 查找学生
-     *
      * @param account
      * @return
      */
@@ -53,6 +57,10 @@ public class StudentDaoImpl extends HibernateDaoSupport implements StudentDao {
         return false;
     }
 
+    /**
+     * 更新学生 等级 关数
+     * @param student
+     */
     @Override
     public void updateGrade(Student student) {
         SQLQuery sqlQuery = currentSession().createSQLQuery("update Student SET grade=?,currentCheck=? where id=?");
@@ -62,7 +70,13 @@ public class StudentDaoImpl extends HibernateDaoSupport implements StudentDao {
         sqlQuery.executeUpdate();
     }
 
+    /**
+     * 此方法未完成
+     * @param id
+     * @param grade
+     */
     @Override
+    @Deprecated
     public void findByStudentIdAndGrade(Integer id, Integer grade) {
         currentSession().createSQLQuery("select count(*) where studentid=");
     }
@@ -104,11 +118,20 @@ public class StudentDaoImpl extends HibernateDaoSupport implements StudentDao {
         // return 1 success
     }
 
+    /**
+     * 更新闯关状态
+     * @param student
+     */
     @Override
     public void updateStudent(Student student) {
         getHibernateTemplate().update(student);
     }
 
+    /**
+     * 获取历史闯关列表
+     * @param student
+     * @return
+     */
     @Override
     public List<SysStudentLibraryPool> getAllCheckList(Student student) {
         List<SysStudentLibraryPool> list = (List<SysStudentLibraryPool>) getHibernateTemplate().find("from SysStudentLibraryPool where stu = ?", student);
