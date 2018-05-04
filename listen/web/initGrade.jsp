@@ -17,6 +17,15 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
+<style type="text/css">
+    .top1 {
+        color: #fff;
+        font-size: 1.6rem;
+        top: 0em;
+        right: 1em;
+        position: fixed;
+    }
+</style>
 <script type="text/javascript">
     var answer = new Array();
     $(document).ready(function () {
@@ -54,10 +63,11 @@
                     $("#question").append($div);
                 })
                 $("#1").show();
+                startTime()
             }, error: function (data) {
                 alert("error");
             },
-    });
+        });
     })
 
     function checkMe(radio) {
@@ -85,6 +95,31 @@
         }
     }
 
+    var mi = 3;
+    var se = 0;
+
+    function startTime() {
+        if (se == 0 && mi == 0) {
+            document.getElementById('time').innerHTML = "00:00";
+            alert("time out");
+            sub();
+            return;
+        }
+        if (se < 10 && mi >= 0 && se >= 0) {
+            document.getElementById('time').innerHTML = "0" + mi + ":" + "0" + se;
+            if (se == 0) {
+                mi -= 1;
+                se = 59;
+            } else {
+                se--;
+            }
+        } else {
+            document.getElementById('time').innerHTML = "0" + mi + ":" + se;
+            se--;
+        }
+        setTimeout('startTime()', 1000)
+    }
+
     function sub() {
         var score = 0;
         for (var index in answer) {
@@ -92,14 +127,19 @@
             if (temp == answer[index])
                 score += 1;
         }
-            window.location.href = '${pageContext.request.contextPath}/StudentAction_submitGrade?score=' + score;
+        window.location.href = '${pageContext.request.contextPath}/StudentAction_submitGrade?score=' + score;
+        if (mi == 0 && se == 0) {
+            alert("做题超时，已自动提交");
+        } else {
             alert("恭喜您完成测试，再也不是无名小卒啦！");
+        }
     }
 </script>
 <body>
 <header>
     <nav class="top">
         <p>词汇量测试</p>
+        <div class="text-right top1" id="time"></div>
     </nav>
 </header>
 <div class="testbox">
