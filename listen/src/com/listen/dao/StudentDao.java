@@ -1,6 +1,9 @@
 package com.listen.dao;
 
 import com.listen.domain.Student;
+import com.listen.domain.SysStudentLibraryPool;
+
+import java.util.List;
 
 public interface StudentDao {
     Student getByStudentAccount(String account);
@@ -13,12 +16,12 @@ public interface StudentDao {
 
     void findByStudentIdAndGrade(Integer id, Integer grade);
 
-    void saveScore(Integer grade, String checkId, Integer integer, Integer score, String account);
-
-    Integer countThisCheckId(String account, Integer lpId);
+    Integer countThisCheckId(Student stu, Integer lpId);
 
     void saveScore(Integer score, Integer count, Integer classify, Integer stuId, Integer lpId);
 
     void updateStudent(Student student);
+
+    List<SysStudentLibraryPool> getAllCheckList(Student student);
 
 }

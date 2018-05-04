@@ -2,6 +2,7 @@ package com.listen.dao.impl;
 
 import com.listen.dao.StudentDao;
 import com.listen.domain.Student;
+import com.listen.domain.SysStudentLibraryPool;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
@@ -66,20 +67,30 @@ public class StudentDaoImpl extends HibernateDaoSupport implements StudentDao {
         currentSession().createSQLQuery("select count(*) where studentid=");
     }
 
+    /**
+     * 计算当前学生 此题已做次数
+     * @param stu
+     * @param lpId
+     * @return
+     */
     @Override
-    public void saveScore(Integer grade, String checkId, Integer integer, Integer score, String account) {
-        currentSession().createSQLQuery("insert ");
-    }
-
-    @Override
-    public Integer countThisCheckId(String account, Integer lpId) {
-        SQLQuery sqlQuery = currentSession().createSQLQuery("select count(id) from SysStudentLibraryPool where lpId=?");
+    public Integer countThisCheckId(Student stu, Integer lpId) {
+        SQLQuery sqlQuery = currentSession().createSQLQuery("select count(id) from SysStudentLibraryPool where lpId=? and stuId=?");
         sqlQuery.setParameter(0, lpId);
+        sqlQuery.setParameter(1, stu.getId());
         BigInteger count = (BigInteger) sqlQuery.uniqueResult();
         System.out.println(count);
         return count.intValue();
     }
 
+    /**
+     * 保存分数
+     * @param score
+     * @param count
+     * @param classify
+     * @param stuId
+     * @param lpId
+     */
     @Override
     public void saveScore(Integer score, Integer count, Integer classify, Integer stuId, Integer lpId) {
         SQLQuery sqlQuery = currentSession().createSQLQuery("insert into sysstudentlibrarypool (score, time, count, classify, stuId, lpId) values (?, ?, ?, ?, ?, ?)");
@@ -97,4 +108,15 @@ public class StudentDaoImpl extends HibernateDaoSupport implements StudentDao {
     public void updateStudent(Student student) {
         getHibernateTemplate().update(student);
     }
+
+    @Override
+    public List<SysStudentLibraryPool> getAllCheckList(Student student) {
+        List<SysStudentLibraryPool> list = (List<SysStudentLibraryPool>) getHibernateTemplate().find("from SysStudentLibraryPool where stu = ?", student);
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i));
+        }
+        return list;
+    }
+
+
 }

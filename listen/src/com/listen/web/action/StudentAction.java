@@ -1,6 +1,7 @@
 package com.listen.web.action;
 
 import com.listen.domain.Student;
+import com.listen.domain.SysStudentLibraryPool;
 import com.listen.service.StudentService;
 
 import com.opensymphony.xwork2.Action;
@@ -10,6 +11,7 @@ import com.opensymphony.xwork2.ModelDriven;
 import net.sf.json.JSON;
 import org.apache.struts2.ServletActionContext;
 
+import java.util.List;
 import java.util.PrimitiveIterator;
 import java.util.UUID;
 
@@ -102,6 +104,13 @@ public class StudentAction extends ActionSupport implements ModelDriven<Student>
         Student s = (Student) ActionContext.getContext().getSession().get("student");
         studentService.saveScore(s.getGrade(), Integer.parseInt(checkId), Integer.parseInt(score), s);
         return "toHome";
+    }
+
+    public String getList() throws Exception {
+        Student stu = (Student) ActionContext.getContext().getSession().get("student");
+        List<SysStudentLibraryPool> list = studentService.getlist(stu);
+        ActionContext.getContext().put("stulp", list);
+        return "historyList";
     }
 
     public StudentService getStudentService() {

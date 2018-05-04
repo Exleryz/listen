@@ -13,7 +13,8 @@
             <result name="login">/login.jsp</result>
             <result name="register">/login.jsp</result>
             <result name="toSubject">/Examination.jsp</result>
-            <allowed-methods>login,register,checkAccount,loginOut,initGrade,submitGrade,initSubject,getScore</allowed-methods>
+            <result name="historyList">/listtest.jsp</result>
+            <allowed-methods>login,register,checkAccount,loginOut,initGrade,submitGrade,initSubject,getScore,getList</allowed-methods>
         </action>
     </package>
 </struts>

@@ -7,7 +7,6 @@ import com.listen.utils.MakeSubject;
 import net.sf.json.JSON;
 
 import java.util.List;
-import java.util.PrimitiveIterator;
 
 public class StudentServiceImpl implements StudentService {
 
@@ -21,6 +20,10 @@ public class StudentServiceImpl implements StudentService {
 
     private SubjectDao subjectDao;
 
+    /**
+     * 根据学生账号 查找学生是否存在
+     * @param student
+     */
     @Override
     public void saveStudent(Student student) {
         Student existS = studentDao.getByStudentAccount(student.getAccount());
@@ -30,6 +33,11 @@ public class StudentServiceImpl implements StudentService {
         studentDao.save(student);
     }
 
+    /**
+     * 根据学生账号校验登录密码
+     * @param student
+     * @return
+     */
     @Override
     public Student findStudentById(Student student) {
         Student existS = studentDao.getByStudentAccount(student.getAccount());
@@ -42,6 +50,10 @@ public class StudentServiceImpl implements StudentService {
         return existS;
     }
 
+    /**
+     * 查找账号是否可用
+     * @param account
+     */
     @Override
     public void findStudentByAccount(String account) {
         if (studentDao.findByStudentAccount(account)) {
@@ -51,6 +63,10 @@ public class StudentServiceImpl implements StudentService {
         }
     }
 
+    /**
+     * 制作学生定级单词 随机 试卷
+     * @return
+     */
     @Override
     public JSON initGradetest() {
         List<Vocabulary> list1 = vocabularyDao.getVocs(1, 20);
@@ -60,6 +76,11 @@ public class StudentServiceImpl implements StudentService {
 //        return initTest;
     }
 
+    /**
+     * 初始化学生等级
+     * @param s
+     * @param score
+     */
     @Override
     public void initGradeCode(Student s, Integer score) {
         s.setCurrentCheck(0);
@@ -75,12 +96,22 @@ public class StudentServiceImpl implements StudentService {
         }
     }
 
+    /**
+     *
+     * @param s
+     * @param checkcount
+     */
     @Override
     public void openNewCheckPoint(Student s, String checkcount) {
         studentDao.findByStudentIdAndGrade(s.getId(), s.getGrade());
-
     }
 
+    /**
+     *
+     * @param grade
+     * @param checkId
+     * @return
+     */
     @Override
     public String getCurrentCheckPool(Integer grade, Integer checkId) {
         // get LibraryPool currentCheck id
@@ -96,29 +127,38 @@ public class StudentServiceImpl implements StudentService {
         return jsonString;
     }
 
-    /**
+    /** 保存当次闯关分数
      * @param grade   等级
      * @param checkId 关数
      * @param score   分数
      */
     @Override
     public void saveScore(Integer grade, Integer checkId, Integer score, Student student) {
-        LibraryPool lp = libraryPoolDao.getLpIdByGradeAndCheckId(1, 1);
-        Integer count = studentDao.countThisCheckId(student.getAccount(), 1);
+        LibraryPool lp = libraryPoolDao.getLpIdByGradeAndCheckId(grade, checkId);
+        Integer count = studentDao.countThisCheckId(student, lp.getId());
 //        做题次数
         count += 1;
         studentDao.saveScore(score, count, 0, student.getId(), lp.getId());
-        if (score > lp.getScore()) {
+        if (score > lp.getScore()) {    // 分数大于规定分数
 //            pass
-            student.setCurrentCheck(student.getCurrentCheck() + 1);
-            if (checkId < 25 && student.getCurrentCheck() == checkId) {
-                student.setCurrentCheck(student.getCurrentCheck() + 1);
-            } else {
-                student.setCurrentCheck(1);
-                student.setGrade(student.getGrade() + 1);
+            if (checkId == student.getCurrentCheck() + 1) {    // 做的是该闯的关
+                if (checkId < 25) {    // 关数大于总关数
+                    student.setCurrentCheck(student.getCurrentCheck() + 1);
+                } else {
+                    student.setCurrentCheck(0);
+                    student.setGrade(student.getGrade() + 1);
+                }
+                // 更新学生状态
+                studentDao.updateStudent(student);
             }
-            studentDao.updateStudent(student);
         }
+
+    }
+
+    @Override
+    public List<SysStudentLibraryPool> getlist(Student stu) {
+        List<SysStudentLibraryPool> list = studentDao.getAllCheckList(stu);
+        return list;
     }
 
     public SubjectDao getSubjectDao() {
