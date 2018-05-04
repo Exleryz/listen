@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+    <constant name="struts.objectFactory" value="spring"/>
+    <package name="listen" namespace="/" extends="struts-default">
+        <action name="StudentAction_*" class="studentAction" method="{1}">
+            <result name="toHome" type="redirect">/home.jsp</result>
+            <result name="toLogin" type="redirect">/login.jsp</result>
+            <result name="login">/login.jsp</result>
+            <result name="register">/login.jsp</result>
+            <result name="toSubject">/Examination.jsp</result>
+            <allowed-methods>login,register,checkAccount,loginOut,initGrade,submitGrade,initSubject,getScore</allowed-methods>
+        </action>
+    </package>
+</struts>

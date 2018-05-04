@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- dao -->
+    <bean name="studentDao" class="com.listen.dao.impl.StudentDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean name="vocabularyDao" class="com.listen.dao.impl.VocabularyDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean name="libraryPoolDao" class="com.listen.dao.impl.LibraryPoolDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean name="libraryDao" class="com.listen.dao.impl.LibraryDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean name="subjectDao" class="com.listen.dao.impl.SubjectDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <!-- service -->
+    <bean name="studentService" class="com.listen.service.impl.StudentServiceImpl">
+        <property name="studentDao" ref="studentDao"/>
+        <property name="vocabularyDao" ref="vocabularyDao"/>
+        <property name="libraryPoolDao" ref="libraryPoolDao"/>
+        <property name="libraryDao" ref="libraryDao"/>
+        <property name="subjectDao" ref="subjectDao"/>
+    </bean>
+    
+    <!-- action -->
+    <bean name="studentAction" class="com.listen.web.action.StudentAction">
+        <property name="studentService" ref="studentService"/>
+    </bean>
+    
+    <!--  -->
+    <bean class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" name="sessionFactory">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+            </props>
+        </property>
+        <property name="mappingDirectoryLocations" value="classpath:/com/listen/domain"/>
+    </bean>
+
+    <!-- c3p0 -->
+    <context:property-placeholder location="classpath:db.properties"/>
+    <bean class="com.mchange.v2.c3p0.ComboPooledDataSource" id="dataSource">
+        <property name="driverClass" value="${myjdbc.driverClass}"></property>
+        <property name="jdbcUrl" value="${myjdbc.jdbcUrl}"></property>
+        <property name="user" value="${myjdbc.user}"></property>
+        <property name="password" value="${myjdbc.password}"></property>
+    </bean>
+    <!--  aop核心事务管理器  -->
+    <bean name="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <!--  配置通知  -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="save*" isolation="REPEATABLE_READ" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="persist*" isolation="REPEATABLE_READ" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="update*" isolation="REPEATABLE_READ" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="modify*" isolation="REPEATABLE_READ" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="delete*" isolation="REPEATABLE_READ" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="remove*" isolation="REPEATABLE_READ" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="get*" isolation="REPEATABLE_READ" propagation="REQUIRED" read-only="true"/>
+            <tx:method name="find*" isolation="REPEATABLE_READ" propagation="REQUIRED" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+    <!--  配置将通知织入目标对象  -->
+    <aop:config>
+        <!--  配置切点  -->
+        <aop:pointcut id="txPc" expression="execution(* com.listen.service.impl.*ServiceImpl.*(..))"/>
+        <!--  配置切面  -->
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPc"/>
+    </aop:config>
+
+</beans>

@@ -1,0 +1,356 @@
+*{
+	margin:0;
+	padding: 0;
+}
+html{
+	font-size: 62.5%;
+	color: #222;
+}
+::selection {
+	background-color: #b3d3fc;
+	text-shadow: none;
+}
+ul{
+	margin: 0;
+	padding: 0;
+}
+li{
+	list-style:none;
+}
+/*---------
+工具样式
+-----------*/
+
+/*居中显示*/
+.conter-block{
+	display: block;;
+	margin-right: auto;;
+	margin-left: auto;
+}
+/*在右边显示*/
+.pull-right{
+	float: right !important;
+}
+/*在左边显示*/
+.pull-left{
+	float: left  !important;
+}
+/*文字居右*/
+.text-right{
+	text-align: right !important;
+}
+/*文字居左*/
+.text-left{
+	text-align: left !important;
+}
+/*隐藏 但占空间*/
+.hide{
+	display: none !important;
+}
+/*出现*/
+.show{
+	display: block !important;
+}
+/*隐藏 但不占空间*/
+.invisible{
+	visibility: hidden;
+}
+/*文字隐藏*/
+.text-hide{
+	font:0/0 a;
+	color: transparent;
+	text-shadow: none;
+	background-color: transparent;
+	border: 0;
+}
+.clearfix:before,
+.clearfix:after{
+	content: " ";
+	display: table;
+}
+.clearfix:after{
+	clear: both;
+}
+
+/*---------
+自定义页面样式
+-----------*/
+body{
+	font-size: 1.2rem;
+	line-height: 1.5;
+	background-color:#eee;
+}
+a{
+	color: #666;
+	text-decoration: none;
+}
+a:hover,a:active{
+	color: #0ae;
+	text-decoration: none;	
+}
+/*头部样式*/
+header .navbar-default{
+	background-color:#318E8B;
+}
+header .navbar-brand{
+	color: #fff !important;
+}
+.navbar-default .navbar-toggle .icon-bar{
+	background-color: #fff !important;
+}
+.navbar-default .navbar-nav>li>a{
+	color: #fff !important;
+}
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover{
+	color: #eee !important;
+}
+/*内容样式*/	
+.contentuser{
+	width: 95%;
+	background-color: #fff;
+	border: 1px solid #eee;
+	box-shadow: 0 0 3px #999;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}	
+.contentuser .container .row .col-md-8 h4{
+	margin-top: 20px;
+}
+.userimg{
+	width: 100px;
+	box-shadow: 0 0 30px gray;
+	margin-top: -10px;
+}
+.taskimg{
+	width: 100%;
+	margin-top: 10px;
+}
+.startbtn{
+	margin-top: 20px;
+}
+.footer{
+	background-color: #333;
+	height: 100px;
+	padding: 30px;
+	margin-top: 20px;
+}
+.footer span{
+	color: #fff;
+	font-size: 16px;
+}
+.btn{
+	margin-bottom: 10px;
+}
+.login{
+	max-width: 700px;
+	width: 90%;
+	background-color: #fff;
+	margin: 0 auto;
+	text-align: center;
+	margin-top: 50px;
+	overflow: hidden;
+	box-shadow: 0 0 3px gray;
+	border-radius:3px;
+}
+.login h4
+{
+	font-size:20px;
+	line-height:50px;
+}
+
+.login .input
+{
+	border:1px solid #ccc;
+	border-radius:3px;
+	padding:10px 5px;
+	width:250px;
+}
+
+.login .item
+{
+	margin:20px auto;
+}
+
+/*设置登录页面内所有按钮的宽度和字体颜色*/
+.login .btn
+{
+	width:250px;
+	color:#fff;
+}
+.bgcolor{
+	width: 100%;
+	background-color: rgb(60,60,60);
+	height: 150px;
+}
+.userdiv{
+	margin-top: -50px;
+	width: 90%;
+}
+.bgcolor a{
+	color: #fff;
+	font-size: 25px;
+	position: relative;
+	font-weight: lighter;
+}
+
+.userdiv .userimg{
+	margin-top: -50px;
+}
+.info-content{
+	background-color: #fff;
+	width: 100%;
+	font-size: 16px;
+}
+.info-content hr{
+	margin:0;
+	padding: 0;
+}
+.info-content p{
+	line-height: 50px;
+	margin-left: 30px;
+}
+.lv,.userclass{
+	height:50px;
+}
+
+/*选择关卡界面 此界面样式祖先类均以.change开头*/
+.change {
+
+}
+.change .changebox{
+	display: flex;
+	width: 96%;
+	background-color: #fff;
+	margin: 0 auto;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	align-content:space-around;
+	margin-top: 60px;
+	box-shadow: 0 0 3px #999;
+}
+.change .row{
+	display: flex;
+	justify-content: space-around;
+	flex-basis: 100%;
+}
+.change .row .item{
+	display: block;
+	font-size: 25px;
+	height: 50px;
+	width: 50px;
+	line-height: 50px;
+	text-align: center;
+	border-radius: 50%;
+}
+.change .row .item:hover{
+	background-color: #2E918C;
+	color: #fff;
+	cursor: pointer;
+}
+/*历史成绩展示表格*/
+.change .historybox{
+	width: 96%;
+	margin: 10px auto;
+	box-shadow: 0 0 3px #999;
+}
+.change .starttest{
+	margin: 0 auto;
+	text-align: center;
+}
+.change .starttest .btn{
+	width: 250px;
+}
+/*考试界面*/
+.testbox{
+	margin: 0 auto;
+	margin-top: 60px;
+	box-shadow: 0 0 3px #999;
+	width: 98%;
+}
+.testbox .testbox-title{
+	font-size: 2rem;
+	margin: 10px 5px;
+}
+.testbox .container{
+	font-size: 1.6rem;
+	margin-top: 20px;
+}
+.testbox .container .row{
+	margin: 5px 0;
+}
+/*答案提示样式*/
+.testbox .testbox-tip{
+	margin-top: 30px;
+}
+.testbox .testbox-tip p{
+	font-size: 16px;
+	color: green;
+}
+/*下方按钮样式*/
+.testbox .testbox-btn{
+	display: flex;
+	justify-content: space-around;
+	margin-top: 30px;
+}
+.testbox .testbox-btn .btn{
+	width: 200px;
+}
+
+
+
+
+/*返回上一页组件*/
+.header-back{
+	display: block;
+	position: fixed;
+	top: 12px;
+	left: 15px;
+	z-index: 9999;
+}
+.header-back span{
+	font-size: 20px;
+	color: #fff;
+}
+/*右上角设置组件 */
+.userset{
+	display: block;
+	position: fixed;
+	right: 15px;
+	top: 12px;
+	z-index: 999;
+}
+.userset span{
+	font-size: 20px;
+	color: #fff;
+}
+/*导航条*/
+	header{
+		width: 100%;
+	}
+	/*导航条部分*/
+	header .top{
+		width: 100%;
+		height: 50px;
+		background-color: #318E8B;
+		text-align: center;
+		line-height: 50px;
+		position: fixed;
+		top: 0;
+		z-index: 99;
+	}
+	header .top p{
+		color: #fff;
+		font-size: 1.6rem;
+	}
+	/*返回上一页组件*/
+.header-back{
+	display: block;
+	position: fixed;
+	top: 12px;
+	left: 15px;
+	z-index: 9999;
+}
+.header-back span{
+	font-size: 20px;
+	color: #fff;
+}

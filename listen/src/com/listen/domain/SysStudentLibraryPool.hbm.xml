@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.listen.domain.SysStudentLibraryPool" table="SysStudentLibraryPool">
+        <id name="id">
+            <generator class="native"></generator>
+        </id>
+        <property name="score"/>
+        <property name="time"/>
+        <property name="count"/>
+        <property name="classify"/>
+        <many-to-one name="stu" class="com.listen.domain.Student" column="stuId"/>
+        <many-to-one name="lp" class="com.listen.domain.LibraryPool" column="lpId"/>
+    </class>
+</hibernate-mapping>
