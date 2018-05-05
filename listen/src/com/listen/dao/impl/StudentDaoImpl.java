@@ -10,7 +10,6 @@ import org.hibernate.Session;
 import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
-import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -33,6 +32,7 @@ public class StudentDaoImpl extends HibernateDaoSupport implements StudentDao {
 
     /**
      * 初始化保存学生
+     *
      * @param student
      */
     @Override
@@ -45,6 +45,7 @@ public class StudentDaoImpl extends HibernateDaoSupport implements StudentDao {
 
     /**
      * 根据学生账号(学号) 查找学生
+     *
      * @param account
      * @return
      */
@@ -59,6 +60,7 @@ public class StudentDaoImpl extends HibernateDaoSupport implements StudentDao {
 
     /**
      * 更新学生 等级 关数
+     *
      * @param student
      */
     @Override
@@ -72,6 +74,7 @@ public class StudentDaoImpl extends HibernateDaoSupport implements StudentDao {
 
     /**
      * 此方法未完成
+     *
      * @param id
      * @param grade
      */
@@ -82,7 +85,8 @@ public class StudentDaoImpl extends HibernateDaoSupport implements StudentDao {
     }
 
     /**
-     * 计算当前学生 此题已做次数
+     * 计算当前学生 当前关卡已做次数
+     *
      * @param stu
      * @param lpId
      * @return
@@ -93,12 +97,17 @@ public class StudentDaoImpl extends HibernateDaoSupport implements StudentDao {
         sqlQuery.setParameter(0, lpId);
         sqlQuery.setParameter(1, stu.getId());
         BigInteger count = (BigInteger) sqlQuery.uniqueResult();
-        System.out.println(count);
-        return count.intValue();
+        if (count != null) {
+            return count.intValue();
+        } else {
+            return null;
+        }
+
     }
 
     /**
      * 保存分数
+     *
      * @param score
      * @param count
      * @param classify
@@ -120,6 +129,7 @@ public class StudentDaoImpl extends HibernateDaoSupport implements StudentDao {
 
     /**
      * 更新闯关状态
+     *
      * @param student
      */
     @Override
@@ -128,7 +138,8 @@ public class StudentDaoImpl extends HibernateDaoSupport implements StudentDao {
     }
 
     /**
-     * 获取历史闯关列表
+     * 获取学生历史闯关所有数据列表
+     *
      * @param student
      * @return
      */
@@ -140,6 +151,40 @@ public class StudentDaoImpl extends HibernateDaoSupport implements StudentDao {
         }
         return list;
     }
+
+
+    @Override
+    public List<SysStudentLibraryPool> getPageList(Student student, int start, Integer pageSize) {
+        SQLQuery sqlQuery = currentSession().createSQLQuery("select * from sysstudentlibrarypool where stuId = ?");
+        sqlQuery.setParameter(0, student.getId());
+        sqlQuery.setFirstResult(start);
+        sqlQuery.setMaxResults(pageSize);
+        List<SysStudentLibraryPool> list = sqlQuery.list();
+        for (SysStudentLibraryPool sslp :
+                list) {
+            System.out.println(sslp);
+        }
+        return list;
+    }
+
+    /**
+     * 获取学生历史做题总数量
+     *
+     * @param stu
+     * @return
+     */
+    @Override
+    public int getTotalCount(Student stu) {
+        SQLQuery sqlQuery = currentSession().createSQLQuery("select count(id) from SysStudentLibraryPool where stuId=?");
+        sqlQuery.setParameter(0, stu.getId());
+        BigInteger count = (BigInteger) sqlQuery.uniqueResult();
+        System.out.println("totalcount:--------" + count);
+        return count.intValue();
+    }
+
+    /**
+     * 获取学生历史闯关分页数据列表
+     */
 
 
 }

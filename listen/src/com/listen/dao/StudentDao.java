@@ -24,4 +24,8 @@ public interface StudentDao {
 
     List<SysStudentLibraryPool> getAllCheckList(Student student);
 
+    List<SysStudentLibraryPool> getPageList(Student student, int start, Integer pageSize);
+
+    int getTotalCount(Student stu);
+
 }

@@ -4,7 +4,9 @@ import com.listen.dao.*;
 import com.listen.domain.*;
 import com.listen.service.StudentService;
 import com.listen.utils.MakeSubject;
+import com.listen.utils.PageBean;
 import net.sf.json.JSON;
+import org.hibernate.criterion.DetachedCriteria;
 
 import java.util.List;
 
@@ -159,6 +161,18 @@ public class StudentServiceImpl implements StudentService {
     public List<SysStudentLibraryPool> getlist(Student stu) {
         List<SysStudentLibraryPool> list = studentDao.getAllCheckList(stu);
         return list;
+    }
+
+    @Override
+    public PageBean getPageBean(Student student, Integer currentPage, Integer pageSize) {
+        //
+        int totalCount = studentDao.getTotalCount(student);
+        // 创建PageBean对象
+        pageSize = 5;
+        PageBean pb = new PageBean(currentPage, totalCount, pageSize);
+        List<SysStudentLibraryPool> list = studentDao.getPageList(student, pb.getStart(), pb.getPageSize());
+        pb.setList(list);
+        return pb;
     }
 
     public SubjectDao getSubjectDao() {

@@ -19,6 +19,7 @@
     <script src="js/jquery-1.12.4.js"></script>
 </head>
 <script type="text/javascript">
+
     function chbgcol(obj) {
         $("li").css({"background-color": "#FFF", "color": "#FFF"});
         $("li").removeClass("selected");
@@ -29,11 +30,15 @@
         $(obj).addClass("selected");
     }
 
+    function changpage(pageNum) {
+
+    }
+
     function submitIdToSubject() {
         var checkId = $(".selected").attr("id"); //获取id
         alert(checkId);
         // $('img [z-index=100]').attr('class');///获取样式名称
-        window.location.href="${pageContext.request.contextPath}/StudentAction_initSubject?checkId="+checkId;
+        window.location.href = "${pageContext.request.contextPath}/StudentAction_initSubject?checkId=" + checkId;
     }
 </script>
 <body>
@@ -67,41 +72,47 @@
         </s:iterator>
     </div>
 
-    <div class="historybox">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>编号</th>
-                <th>时间</th>
-                <th>成绩</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>001</td>
-                <td>Rammohan</td>
-                <td>Reddy</td>
-            </tr>
-            <tr>
-                <td>002</td>
-                <td>Smita</td>
-                <td>Pallod</td>
-            </tr>
-            <tr>
-                <td>003</td>
-                <td>Rabindranath</td>
-                <td>Sen</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="starttest">
+    <div class="starttest" style="margin-top: 15px">
         <button class="btn btn-success"
                 onclick="submitIdToSubject()">
             开始考试
         </button>
     </div>
+
+    <div class="historybox">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>编号</th>
+                <th>次数</th>
+                <th>成绩</th>
+                <th>类别</th>
+                <th>关数</th>
+            </tr>
+            </thead>
+            <tbody>
+            <s:iterator value="%{stulp}" var="item" status="s">
+                <tr>
+                    <td><s:property value="#s.index +1"/></td>
+                    <td><s:property value="#item.count"/></td>
+                    <td><s:property value="#item.score"/></td>
+                    <td><s:property value="#item.classify == 1 ? '练习':'测试'"/></td>
+                    <td><s:property value="#item.lp.checkPoint"/></td>
+                </tr>
+            </s:iterator>
+            </tbody>
+        </table>
+        <button class="btn btn-success"
+                onclick="changpage(<s:property value='#pageBean.currentPage - 1'>)">
+            上一页
+        </button>
+        <button class="btn btn-success" style="margin-right: 10px"
+                onclick="changpage(<s:property value='#pageBean.currentPage + 1'>)">
+            下一页
+        </button>
+
+    </div>
+
 </div>
 <!-- 返回上一层 -->
 <a href="javascript:history.go(-1)" class="header-back">
