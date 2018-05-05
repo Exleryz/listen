@@ -18,6 +18,18 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <script src="js/jquery-1.12.4.js"></script>
 </head>
+<style type="text/css">
+    .btn_left {
+        float: left;
+        margin-left: 20px;
+    }
+
+    .btn_right {
+        float: right;
+        margin-right: 15px;
+    }
+
+</style>
 <script type="text/javascript">
 
     function chbgcol(obj) {
@@ -91,7 +103,7 @@
             </tr>
             </thead>
             <tbody>
-            <s:iterator value="%{stulp}" var="item" status="s">
+            <s:iterator value="%{stulp}" var="item" begin="1" end="5" status="s">
                 <tr>
                     <td><s:property value="#s.index +1"/></td>
                     <td><s:property value="#item.count"/></td>
@@ -102,17 +114,24 @@
             </s:iterator>
             </tbody>
         </table>
-        <button class="btn btn-success"
-                onclick="changpage(<s:property value='#pageBean.currentPage - 1'>)">
-            上一页
-        </button>
-        <button class="btn btn-success" style="margin-right: 10px"
-                onclick="changpage(<s:property value='#pageBean.currentPage + 1'>)">
-            下一页
-        </button>
 
     </div>
-
+    <div class="clearfix">
+        <div class="btn_left">
+            <button class="btn btn-success">
+                <%--onclick="changpage(--%>
+                <%--<s:property value='#pageBean.currentPage - 1'>)">--%>
+                上一页
+            </button>
+        </div>
+        <div class="btn_right">
+            <button class="btn btn-success" style="margin-right: 10px">
+                <%--onclick="changpage(--%>
+                <%--<s:property value='#pageBean.currentPage + 1'>)">--%>
+                下一页
+            </button>
+        </div>
+    </div>
 </div>
 <!-- 返回上一层 -->
 <a href="javascript:history.go(-1)" class="header-back">

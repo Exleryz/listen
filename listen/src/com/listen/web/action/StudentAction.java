@@ -113,6 +113,12 @@ public class StudentAction extends ActionSupport implements ModelDriven<Student>
         return "historyList";
     }
 
+    public String pageTest() throws Exception {
+        Student stu = (Student) ActionContext.getContext().getSession().get("student");
+        studentService.getPageBean(stu, 1, 5);
+        return null;
+    }
+
     public StudentService getStudentService() {
         return studentService;
     }

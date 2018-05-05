@@ -171,6 +171,10 @@ public class StudentServiceImpl implements StudentService {
         pageSize = 5;
         PageBean pb = new PageBean(currentPage, totalCount, pageSize);
         List<SysStudentLibraryPool> list = studentDao.getPageList(student, pb.getStart(), pb.getPageSize());
+        for (int i = 0; i < list.size(); i++) {
+
+            System.out.println("service list item："+i+"---------"+list.get(i));
+        }
         pb.setList(list);
         return pb;
     }

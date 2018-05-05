@@ -69,8 +69,8 @@ public class SysStudentLibraryPool {
     public String toString() {
         return "SysStudentLibraryPool{" +
                 "id=" + id +
-                ", stu=" + stu +
-                ", lp=" + lp +
+                ", stu=" + stu.getId() +
+                ", lpId=" + lp.getId() +
                 ", score=" + score +
                 ", time='" + time + '\'' +
                 ", count=" + count +

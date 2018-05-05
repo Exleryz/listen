@@ -155,13 +155,15 @@ public class StudentDaoImpl extends HibernateDaoSupport implements StudentDao {
 
     @Override
     public List<SysStudentLibraryPool> getPageList(Student student, int start, Integer pageSize) {
-        SQLQuery sqlQuery = currentSession().createSQLQuery("select * from sysstudentlibrarypool where stuId = ?");
+        SQLQuery sqlQuery = currentSession().createSQLQuery("select * from sysstudentlibrarypool where stuId = ?").addEntity(SysStudentLibraryPool.class);
         sqlQuery.setParameter(0, student.getId());
         sqlQuery.setFirstResult(start);
         sqlQuery.setMaxResults(pageSize);
+        System.out.println("start" + start);
+        System.out.println("pageSize" + pageSize);
         List<SysStudentLibraryPool> list = sqlQuery.list();
-        for (SysStudentLibraryPool sslp :
-                list) {
+        System.out.println("listsize:" + list.size());
+        for (SysStudentLibraryPool sslp : list) {
             System.out.println(sslp);
         }
         return list;

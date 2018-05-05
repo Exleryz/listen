@@ -12,7 +12,7 @@
         <property name="time"/>
         <property name="count"/>
         <property name="classify"/>
-        <many-to-one name="stu" class="com.listen.domain.Student" column="stuId"/>
-        <many-to-one name="lp" class="com.listen.domain.LibraryPool" column="lpId"/>
+        <many-to-one name="stu" class="com.listen.domain.Student" column="stuId" cascade="none"/>
+        <many-to-one name="lp" class="com.listen.domain.LibraryPool" column="lpId" cascade="none"/>
     </class>
 </hibernate-mapping>
