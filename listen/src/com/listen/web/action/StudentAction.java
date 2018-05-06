@@ -5,22 +5,28 @@ import com.listen.domain.SysStudentLibraryPool;
 import com.listen.service.StudentService;
 
 import com.listen.utils.PageBean;
-import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import net.sf.json.JSON;
+import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
 import org.apache.struts2.ServletActionContext;
 
 import java.util.List;
-import java.util.PrimitiveIterator;
-import java.util.UUID;
+
 
 public class StudentAction extends ActionSupport implements ModelDriven<Student> {
 
     private Student student = new Student();
     private StudentService studentService;
 
+    /**
+     * 登录
+     *
+     * @return
+     * @throws Exception
+     */
     public String login() throws Exception {
         // classify 判断是否是学生 教师 管理员
         Student s;
@@ -40,6 +46,12 @@ public class StudentAction extends ActionSupport implements ModelDriven<Student>
         return null;
     }
 
+    /**
+     * 注册
+     *
+     * @return
+     * @throws Exception
+     */
     public String register() throws Exception {
         try {
             studentService.saveStudent(student);
@@ -50,6 +62,11 @@ public class StudentAction extends ActionSupport implements ModelDriven<Student>
         return "toLogin";
     }
 
+    /**
+     * ajax 检查账号是否存在
+     * @return
+     * @throws Exception
+     */
     public String checkAccount() throws Exception {
         String account = ServletActionContext.getRequest().getParameter("account");
         try {
@@ -63,11 +80,22 @@ public class StudentAction extends ActionSupport implements ModelDriven<Student>
         return null;
     }
 
+    /**
+     * 登出
+     *
+     * @return
+     * @throws Exception
+     */
     public String loginOut() throws Exception {
         ActionContext.getContext().getSession().remove("student");
         return "toLogin";
     }
 
+    /**
+     * ajax 加载词汇
+     * @return
+     * @throws Exception
+     */
     public String initGrade() throws Exception {
         JSON gradetestJson = studentService.initGradetest();
         ServletActionContext.getResponse().setCharacterEncoding("UTF-8");
@@ -75,6 +103,12 @@ public class StudentAction extends ActionSupport implements ModelDriven<Student>
         return null;
     }
 
+    /**
+     *  词汇测试提交等级
+     *
+     * @return
+     * @throws Exception
+     */
     public String submitGrade() throws Exception {
         String score = ServletActionContext.getRequest().getParameter("score");
         System.out.println(score);
@@ -83,6 +117,11 @@ public class StudentAction extends ActionSupport implements ModelDriven<Student>
         return "toHome";
     }
 
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
     public String clearance() throws Exception {
         String checkcount = ServletActionContext.getRequest().getParameter("checkcount");
         Student s = (Student) ActionContext.getContext().getSession().get("student");
@@ -94,18 +133,31 @@ public class StudentAction extends ActionSupport implements ModelDriven<Student>
         }
     }
 
+    /**
+     * ajax 加载听力试卷
+     *
+     * @return
+     * @throws Exception
+     */
     public String initSubject() throws Exception {
         String checkId = ServletActionContext.getRequest().getParameter("checkId");
         Student s = (Student) ActionContext.getContext().getSession().get("student");
         String jsonString = studentService.getCurrentCheckPool(s.getGrade(), Integer.parseInt(checkId));
         ServletActionContext.getResponse().setCharacterEncoding("UTF-8");
         ServletActionContext.getResponse().getWriter().write(jsonString);
-        return "toSubject";
+        return null;
     }
 
+    /**
+     * 提交当前关卡的分数
+     *
+     * @return
+     * @throws Exception
+     */
     public String getScore() throws Exception {
         String score = ServletActionContext.getRequest().getParameter("score");
         String checkId = ServletActionContext.getRequest().getParameter("checkId");
+        System.out.println("current check point score _______________" + score + "  " + checkId);
         Student s = (Student) ActionContext.getContext().getSession().get("student");
         studentService.saveScore(s.getGrade(), Integer.parseInt(checkId), Integer.parseInt(score), s);
         return "toHome";
@@ -120,15 +172,41 @@ public class StudentAction extends ActionSupport implements ModelDriven<Student>
         return null;
     }
 
-    public String pageTest() throws Exception {
+    /**
+     * 根据当前关卡 页 返回当前关卡的历史记录
+     * @return
+     * @throws Exception
+     */
+    public String getCurrentHistoryList() throws Exception {
+        String currentCheck = ServletActionContext.getRequest().getParameter("currentCheck");
         String currentPage = ServletActionContext.getRequest().getParameter("currentPage");
+        System.out.println(currentPage);
         if (currentPage.equals("") && currentPage == null) {
             currentPage = "0";
         }
         Student stu = (Student) ActionContext.getContext().getSession().get("student");
-        PageBean pb = studentService.getPageBean(stu, Integer.parseInt(currentPage), 5);
-        ActionContext.getContext().put("pageBean", pb);
-        return "showList";
+        JSONObject jsonObject = studentService.getCurrentPageBean(stu, Integer.parseInt(currentPage), Integer.parseInt(currentCheck), 5);
+        System.out.println("this is currentHistoryList Json" + jsonObject);
+        ServletActionContext.getResponse().getWriter().write(jsonObject.toString());
+        return null;
+    }
+
+    /**
+     * 待实现功能 分页 全部闯关历史记录
+     *
+     * @return
+     * @throws Exception
+     */
+    public String pageTest() throws Exception {
+        String currentPage = ServletActionContext.getRequest().getParameter("currentPage");
+        System.out.println(currentPage);
+        if (currentPage.equals("") && currentPage == null) {
+            currentPage = "0";
+        }
+        Student stu = (Student) ActionContext.getContext().getSession().get("student");
+        JSONObject jsonObject = studentService.getPageBean(stu, Integer.parseInt(currentPage), 5);
+        System.out.println(jsonObject);
+        return null;
     }
 
     public StudentService getStudentService() {

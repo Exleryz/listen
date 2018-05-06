@@ -120,7 +120,6 @@ public class MakeSubject {
         }
         sb.deleteCharAt(sb.length() - 1);
         sb.append("]");
-        System.out.println("json----------------------" + sb.toString());
         return sb.toString();
     }
 

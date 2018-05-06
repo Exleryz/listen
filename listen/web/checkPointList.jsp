@@ -31,7 +31,9 @@
 
 </style>
 <script type="text/javascript">
-
+    var currentPage = 1;
+    var id;
+    var totalPage;
     $(document).ready(function () {
         changpage(1);
     });
@@ -44,17 +46,53 @@
          cursor: pointer;*/
         $(obj).css({"background-color": "#2E918C", "color": "#fff"});
         $(obj).addClass("selected");
+        id = $(obj).attr("id");
+        showHistroy();
+        $("#historyBox").show();
+
+    }
+
+    function showHistroy() {
+        $.ajax({
+            type: "GET",
+            url: "${pageContext.request.contextPath}/StudentAction_getCurrentHistoryList",
+            data: "currentCheck=" + id + "&&currentPage=" + currentPage,
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                totalPage = data["totalPage"];
+                var $tr = '';
+                $.each(data["list"], function (index, val) {
+                    if (val["classify"] == 1) {
+                        var type = "练习";
+                    } else {
+                        var type = "测试";
+                    }
+                    $tr += '<tr><td>' + (index + 1 + (currentPage - 1) * 5) + '</td><td>' + val["count"] + '</td><td>' + val["score"] + '</td><td>' + type + '</td><td>' + id + '</td></tr>';
+                });
+                $("#pageList").html($tr);
+                console.log(data["list"]);
+                //$("#pageList").html('<s:iterator value="#pageBean.list" var="item" status="s"><tr><td><s:property value="#s.index +1"/></td><td><s:property value="#item.count"/></td><td><s:property value="#item.score"/></td> <td><s:property value="#item.classify == 1 ? '练习':'测试'"/></td> <td><s:property value="#item.lp.checkPoint"/></td> </tr></s:iterator>');
+            }, error: function (data) {
+                alert("error");
+            },
+        });
     }
 
     function changpage(pageNum) {
+        currentPage
         alert(pageNum);
         $.ajax({
             type: "GET",
-            url: "${pageContext.request.contextPath}/StudentAction_pageTest?currentPage=" + pageNum,
-            data: "",
+            url: "${pageContext.request.contextPath}/StudentAction_pageTest",
+            data: "currentPage=" + pageNum,
             success: function (data) {
-
+                console.log(data);
+                var $tr =
+                    console.log(data[""])
+                //$("#pageList").html('<s:iterator value="#pageBean.list" var="item" status="s"><tr><td><s:property value="#s.index +1"/></td><td><s:property value="#item.count"/></td><td><s:property value="#item.score"/></td> <td><s:property value="#item.classify == 1 ? '练习':'测试'"/></td> <td><s:property value="#item.lp.checkPoint"/></td> </tr></s:iterator>');
             }, error: function (data) {
+                alert("error");
             },
         });
     }
@@ -63,7 +101,21 @@
         var checkId = $(".selected").attr("id"); //获取id
         alert(checkId);
         // $('img [z-index=100]').attr('class');///获取样式名称
-        window.location.href = "${pageContext.request.contextPath}/StudentAction_initSubject?checkId=" + checkId;
+        window.location.href = "${pageContext.request.contextPath}/Examination.jsp?checkId=" + checkId;
+    }
+
+    function pre() {
+        if (currentPage > 1) {
+            currentPage -= 1;
+            showHistroy();
+        }
+    }
+
+    function next() {
+        if (currentPage < totalPage) {
+            currentPage += 1;
+            showHistroy();
+        }
     }
 </script>
 <body>
@@ -104,7 +156,7 @@
         </button>
     </div>
 
-    <div class="historybox">
+    <div class="historybox" id="historyBox" style="display: none">
         <table class="table table-striped">
             <thead>
             <tr>
@@ -115,16 +167,8 @@
                 <th>关数</th>
             </tr>
             </thead>
-            <tbody>
-            <s:iterator value="#pageBean.list" var="item" status="s">
-                <tr>
-                    <td><s:property value="#s.index +1"/></td>
-                    <td><s:property value="#item.count"/></td>
-                    <td><s:property value="#item.score"/></td>
-                    <td><s:property value="#item.classify == 1 ? '练习':'测试'"/></td>
-                    <td><s:property value="#item.lp.checkPoint"/></td>
-                </tr>
-            </s:iterator>
+            <tbody id="pageList">
+
             </tbody>
         </table>
 
@@ -132,13 +176,13 @@
     <div class="clearfix">
         <div class="btn_left">
             <button class="btn btn-success"
-                    onclick="changpage(<s:property value='#pageBean.currentPage - 1'/>)">
+                    onclick="pre()">
                 上一页
             </button>
         </div>
         <div class="btn_right">
             <button class="btn btn-success" style="margin-right: 10px"
-                    onclick="changpage(<s:property value='#pageBean.currentPage + 1'/>)">
+                    onclick="next()">
                 下一页
             </button>
         </div>
@@ -154,3 +198,4 @@
 <script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>
+<s:debug></s:debug>

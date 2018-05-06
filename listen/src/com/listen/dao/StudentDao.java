@@ -28,4 +28,9 @@ public interface StudentDao {
 
     int getTotalCount(Student stu);
 
+    List<SysStudentLibraryPool> getCurrentCheckPageList(Student stu, int start, Integer pageSize, Integer lpId);
+
+    int getCurrentCheckCount(Student stu, Integer lpId);
+
+    int getCurrentChecklpId(Integer checkPoint, Integer grade);
 }

@@ -6,7 +6,8 @@ import com.listen.service.StudentService;
 import com.listen.utils.MakeSubject;
 import com.listen.utils.PageBean;
 import net.sf.json.JSON;
-import org.hibernate.criterion.DetachedCriteria;
+import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
 
 import java.util.List;
 
@@ -173,20 +174,68 @@ public class StudentServiceImpl implements StudentService {
         return list;
     }
 
+    /**
+     * 所有关数的历史做题记录 分页
+     * @param student
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
     @Override
-    public PageBean getPageBean(Student student, Integer currentPage, Integer pageSize) {
+    public JSONObject getPageBean(Student student, Integer currentPage, Integer pageSize) {
         //
         int totalCount = studentDao.getTotalCount(student);
         // 创建PageBean对象
         pageSize = 5;
         PageBean pb = new PageBean(currentPage, totalCount, pageSize);
         List<SysStudentLibraryPool> list = studentDao.getPageList(student, pb.getStart(), pb.getPageSize());
+        JSONObject jsonObject = new JSONObject();
         for (int i = 0; i < list.size(); i++) {
-
+            JSONObject o1 = new JSONObject();
+            o1.put("grade", list.get(i).getLp().getGrade());
+            o1.put("checkPoint", list.get(i).getLp().getCheckPoint());
+            o1.put("classify", list.get(i).getClassify());
+            o1.put("count", list.get(i).getCount());
+            o1.put("score", list.get(i).getScore());
+            o1.put("time", list.get(i).getTime());
+            jsonObject.put(i, o1);
             System.out.println("service list item：" + i + "---------" + list.get(i));
         }
         pb.setList(list);
-        return pb;
+        jsonObject.put("currentPage", pb.getCurrentPage());
+        jsonObject.put("pageSize", pb.getPageSize());
+        jsonObject.put("start", pb.getStart());
+        jsonObject.put("totalCount", pb.getTotalCount());
+        jsonObject.put("totalPage", pb.getTotalPage());
+        return jsonObject;
+    }
+
+    /**
+     * 当前关数的历史做题记录 分页
+     *
+     * @param stu
+     * @param currentPage
+     * @param checkPoint
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public JSONObject getCurrentPageBean(Student stu, Integer currentPage, Integer checkPoint, int pageSize) {
+        //
+        int lpId = studentDao.getCurrentChecklpId(checkPoint, stu.getGrade());
+        int totalCount = studentDao.getCurrentCheckCount(stu, lpId);
+        // 创建PageBean对象
+        pageSize = 5;
+        PageBean pb = new PageBean(currentPage, totalCount, pageSize);
+        List<SysStudentLibraryPool> list = studentDao.getCurrentCheckPageList(stu, pb.getStart(), pb.getPageSize(), lpId);
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println("service list item：" + i + "---------" + list.get(i));
+        }
+        pb.setList(list);
+        JsonConfig config = new JsonConfig();
+        config.setExcludes(new String[]{"lp", "stu"});
+        JSONObject jsonObject = JSONObject.fromObject(pb, config);
+        return jsonObject;
     }
 
     public SubjectDao getSubjectDao() {

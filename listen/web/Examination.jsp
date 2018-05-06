@@ -14,7 +14,124 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
 </head>
+<script type="text/javascript">
+    <%--<%if(request.getParameter("checkId")!=null){
+        out.print();
+    }%>--%>
+
+    var answer = new Array();
+    var analysis = new Array();
+    $(document).ready(function(){alert(<%=request.getParameter("checkId")%>);
+        $.ajax({
+            type: "POST",
+            url: "${pageContext.request.contextPath}/StudentAction_initSubject",
+            data: "checkId=<%=request.getParameter("checkId")%>",
+            dataType: "json",
+            success: function (data) {
+
+                $.each(data, function (index, val) {console.log(val);
+                    var $div = '<div id="' + (index + 1) + '" style="display: none"><div class="testbox-title" style="margin-left: 20px">题号:<span>' + (index + 1) + '</span></div><div class="testfile" style="font-size: 2em;margin-left: 15px" >' + '12312321' + '</div><div class="container" ><div class="row">';
+                    $.each(val["questions"], function (indexs, vals) {console.log(vals);
+                        analysis[index]=vals["analysis"];
+                        $div += (indexs+1)+".<br/>"
+                        $.each(vals["options"], function (indexso, valso) {console.log(valso);
+                            if (valso["option"]["answer"] == "true") {
+                                if (indexso == 0)
+                                    answer[(index*4 + indexs)] = "A";
+                                if (indexso == 1)
+                                    answer[(index*4 + indexs)] = "B";
+                                if (indexso == 2)
+                                    answer[(index*4 + indexs)] = "C";
+                                if (indexso == 3)
+                                    answer[(index*4 + indexs)] = "D";
+                            }
+                            if (indexso == 0)
+                                $div += '<div class="col-md-3"><label for="a">A.<input onclick="checkMe(this)" type="radio" value="A" name="' + (index*4 + indexs+1) + '" >' + valso["option"]["content"] + '</label></div>';
+                            if (indexso == 1)
+                                $div += '<div class="col-md-3"><label for="b">B.<input onclick="checkMe(this)" type="radio" value="B" name="' + (index*4 + indexs+1) + '" >' + valso["option"]["content"] + '</label></div>';
+                            if (indexso == 2)
+                                $div += '<div class="col-md-3"><label for="c">C.<input onclick="checkMe(this)" type="radio" value="C" name="' + (index*4 + indexs+1) + '" >' + valso["option"]["content"] + '</label></div>';
+                            if (indexso == 3)
+                                $div += '<div class="col-md-3"><label for="d">D.<input onclick="checkMe(this)" type="radio" value="D" name="' + (index*4 + indexs+1) + '" >' + valso["option"]["content"] + '</label></div>';
+                        });
+                        /* if (vals["answer"] == true) {
+                             if (indexs == 0)
+                                 answer[index] = "A";
+                             if (indexs == 1)
+                                 answer[index] = "B";
+                             if (indexs == 2)
+                                 answer[index] = "C";
+                             if (indexs == 3)
+                                 answer[index] = "D";
+                         }
+                         if (indexs == 0)
+                             $div += '<div class="col-md-3"><label for="a">A.<input onclick="checkMe(this)" type="radio" value="A" name="' + (index + 1) + '" >' + vals["content"] + '</label></div>';
+                         if (indexs == 1)
+                             $div += '<div class="col-md-3"><label for="b">B.<input onclick="checkMe(this)" type="radio" value="B" name="' + (index + 1) + '" >' + vals["content"] + '</label></div>';
+                         if (indexs == 2)
+                             $div += '<div class="col-md-3"><label for="c">C.<input onclick="checkMe(this)" type="radio" value="C" name="' + (index + 1) + '" >' + vals["content"] + '</label></div>';
+                         if (indexs == 3)
+                             $div += '<div class="col-md-3"><label for="d">D.<input onclick="checkMe(this)" type="radio" value="D" name="' + (index + 1) + '" >' + vals["content"] + '</label></div>';
+                    */
+                    });
+                    $div += '</div></div></div>';
+                    $("#question").append($div);
+                });
+
+                $("#1").show();
+                console.log(data);
+            }, error: function (data) {
+                console.log(data);
+                alert("error");
+            },
+        });
+    });
+
+
+    function checkMe(radio) {
+        var name = $(radio).attr("name");
+        $(radio).attr("checked", "checked");
+        $("input[type='radio'][name='" + name + "']").removeAttr("checked");
+        //$("radio[name='"+name+"']").removeAttr("checked");
+        $(radio).attr("checked", "checked");
+        $(radio).prop("checked", "checked");
+    }
+
+    function pre() {
+        var id = $("#question >div:visible").attr("id");
+        if (id > 1) {
+            $("#" + id).hide();
+            $("#" + (eval(id) - 1)).show();
+        }
+    }
+
+    function next() {
+        var id = $("#question >div:visible").attr("id");
+        if (id < 5) {
+            $("#" + id).hide();
+            $("#" + (eval(id) + 1)).show();
+        }
+        if(id==4){
+            $("#subTest").show();
+        }
+    }
+
+    function sub() {
+        console.log(answer);
+        var score = 0;
+        for (var index in answer) {
+            var temp = $("input[type='radio'][name='" + (eval(index) + 1) + "'][checked='checked']").val();
+            if (temp == answer[index])
+                score += 1;
+        }
+        alert("您的成绩是："+score);
+        alert('StudentAction_getScore?score='+score+'&checkId=<%=request.getParameter("checkId")%>');
+        window.location.href = '${pageContext.request.contextPath}/StudentAction_getScore?score=' + score+'&checkId=<%=request.getParameter("checkId")%>';
+
+    }
+</script>
 <body>
 <header>
     <nav class="top">
@@ -22,47 +139,21 @@
     </nav>
 </header>
 <div class="testbox">
-    <div class="testbox-title">
-        题号:<span>1</span>
+    <div id="question">
+
+
     </div>
-    <div class="testfile">
-        先给文件留个位置
-        <!-- 这块放音频	 -->
-    </div>
-    <!-- 下面是4个选项，每个选项前用了laber，可以点击文字选中 -->
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <label for="a">	<input type="radio" value="A" name="daan" id="a">
-                    选我,我是A</label>
-            </div>
-            <div class="col-md-3">
-                <label for="b">	<input type="radio" value="A" name="daan" id="b">
-                    选我,我是B</label>
-            </div>
-            <div class="col-md-3">
-                <label for="c">	<input type="radio" value="A" name="daan" id="c">
-                    选我,我是C</label>
-            </div>
-            <div class="col-md-3">
-                <label for="d">	<input type="radio" value="A" name="daan" id="d">
-                    选我,我是D</label>
-            </div>
-        </div>
-    </div>
-    <div class="testbox-tip">
-        <p>答案正确</p>
-    </div>
-    <div class="testbox-btn">
-        <button class="btn btn-default">
+    <div class="testbox-btn" style="margin: 5px;margin-top: 10px">
+        <button class="btn btn-default" onclick="pre()">
             上一题
         </button>
-        <button type="submit" class="btn btn-default">确定</button>
-        <button class="btn btn-default">
+        <button class="btn btn-default" onclick="next()">
             下一题
         </button>
-        <button type="submit" class="btn btn-default" href="${pageContext.request.contextPath}/">交卷</button>
     </div>
+</div>
+<div id="subTest" class="text-right" style="margin-top: 50px;margin-right: 10px;display: none;">
+    <button type="submit" class="btn btn-default" onclick="sub()">交卷</button>
 </div>
 <!-- 返回上一层 -->
 <a href="javascript:history.go(-1)" class="header-back">

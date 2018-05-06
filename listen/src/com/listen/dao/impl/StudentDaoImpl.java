@@ -7,8 +7,11 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.hql.internal.antlr.SqlStatementLexer;
+import org.springframework.jdbc.object.SqlQuery;
 import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -153,19 +156,21 @@ public class StudentDaoImpl extends HibernateDaoSupport implements StudentDao {
     }
 
 
+    /**
+     * 分页 获取所有历史记录
+     *
+     * @param student
+     * @param start
+     * @param pageSize
+     * @return
+     */
     @Override
     public List<SysStudentLibraryPool> getPageList(Student student, int start, Integer pageSize) {
         SQLQuery sqlQuery = currentSession().createSQLQuery("select * from sysstudentlibrarypool where stuId = ?").addEntity(SysStudentLibraryPool.class);
         sqlQuery.setParameter(0, student.getId());
         sqlQuery.setFirstResult(start);
         sqlQuery.setMaxResults(pageSize);
-        System.out.println("start" + start);
-        System.out.println("pageSize" + pageSize);
         List<SysStudentLibraryPool> list = sqlQuery.list();
-        System.out.println("listsize:" + list.size());
-        for (SysStudentLibraryPool sslp : list) {
-            System.out.println(sslp);
-        }
         return list;
     }
 
@@ -182,6 +187,59 @@ public class StudentDaoImpl extends HibernateDaoSupport implements StudentDao {
         BigInteger count = (BigInteger) sqlQuery.uniqueResult();
         System.out.println("totalcount:--------" + count);
         return count.intValue();
+    }
+
+    /**
+     * 分页显示 当前关卡做题历史记录
+     *
+     * @param stu
+     * @param start
+     * @param pageSize
+     * @param lpId
+     * @return
+     */
+    @Override
+    public List<SysStudentLibraryPool> getCurrentCheckPageList(Student stu, int start, Integer pageSize, Integer lpId) {
+        SQLQuery sqlQuery = currentSession().createSQLQuery("select * from sysstudentlibrarypool where stuId = ? and lpId = ? order by id desc").addEntity(SysStudentLibraryPool.class);
+        sqlQuery.setParameter(0, stu.getId());
+        sqlQuery.setParameter(1, lpId);
+        sqlQuery.setFirstResult(start);
+        sqlQuery.setMaxResults(pageSize);
+        List<SysStudentLibraryPool> list = sqlQuery.list();
+        return list;
+    }
+
+    /**
+     * 获取当前关卡做题次数
+     *
+     * @param stu
+     * @param lpId
+     * @return
+     */
+    @Override
+    public int getCurrentCheckCount(Student stu, Integer lpId) {
+        SQLQuery sqlQuery = currentSession().createSQLQuery("select count(id) from SysStudentLibraryPool where stuId=? and lpId=?");
+        sqlQuery.setParameter(0, stu.getId());
+        sqlQuery.setParameter(1, lpId);
+        BigInteger count = (BigInteger) sqlQuery.uniqueResult();
+        return count.intValue();
+    }
+
+    /**
+     * 根据关数等级 获取 lpId
+     *
+     * @param checkPoint
+     * @param grade
+     * @return
+     */
+    @Override
+    public int getCurrentChecklpId(Integer checkPoint, Integer grade) {
+        SQLQuery sqlQuery = currentSession().createSQLQuery("select id from librarypool where grade=? and checkPoint=?");
+        sqlQuery.setParameter(0, grade);
+        sqlQuery.setParameter(1, checkPoint);
+        Integer id = (Integer) sqlQuery.uniqueResult();
+        System.out.println("current lpId =" + id);
+        return id;
     }
 
     /**
