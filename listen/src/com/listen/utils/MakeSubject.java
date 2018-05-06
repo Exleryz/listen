@@ -21,7 +21,7 @@ public class MakeSubject {
         List<GradeOption> options = null;
         GradeOption o = null;
         Random r = new Random();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < list1.size(); i++) {
             s = new GradeSubject();
             options = new ArrayList<>();
             s.setQuestion(list1.get(i).getEnglish());

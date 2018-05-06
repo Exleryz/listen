@@ -32,6 +32,10 @@
 </style>
 <script type="text/javascript">
 
+    $(document).ready(function () {
+        changpage(1);
+    });
+
     function chbgcol(obj) {
         $("li").css({"background-color": "#FFF", "color": "#FFF"});
         $("li").removeClass("selected");
@@ -43,7 +47,16 @@
     }
 
     function changpage(pageNum) {
+        alert(pageNum);
+        $.ajax({
+            type: "GET",
+            url: "${pageContext.request.contextPath}/StudentAction_pageTest?currentPage=" + pageNum,
+            data: "",
+            success: function (data) {
 
+            }, error: function (data) {
+            },
+        });
     }
 
     function submitIdToSubject() {
@@ -103,7 +116,7 @@
             </tr>
             </thead>
             <tbody>
-            <s:iterator value="%{stulp}" var="item" begin="1" end="5" status="s">
+            <s:iterator value="#pageBean.list" var="item" status="s">
                 <tr>
                     <td><s:property value="#s.index +1"/></td>
                     <td><s:property value="#item.count"/></td>
@@ -118,16 +131,14 @@
     </div>
     <div class="clearfix">
         <div class="btn_left">
-            <button class="btn btn-success">
-                <%--onclick="changpage(--%>
-                <%--<s:property value='#pageBean.currentPage - 1'>)">--%>
+            <button class="btn btn-success"
+                    onclick="changpage(<s:property value='#pageBean.currentPage - 1'/>)">
                 上一页
             </button>
         </div>
         <div class="btn_right">
-            <button class="btn btn-success" style="margin-right: 10px">
-                <%--onclick="changpage(--%>
-                <%--<s:property value='#pageBean.currentPage + 1'>)">--%>
+            <button class="btn btn-success" style="margin-right: 10px"
+                    onclick="changpage(<s:property value='#pageBean.currentPage + 1'/>)">
                 下一页
             </button>
         </div>

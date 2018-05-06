@@ -24,6 +24,7 @@ public class StudentServiceImpl implements StudentService {
 
     /**
      * 根据学生账号 查找学生是否存在
+     *
      * @param student
      */
     @Override
@@ -37,6 +38,7 @@ public class StudentServiceImpl implements StudentService {
 
     /**
      * 根据学生账号校验登录密码
+     *
      * @param student
      * @return
      */
@@ -54,6 +56,7 @@ public class StudentServiceImpl implements StudentService {
 
     /**
      * 查找账号是否可用
+     *
      * @param account
      */
     @Override
@@ -67,19 +70,26 @@ public class StudentServiceImpl implements StudentService {
 
     /**
      * 制作学生定级单词 随机 试卷
+     *
      * @return
      */
     @Override
     public JSON initGradetest() {
         List<Vocabulary> list1 = vocabularyDao.getVocs(1, 20);
-
+        list1.addAll(vocabularyDao.getVocs(2, 30));
+//        list1.addAll(vocabularyDao.getVocs(2, 20));
+//        list1.addAll(vocabularyDao.getVocs(3, 10));
         JSON initTest = MakeSubject.initTestJson(list1);
+        System.out.println(list1);
+        System.out.println(list1.size());
+        System.out.println(initTest);
         return initTest;
 //        return initTest;
     }
 
     /**
      * 初始化学生等级
+     *
      * @param s
      * @param score
      */
@@ -99,7 +109,6 @@ public class StudentServiceImpl implements StudentService {
     }
 
     /**
-     *
      * @param s
      * @param checkcount
      */
@@ -109,7 +118,6 @@ public class StudentServiceImpl implements StudentService {
     }
 
     /**
-     *
      * @param grade
      * @param checkId
      * @return
@@ -129,7 +137,9 @@ public class StudentServiceImpl implements StudentService {
         return jsonString;
     }
 
-    /** 保存当次闯关分数
+    /**
+     * 保存当次闯关分数
+     *
      * @param grade   等级
      * @param checkId 关数
      * @param score   分数
@@ -173,7 +183,7 @@ public class StudentServiceImpl implements StudentService {
         List<SysStudentLibraryPool> list = studentDao.getPageList(student, pb.getStart(), pb.getPageSize());
         for (int i = 0; i < list.size(); i++) {
 
-            System.out.println("service list item："+i+"---------"+list.get(i));
+            System.out.println("service list item：" + i + "---------" + list.get(i));
         }
         pb.setList(list);
         return pb;

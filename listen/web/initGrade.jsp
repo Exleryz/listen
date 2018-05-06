@@ -89,7 +89,7 @@
 
     function next() {
         var id = $("#question >div:visible").attr("id");
-        if (id < 20) {
+        if (id < 50) {
             $("#" + id).hide();
             $("#" + (eval(id) + 1)).show();
         }
@@ -123,9 +123,16 @@
     function sub() {
         var score = 0;
         for (var index in answer) {
+            alert(index);
             var temp = $("input[type='radio'][name='" + (eval(index) + 1) + "'][checked='checked']").val();
             if (temp == answer[index])
-                score += 1;
+                if (index < 20) {
+                    score += 1.5;
+                } else if (index < 40) {
+                    score += 2;
+                } else {
+                    score += 3;
+                }
         }
         window.location.href = '${pageContext.request.contextPath}/StudentAction_submitGrade?score=' + score;
         if (mi == 0 && se == 0) {

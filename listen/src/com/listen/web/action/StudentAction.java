@@ -4,6 +4,7 @@ import com.listen.domain.Student;
 import com.listen.domain.SysStudentLibraryPool;
 import com.listen.service.StudentService;
 
+import com.listen.utils.PageBean;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -30,9 +31,13 @@ public class StudentAction extends ActionSupport implements ModelDriven<Student>
             ActionContext.getContext().put("error", e.getMessage());
             return "login";
         }
-        System.out.println(s);
         ActionContext.getContext().getSession().put("student", s);
-        return "toHome";
+        if (s.getClassify() == 0) {
+            return "toHome";
+        } else if (s.getClassify() == 1) {
+            return "toTeacherHome";
+        }
+        return null;
     }
 
     public String register() throws Exception {
@@ -106,17 +111,24 @@ public class StudentAction extends ActionSupport implements ModelDriven<Student>
         return "toHome";
     }
 
+    @Deprecated
     public String getList() throws Exception {
         Student stu = (Student) ActionContext.getContext().getSession().get("student");
         List<SysStudentLibraryPool> list = studentService.getlist(stu);
         ActionContext.getContext().put("stulp", list);
-        return "historyList";
+//        return "historyList";
+        return null;
     }
 
     public String pageTest() throws Exception {
+        String currentPage = ServletActionContext.getRequest().getParameter("currentPage");
+        if (currentPage.equals("") && currentPage == null) {
+            currentPage = "0";
+        }
         Student stu = (Student) ActionContext.getContext().getSession().get("student");
-        studentService.getPageBean(stu, 1, 5);
-        return null;
+        PageBean pb = studentService.getPageBean(stu, Integer.parseInt(currentPage), 5);
+        ActionContext.getContext().put("pageBean", pb);
+        return "showList";
     }
 
     public StudentService getStudentService() {
