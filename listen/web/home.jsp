@@ -34,9 +34,9 @@
             <div class="collapse navbar-collapse" id="example-navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="${pageContext.request.contextPath}/userinfo.jsp"><span
-                            class="glyphicon glyphicon-user"></span> 个人中心</a></li>
+                            class="glyphicon glyphicon-user"></span>Personal Center</a></li>
                     <li><a href="${pageContext.request.contextPath}/StudentAction_loginOut.action"><span
-                            class="glyphicon glyphicon-log-in"></span> 退出</a></li>
+                            class="glyphicon glyphicon-log-in"></span>Sign out</a></li>
                 </ul>
             </div>
         </div>
