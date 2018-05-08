@@ -20,41 +20,39 @@
     <%--<%if(request.getParameter("checkId")!=null){
         out.print();
     }%>--%>
-
     var answer = new Array();
     var analysis = new Array();
-    $(document).ready(function(){alert(<%=request.getParameter("checkId")%>);
+    $(document).ready(function () {
         $.ajax({
             type: "POST",
             url: "${pageContext.request.contextPath}/StudentAction_initSubject",
             data: "checkId=<%=request.getParameter("checkId")%>",
             dataType: "json",
             success: function (data) {
-
-                $.each(data, function (index, val) {console.log(val);
-                    var $div = '<div id="' + (index + 1) + '" style="display: none"><div class="testbox-title" style="margin-left: 20px">题号:<span>' + (index + 1) + '</span></div><div class="testfile" style="font-size: 2em;margin-left: 15px" >' + '12312321' + '</div><div class="container" ><div class="row">';
-                    $.each(val["questions"], function (indexs, vals) {console.log(vals);
-                        analysis[index]=vals["analysis"];
-                        $div += (indexs+1)+".<br/>"
-                        $.each(vals["options"], function (indexso, valso) {console.log(valso);
+                $.each(data, function (index, val) {
+                    var $div = '<div id="' + (index + 1) + '" style="display: none"><div class="testbox-title" style="margin-left: 20px">题号:<span>' + (index + 1) + '</span></div><div  style="font-size: 2em;margin-left: 15px" >' + '<audio controls="controls" controlsList="nodownload" name="media"><source src="${pageContext.request.contextPath}'+val["src"]+'"></source></audio>' + '</div><div class="container" ><div class="row">';
+                    $.each(val["questions"], function (indexs, vals) {
+                        analysis[index] = vals["analysis"];
+                        $div += (indexs + 1) + ".<br/>"
+                        $.each(vals["options"], function (indexso, valso) {
                             if (valso["option"]["answer"] == "true") {
                                 if (indexso == 0)
-                                    answer[(index*4 + indexs)] = "A";
+                                    answer[(index * 4 + indexs)] = "A";
                                 if (indexso == 1)
-                                    answer[(index*4 + indexs)] = "B";
+                                    answer[(index * 4 + indexs)] = "B";
                                 if (indexso == 2)
-                                    answer[(index*4 + indexs)] = "C";
+                                    answer[(index * 4 + indexs)] = "C";
                                 if (indexso == 3)
-                                    answer[(index*4 + indexs)] = "D";
+                                    answer[(index * 4 + indexs)] = "D";
                             }
                             if (indexso == 0)
-                                $div += '<div class="col-md-3"><label for="a">A.<input onclick="checkMe(this)" type="radio" value="A" name="' + (index*4 + indexs+1) + '" >' + valso["option"]["content"] + '</label></div>';
+                                $div += '<div class="col-md-3"><label for="a">A.<input onclick="checkMe(this)" type="radio" value="A" name="' + (index * 4 + indexs + 1) + '" >' + valso["option"]["content"] + '</label></div>';
                             if (indexso == 1)
-                                $div += '<div class="col-md-3"><label for="b">B.<input onclick="checkMe(this)" type="radio" value="B" name="' + (index*4 + indexs+1) + '" >' + valso["option"]["content"] + '</label></div>';
+                                $div += '<div class="col-md-3"><label for="b">B.<input onclick="checkMe(this)" type="radio" value="B" name="' + (index * 4 + indexs + 1) + '" >' + valso["option"]["content"] + '</label></div>';
                             if (indexso == 2)
-                                $div += '<div class="col-md-3"><label for="c">C.<input onclick="checkMe(this)" type="radio" value="C" name="' + (index*4 + indexs+1) + '" >' + valso["option"]["content"] + '</label></div>';
+                                $div += '<div class="col-md-3"><label for="c">C.<input onclick="checkMe(this)" type="radio" value="C" name="' + (index * 4 + indexs + 1) + '" >' + valso["option"]["content"] + '</label></div>';
                             if (indexso == 3)
-                                $div += '<div class="col-md-3"><label for="d">D.<input onclick="checkMe(this)" type="radio" value="D" name="' + (index*4 + indexs+1) + '" >' + valso["option"]["content"] + '</label></div>';
+                                $div += '<div class="col-md-3"><label for="d">D.<input onclick="checkMe(this)" type="radio" value="D" name="' + (index * 4 + indexs + 1) + '" >' + valso["option"]["content"] + '</label></div>';
                         });
                         /* if (vals["answer"] == true) {
                              if (indexs == 0)
@@ -81,9 +79,7 @@
                 });
 
                 $("#1").show();
-                console.log(data);
             }, error: function (data) {
-                console.log(data);
                 alert("error");
             },
         });
@@ -113,22 +109,21 @@
             $("#" + id).hide();
             $("#" + (eval(id) + 1)).show();
         }
-        if(id==4){
+        if (id == 4) {
             $("#subTest").show();
         }
     }
 
     function sub() {
-        console.log(answer);
         var score = 0;
         for (var index in answer) {
             var temp = $("input[type='radio'][name='" + (eval(index) + 1) + "'][checked='checked']").val();
             if (temp == answer[index])
                 score += 1;
         }
-        alert("您的成绩是："+score);
-        alert('StudentAction_getScore?score='+score+'&checkId=<%=request.getParameter("checkId")%>');
-        window.location.href = '${pageContext.request.contextPath}/StudentAction_getScore?score=' + score+'&checkId=<%=request.getParameter("checkId")%>';
+        alert("您的成绩是：" + score);
+        alert('StudentAction_getScore?score=' + score + '&checkId=<%=request.getParameter("checkId")%>');
+        window.location.href = '${pageContext.request.contextPath}/StudentAction_getScore?score=' + score + '&checkId=<%=request.getParameter("checkId")%>';
 
     }
 </script>
