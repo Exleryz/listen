@@ -115,8 +115,10 @@ public class MakeSubject {
                 sb.deleteCharAt(sb.length() - 1);
                 sb.append("]},");
             }
+            count = 0;
             sb.deleteCharAt(sb.length() - 1);
             sb.append("]},");
+
         }
         sb.deleteCharAt(sb.length() - 1);
         sb.append("]");
