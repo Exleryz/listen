@@ -17,7 +17,7 @@ public interface StudentService {
 
     JSON initGradetest();
 
-    void initGradeCode(Student s,Integer score);
+    void initGradeCode(Student s, float score);
 
     void openNewCheckPoint(Student s, String checkcount);
 

@@ -1,9 +1,9 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%--
   Created by IntelliJ IDEA.
-  User: Exler
-  Date: 2018/4/18
-  Time: 14:22
+  User: Administrator
+  Date: 2018/5/9
+  Time: 12:02
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -15,17 +15,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/main.css">
-    <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
 </head>
-<script type="text/javascript">
-    $(document).ready(function () {
-        if (${sessionScope.get("student") == null})
-        {
-            window.location.href = "${pageContext.request.contextPath}/login.jsp";
-        }
-
-    });
-</script>
 <body>
 <header class="clearfix"><!-- 头部 -->
 
@@ -61,58 +51,38 @@
             </div>
             <div class="col-md-8">
                 <h4>
-                    <p id="userid">Welcome: ${student.name}</p>
-                    <span>Num: <span>${student.account}</span></span>
+                    <p> 管理员</p>
+                    <%-- 待实现功能--%>
+                    <button class="btn btn-success startbtn">我也要闯关</button>
+                    <p id="userid">Welcome: ${admin.name}</p>
+                    <span>Num: <span>${admin.account}</span></span>
                 </h4>
             </div>
         </div>
     </div>
 </div>
 
-<s:if test="#session.student.grade==0">
-    <div class="contentuser center-block"><!-- 内容 -->
-        <div class="container">
-            <div class="row center-block">
-                <div class="col-md-4">
-                    <img src="images/big5.jpg" class=" taskimg conter-block">
-                </div>
-                <div class="col-md-4">
-                    <h2 style="color: red">rating exam</h2>
-                    <h6>First You Should Do This
-                        <small>(hang in the air)</small>
-                    </h6>
-                    <button onclick="javascript:window.location.href='${pageContext.request.contextPath}/initGrade.jsp'"
-                            class="btn btn-block btn-success startbtn">Now Start
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</s:if>
 <div class="contentuser center-block">
     <div class="container">
         <div class="row center-block">
-            <%--<div class="col-md-4">--%>
-            <%--<img src="images/big5.jpg" class=" taskimg conter-block">--%>
-            <%--<h2 class="text-muted">练习</h2>--%>
-            <%--<button class="btn btn-block btn-success startbtn">开始</button>--%>
-            <%--</div>--%>
-            <%--<div class="col-md-4">--%>
-            <%--<img src="images/big5.jpg" class=" taskimg conter-block">--%>
-            <%--<h2 class="text-muted">测试</h2>--%>
-            <%--<button class="btn btn-block btn-success startbtn">开始</button>--%>
-            <%--</div>--%>
             <div class="col-md-6">
-                <img src="images/oneplus_1.jpg" class=" taskimg conter-block">
-                <h2 class="text-muted">闯关</h2>
-                <%--加载 历史记录--%>
-                <button class="btn btn-block btn-success startbtn" onclick="javascript:window.location.href='${pageContext.request.contextPath}/checkPointList.jsp'">开始</button>
+                <h2 class="text-muted" style="text-align: center;">闯关题库</h2>
+                <%--设置每关标准--%>
+                <%--设置每关题库池--%>
+                <%--查看每关题库池--%>
+                <button class="btn btn-success startbtn" onclick="javascript:window.location.href='#'">设置</button>
             </div>
 
             <div class="col-md-6">
-                <img src="images/oneplus_2.jpg" class=" taskimg conter-block">
-                <h2 class="text-muted">资料</h2>
-                <button class="btn btn-block btn-success startbtn">开始</button>
+                <h2 class="text-muted" style="text-align: center">听力题目</h2>
+                <%--查看题目列表--%>
+                <%--查看题目详情--%>
+                <%--上传题目--%>
+                <%--删除题目--%>
+                <%--(第一版中不完成)--%>
+                <%--修改题目--%>
+                <%--查询题目--%>
+                <button class="btn btn-success startbtn" onclick="javascript:window.location.href='#'">设置</button>
             </div>
         </div>
     </div>
@@ -136,3 +106,4 @@
 <script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>
+

@@ -33,6 +33,7 @@
           <unit-entry name="noname-applicationContext.xml@1014" />
           <unit-entry name="noname-applicationContext.xml@1228" />
           <unit-entry name="noname-applicationContext.xml@2158" />
+          <unit-entry name="noname-applicationContext.xml@2243" />
         </datasource-map>
         <naming-strategy-map />
       </configuration>

@@ -7,9 +7,23 @@
 <struts>
     <constant name="struts.objectFactory" value="spring"/>
     <package name="listen" namespace="/" extends="struts-default">
+        <!-- 注册拦截器 -->
+        <interceptors>
+            <interceptor name="privilegeInterceptor" class="com.listen.web.interceptor.PrivilegeInterceptor"></interceptor>
+            <!-- 配置拦截器栈 -->
+            <interceptor-stack name="myStack">
+                <interceptor-ref name="privilegeInterceptor">
+                    <param name="excludeMethods">login,register</param>
+                </interceptor-ref>
+                <interceptor-ref name="defaultStack"></interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        <!-- 指定默认拦截器栈 -->
+        <default-interceptor-ref name="myStack"></default-interceptor-ref>
+
         <action name="StudentAction_*" class="studentAction" method="{1}">
             <result name="toHome" type="redirect">/home.jsp</result>
-            <result name="toTeacherHome" type="redirect">/update.html</result>
+            <result name="toAdminHome" type="redirect">/AdminHome.jsp</result>
             <result name="toLogin" type="redirect">/login.jsp</result>
             <result name="login">/login.jsp</result>
             <result name="register">/login.jsp</result>
@@ -18,5 +32,9 @@
                 login,register,checkAccount,loginOut,initGrade,submitGrade,initSubject,getScore,getList,pageTest,getCurrentHistoryList
             </allowed-methods>
         </action>
+        <action name="AdminAction_*" class="adminAction" method="{1}">
+
+        </action>
+
     </package>
 </struts>

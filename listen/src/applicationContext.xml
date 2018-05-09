@@ -35,6 +35,9 @@
     <bean name="studentAction" class="com.listen.web.action.StudentAction">
         <property name="studentService" ref="studentService"/>
     </bean>
+
+    <bean name="adminAction" class="com.listen.web.action.AdminAction">
+    </bean>
     
     <!--  -->
     <bean class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" name="sessionFactory">

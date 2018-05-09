@@ -5,6 +5,7 @@ import com.listen.domain.SysStudentLibraryPool;
 import com.listen.service.StudentService;
 
 import com.listen.utils.PageBean;
+import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -37,11 +38,12 @@ public class StudentAction extends ActionSupport implements ModelDriven<Student>
             ActionContext.getContext().put("error", e.getMessage());
             return "login";
         }
-        ActionContext.getContext().getSession().put("student", s);
         if (s.getClassify() == 0) {
+            ActionContext.getContext().getSession().put("student", s);
             return "toHome";
         } else if (s.getClassify() == 1) {
-            return "toTeacherHome";
+            ActionContext.getContext().getSession().put("admin", s);
+            return "toAdminHome";
         }
         return null;
     }
@@ -113,7 +115,7 @@ public class StudentAction extends ActionSupport implements ModelDriven<Student>
         String score = ServletActionContext.getRequest().getParameter("score");
         System.out.println(score);
         Student s = (Student) ActionContext.getContext().getSession().get("student");
-        studentService.initGradeCode(s, Integer.parseInt(score));
+        studentService.initGradeCode(s, Float.parseFloat(score));
         return "toHome";
     }
 
@@ -145,6 +147,7 @@ public class StudentAction extends ActionSupport implements ModelDriven<Student>
         String jsonString = studentService.getCurrentCheckPool(s.getGrade(), Integer.parseInt(checkId));
         ServletActionContext.getResponse().setCharacterEncoding("UTF-8");
         ServletActionContext.getResponse().getWriter().write(jsonString);
+        System.out.println(jsonString);
         return null;
     }
 

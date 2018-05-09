@@ -3,10 +3,8 @@ package com.listen.utils;
 
 import com.listen.domain.*;
 
-import com.sun.org.apache.xml.internal.utils.SuballocatedByteVector;
 import net.sf.json.JSON;
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -162,59 +160,5 @@ public class MakeSubject {
         l.setSrc("/asdfas/sadfasdf");
         l.setSonCount(2);
         libraries.add(l);
-//        StringBuilder sb = new StringBuilder();
-//        int count = 0;
-//        int sonCount;
-//        for (int i = 0; i < libraries.size(); i++) {
-//            sb.append("{\"count\": " + i + "," +
-//                    "\"src\": \"" + libraries.get(i).getSrc() + "\"," +
-//                    "\"questions\":[");
-//            sonCount = libraries.get(i).getSonCount();
-//            System.out.println(sonCount);
-//            System.out.println(sonCount - count % sonCount);
-//            for (int j = count % sonCount; j < sonCount; j++, count++) {
-//                sb.append("{\"question\": \"" + subjects.get(count).getContent() + "\"," +
-//                        "\"analysis\":\"" + subjects.get(count).getAnalysis() + "\"," +
-//                        "\"options\": [");
-//
-//                String[] strs = new String[4];
-//                if (subjects.get(count).getAnswer().equals('A'))
-//                    strs[0] = ("{\"option\":{\"content\":\"" + subjects.get(count).getOptionA() + "\",\"answer\":\"" + "true" + "\"}},");
-//                else
-//                    strs[0] = ("{\"option\":{\"content\":\"" + subjects.get(count).getOptionA() + "\",\"answer\":\"" + "false" + "\"}},");
-//                if (subjects.get(count).getAnswer().equals('B'))
-//                    strs[1] = ("{\"option\":{\"content\":\"" + subjects.get(count).getOptionB() + "\",\"answer\":\"" + "true" + "\"}},");
-//                else
-//                    strs[1] = ("{\"option\":{\"content\":\"" + subjects.get(count).getOptionB() + "\",\"answer\":\"" + "false" + "\"}},");
-//                if (subjects.get(count).getAnswer().equals('C'))
-//                    strs[2] = ("{\"option\":{\"content\":\"" + subjects.get(count).getOptionC() + "\",\"answer\":\"" + "true" + "\"}},");
-//                else
-//                    strs[2] = ("{\"option\":{\"content\":\"" + subjects.get(count).getOptionC() + "\",\"answer\":\"" + "false" + "\"}},");
-//                if (subjects.get(count).getAnswer().equals('D'))
-//                    strs[3] = ("{\"option\":{\"content\":\"" + subjects.get(count).getOptionD() + "\",\"answer\":\"" + "true" + "\"}},");
-//                else
-//                    strs[3] = ("{\"option\":{\"content\":\"" + subjects.get(count).getOptionD() + "\",\"answer\":\"" + "false" + "\"}},");
-//
-//                Random r = new Random();
-//                String temp = null;
-//                for (int k = 0; k < 3; k++) {
-//                    int one = r.nextInt(strs.length);
-//                    int two = r.nextInt(strs.length);
-//                    temp = strs[one];
-//                    strs[one] = strs[two];
-//                    strs[two] = temp;
-//                }
-//
-//                sb.append(strs[0]);
-//                sb.append(strs[1]);
-//                sb.append(strs[2]);
-//                sb.append(strs[3]);
-//                sb.deleteCharAt(sb.length() - 1);
-//                sb.append("]},");
-//            }
-//            sb.deleteCharAt(sb.length() - 1);
-//            sb.append("]}");
-//        }
-//        System.out.println(sb.toString());
     }
 }

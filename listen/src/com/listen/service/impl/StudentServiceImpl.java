@@ -81,21 +81,17 @@ public class StudentServiceImpl implements StudentService {
 //        list1.addAll(vocabularyDao.getVocs(2, 20));
 //        list1.addAll(vocabularyDao.getVocs(3, 10));
         JSON initTest = MakeSubject.initTestJson(list1);
-        System.out.println(list1);
-        System.out.println(list1.size());
-        System.out.println(initTest);
         return initTest;
 //        return initTest;
     }
 
     /**
      * 初始化学生等级
-     *
-     * @param s
+     *  @param s
      * @param score
      */
     @Override
-    public void initGradeCode(Student s, Integer score) {
+    public void initGradeCode(Student s, float score) {
         s.setCurrentCheck(0);
         if (score <= 70) {
             s.setGrade(1);

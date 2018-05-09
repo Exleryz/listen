@@ -17,7 +17,6 @@
 <script type="text/javascript">
     function submitRegister() {
         var balabala = document.getElementById("balabala").innerText;
-        alert(balabala);
         if (balabala=="账号格式不正确") {
             alert("填写内容格式不正确");
         }
@@ -123,7 +122,7 @@
                 </div>
                 <div class="item">
                     <!-- 下面这个输入框为用户确认密码-->
-                    <input id="repassword" class="input" type="repassword" placeholder="请再输入一次密码"/>
+                    <input id="repassword" class="input" type="password" placeholder="请再输入一次密码"/>
                 </div>
                 <!-- 下面这个按钮为注册按钮-->
                 <div class="item">

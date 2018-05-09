@@ -15,7 +15,17 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
 </head>
+<script type="text/javascript">
+    $(document).ready(function () {
+        if (${sessionScope.get("student") == null})
+        {
+            window.location.href = "${pageContext.request.contextPath}/login.jsp";
+        }
+
+    });
+</script>
 <body>
 <header class="bgcolor">
 

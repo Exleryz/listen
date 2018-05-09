@@ -28,6 +28,15 @@
 </style>
 <script type="text/javascript">
     var answer = new Array();
+
+    $(document).ready(function () {
+        if (${sessionScope.get("student") == null})
+        {
+            window.location.href = "${pageContext.request.contextPath}/login.jsp";
+        }
+
+    });
+
     $(document).ready(function () {
         $.ajax({
             type: "POST",
@@ -65,7 +74,6 @@
                 $("#1").show();
                 startTime()
             }, error: function (data) {
-                alert("error");
             },
         });
     })
@@ -90,6 +98,9 @@
     function next() {
         var id = $("#question >div:visible").attr("id");
         if (id < 50) {
+            if (id == 49) {
+                $("#subBtn").show();
+            }
             $("#" + id).hide();
             $("#" + (eval(id) + 1)).show();
         }
@@ -123,7 +134,6 @@
     function sub() {
         var score = 0;
         for (var index in answer) {
-            alert(index);
             var temp = $("input[type='radio'][name='" + (eval(index) + 1) + "'][checked='checked']").val();
             if (temp == answer[index])
                 if (index < 20) {
@@ -163,9 +173,10 @@
         </button>
     </div>
 </div>
-<div class="text-right" style="margin-top: 50px;margin-right: 10px">
+<div id="subBtn" class="text-right" style="margin-top: 50px;margin-right: 10px;display:none;">
     <button type="submit" class="btn btn-default" onclick="sub()">交卷</button>
 </div>
+
 <!-- 返回上一层 -->
 <a href="javascript:history.go(-1)" class="header-back">
     <span class="glyphicon glyphicon-chevron-left"></span>

@@ -17,7 +17,6 @@ public class VocabularyDaoImpl extends HibernateDaoSupport implements Vocabulary
         query.setParameter(1, count);
         List list = query.list();
 //        List<Vocabulary> list = (List<Vocabulary>) getHibernateTemplate().find("from Vocabulary where grade = ? order by rand()", grade);
-        System.out.println(list);
         return list;
     }
 

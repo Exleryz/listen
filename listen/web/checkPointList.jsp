@@ -35,6 +35,14 @@
     var id;
     var totalPage;
 
+    $(document).ready(function () {
+        if (${sessionScope.get("student") == null})
+        {
+            window.location.href = "${pageContext.request.contextPath}/login.jsp";
+        }
+
+    });
+
     function chbgcol(obj) {
         $("li").css({"background-color": "#FFF", "color": "#FFF"});
         $("li").removeClass("selected");
@@ -45,7 +53,7 @@
     }
 
     function showHistroy() {
-        if (id <= <s:property value="%{#session.student.currentCheck + 1}"/>) {
+        if (id <= <s:property value="%{#session.student == null ? -1: #session.student.currentCheck + 1}"/>) {
             $.ajax({
                 type: "GET",
                 url: "${pageContext.request.contextPath}/StudentAction_getCurrentHistoryList",
@@ -77,7 +85,6 @@
 
     function submitIdToSubject() {
         var checkId = $(".selected").attr("id"); //获取id
-        alert(checkId);
         window.location.href = "${pageContext.request.contextPath}/Examination.jsp?checkId=" + checkId;
     }
 

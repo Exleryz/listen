@@ -17,11 +17,17 @@
     <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
 </head>
 <script type="text/javascript">
-    <%--<%if(request.getParameter("checkId")!=null){
-        out.print();
-    }%>--%>
     var answer = new Array();
     var analysis = new Array();
+
+    $(document).ready(function () {
+        if (${sessionScope.get("student") == null})
+        {
+            window.location.href = "${pageContext.request.contextPath}/login.jsp";
+        }
+
+    });
+
     $(document).ready(function () {
         $.ajax({
             type: "POST",
@@ -54,25 +60,6 @@
                             if (indexso == 3)
                                 $div += '<div class="col-md-3"><label for="d">D.<input onclick="checkMe(this)" type="radio" value="D" name="' + (index * 4 + indexs + 1) + '" >' + valso["option"]["content"] + '</label></div>';
                         });
-                        /* if (vals["answer"] == true) {
-                             if (indexs == 0)
-                                 answer[index] = "A";
-                             if (indexs == 1)
-                                 answer[index] = "B";
-                             if (indexs == 2)
-                                 answer[index] = "C";
-                             if (indexs == 3)
-                                 answer[index] = "D";
-                         }
-                         if (indexs == 0)
-                             $div += '<div class="col-md-3"><label for="a">A.<input onclick="checkMe(this)" type="radio" value="A" name="' + (index + 1) + '" >' + vals["content"] + '</label></div>';
-                         if (indexs == 1)
-                             $div += '<div class="col-md-3"><label for="b">B.<input onclick="checkMe(this)" type="radio" value="B" name="' + (index + 1) + '" >' + vals["content"] + '</label></div>';
-                         if (indexs == 2)
-                             $div += '<div class="col-md-3"><label for="c">C.<input onclick="checkMe(this)" type="radio" value="C" name="' + (index + 1) + '" >' + vals["content"] + '</label></div>';
-                         if (indexs == 3)
-                             $div += '<div class="col-md-3"><label for="d">D.<input onclick="checkMe(this)" type="radio" value="D" name="' + (index + 1) + '" >' + vals["content"] + '</label></div>';
-                    */
                     });
                     $div += '</div></div></div>';
                     $("#question").append($div);
@@ -80,7 +67,6 @@
 
                 $("#1").show();
             }, error: function (data) {
-                alert("error");
             },
         });
     });
@@ -100,6 +86,7 @@
         if (id > 1) {
             $("#" + id).hide();
             $("#" + (eval(id) - 1)).show();
+            $("#" + id+" audio")[0].pause();
         }
     }
 
@@ -108,6 +95,7 @@
         if (id < 5) {
             $("#" + id).hide();
             $("#" + (eval(id) + 1)).show();
+            $("#" + id+" audio")[0].pause();
         }
         if (id == 4) {
             $("#subTest").show();
@@ -122,7 +110,6 @@
                 score += 1;
         }
         alert("您的成绩是：" + score);
-        alert('StudentAction_getScore?score=' + score + '&checkId=<%=request.getParameter("checkId")%>');
         window.location.href = '${pageContext.request.contextPath}/StudentAction_getScore?score=' + score + '&checkId=<%=request.getParameter("checkId")%>';
 
     }
