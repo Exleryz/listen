@@ -32,7 +32,6 @@
     <div>
         <button>添加子题</button>
         <button>删除子题</button>
-
     </div>
     <br/>
 </div>
