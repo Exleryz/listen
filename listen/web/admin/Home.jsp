@@ -13,8 +13,8 @@
     <meta charset="UTF-8">
     <title>index</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
 </head>
 <body>
 <header class="clearfix"><!-- 头部 -->
@@ -47,7 +47,7 @@
     <div class="container">
         <div class="row center-block">
             <div class="col-md-2">
-                <img src="images/1.jpg" class="img-circle userimg center-block">
+                <img src="../images/1.jpg" class="img-circle userimg center-block">
             </div>
             <div class="col-md-8">
                 <h4>
@@ -69,8 +69,11 @@
                 <h2 class="text-muted" style="text-align: center;">闯关题库</h2>
                 <%--设置每关标准--%>
                 <%--设置每关题库池--%>
+
                 <%--查看每关题库池--%>
-                <button class="btn btn-success startbtn" onclick="javascript:window.location.href='#'">设置</button>
+                <button class="btn btn-success startbtn"
+                        onclick="javascript:window.location.href='${pageContext.request.contextPath}/admin/setCheckList.jsp'">设置
+                </button>
             </div>
 
             <div class="col-md-6">
@@ -101,9 +104,9 @@
         </div>
     </div>
 </footer>
-<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="../js/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/main.js"></script>
 </body>
 </html>
 

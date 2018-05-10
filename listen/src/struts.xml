@@ -23,7 +23,7 @@
 
         <action name="StudentAction_*" class="studentAction" method="{1}">
             <result name="toHome" type="redirect">/home.jsp</result>
-            <result name="toAdminHome" type="redirect">/AdminHome.jsp</result>
+            <result name="toAdminHome" type="redirect">/admin/Home.jsp</result>
             <result name="toLogin" type="redirect">/login.jsp</result>
             <result name="login">/login.jsp</result>
             <result name="register">/login.jsp</result>
