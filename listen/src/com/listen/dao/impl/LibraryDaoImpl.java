@@ -19,4 +19,26 @@ public class LibraryDaoImpl extends HibernateDaoSupport implements LibraryDao {
 //        }
         return libraries;
     }
+
+    /**
+     * 题目全列表显示 部分属性查询 分页
+     *
+     * @return
+     */
+    @Override
+    public List<Library> getAll() {
+        List<Library> libraries = (List<Library>) getHibernateTemplate().find("select new Library(id,title,teacher) from Library");
+        return libraries;
+    }
+
+    /**
+     * 获得单题详情
+     * @param id
+     * @return
+     */
+    @Override
+    public Library getById(Integer id) {
+        Library library = getHibernateTemplate().get(Library.class, id);
+        return library;
+    }
 }

@@ -31,7 +31,8 @@
         <property name="subjectDao" ref="subjectDao"/>
     </bean>
     <bean name="adminService" class="com.listen.service.impl.AdminServiceImpl">
-
+        <property name="libraryPoolDao" ref="libraryPoolDao"/>
+        <property name="libraryDao" ref="libraryDao"/>
     </bean>
     
     <!-- action -->

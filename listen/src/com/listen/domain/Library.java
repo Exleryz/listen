@@ -3,13 +3,23 @@ package com.listen.domain;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Library {
+public class Library{
     private Integer id;
     private String src;
     private String title;
     private Integer sonCount;    // 题目有几道子题
     private Student teacher;    // 上传题目教师id
     private Set<LibraryPool> libraryPoolSet = new HashSet<>();
+
+    public Library() {
+    }
+
+    public Library(Integer id, String title, Student teacher) {
+        this.id = id;
+        this.title = title;
+        this.teacher = teacher;
+    }
+
 
     public Set<LibraryPool> getLibraryPoolSet() {
         return libraryPoolSet;
@@ -65,7 +75,7 @@ public class Library {
                 "id=" + id +
                 ", src='" + src + '\'' +
                 ", title='" + title + '\'' +
-                ", sonCoount=" + sonCount +
+                ", sonCount=" + sonCount +
                 ", teacher=" + teacher +
                 '}';
 //        输出libraryPoolSet 会造成栈溢出报错

@@ -36,7 +36,17 @@ public class LibraryPoolDaoImpl extends HibernateDaoSupport implements LibraryPo
         query.setParameter(1, checkId);
         LibraryPool lp = (LibraryPool) query.uniqueResult();
 //        lp.setLibrarieSet(null);
-        System.out.println(lp + "1111111111111111111111111111111");
+//        System.out.println(lp + "1111111111111111111111111111111");
         return lp;
+    }
+
+    @Override
+    public LibraryPool getByGradeAndCheckId(int currentGrade, int currentCheck) {
+        List<LibraryPool> libraryPools = (List<LibraryPool>) getHibernateTemplate().find("from LibraryPool where grade=? and checkPoint=?", currentGrade, currentCheck);
+        System.out.println(libraryPools.get(0));
+        if (libraryPools.get(0) != null) {
+            return libraryPools.get(0);
+        }
+        return null;
     }
 }

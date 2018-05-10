@@ -21,7 +21,12 @@ public class PrivilegeInterceptor extends MethodFilterInterceptor {
             return actionInvocation.invoke();
         } else {
             // 不存在 => 重定向到登录页面
-            return "toLogin";
+            Student admin = (Student) session.get("admin");
+            if (admin != null) {
+                return actionInvocation.invoke();
+            } else {
+                return "toLogin";
+            }
         }
     }
 }

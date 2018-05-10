@@ -10,4 +10,6 @@ public interface LibraryPoolDao {
     List<Integer> findLibIdUseLpId(Integer lpId);
 
     LibraryPool getLpIdByGradeAndCheckId(Integer grade, Integer checkId);
+
+    LibraryPool getByGradeAndCheckId(int currentGrade, int currentCheck);
 }

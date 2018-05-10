@@ -9,7 +9,8 @@
     <package name="listen" namespace="/" extends="struts-default">
         <!-- 注册拦截器 -->
         <interceptors>
-            <interceptor name="privilegeInterceptor" class="com.listen.web.interceptor.PrivilegeInterceptor"></interceptor>
+            <interceptor name="privilegeInterceptor"
+                         class="com.listen.web.interceptor.PrivilegeInterceptor"></interceptor>
             <!-- 配置拦截器栈 -->
             <interceptor-stack name="myStack">
                 <interceptor-ref name="privilegeInterceptor">
@@ -33,7 +34,10 @@
             </allowed-methods>
         </action>
         <action name="AdminAction_*" class="adminAction" method="{1}">
-
+            <result name="toDetails">/admin/details.jsp</result>
+            <result name="LibrariesList">/admin/getLibraryList.jsp</result>
+            <result name="seeDetails">/admin/details.jsp</result>
+            <allowed-methods>getCurrentScoreSet,seeDetails,getAllLibraries,getLibraryDetails</allowed-methods>
         </action>
 
     </package>
