@@ -12,4 +12,6 @@ public interface LibraryDao {
     List<Library> getAll();
 
     Library getById(Integer id);
+
+    Library saveLibrary(Library library);
 }

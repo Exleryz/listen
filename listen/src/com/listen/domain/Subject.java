@@ -4,7 +4,6 @@ public class Subject {
     private Integer id;
     private Library library;    // library的id
     private Character answer;    // 答案
-    private String content;
     private String optionA;
     private String optionB;
     private String optionC;
@@ -84,21 +83,12 @@ public class Subject {
         this.analysis = analysis;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
     @Override
     public String toString() {
         return "Subject{" +
                 "id=" + id +
                 ", library=" + library +
                 ", answer=" + answer +
-                ", content='" + content + '\'' +
                 ", optionA='" + optionA + '\'' +
                 ", optionB='" + optionB + '\'' +
                 ", optionC='" + optionC + '\'' +

@@ -5,6 +5,7 @@ import com.listen.domain.Library;
 import org.hibernate.Query;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class LibraryDaoImpl extends HibernateDaoSupport implements LibraryDao {
@@ -33,12 +34,19 @@ public class LibraryDaoImpl extends HibernateDaoSupport implements LibraryDao {
 
     /**
      * 获得单题详情
+     *
      * @param id
      * @return
      */
     @Override
     public Library getById(Integer id) {
         Library library = getHibernateTemplate().get(Library.class, id);
+        return library;
+    }
+
+    @Override
+    public Library saveLibrary(Library library) {
+        getHibernateTemplate().save(library);
         return library;
     }
 }

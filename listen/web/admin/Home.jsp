@@ -85,7 +85,7 @@
                 <%--(第一版中不完成)--%>
                 <%--修改题目--%>
                 <%--查询题目--%>
-                <button class="btn btn-success startbtn" onclick="javascript:window.location.href='${pageContext.request.contextPath}/getLibraryList.jsp'">设置</button>
+                <button class="btn btn-success startbtn" onclick="javascript:window.location.href='${pageContext.request.contextPath}/admin/upload.jsp'">设置</button>
             </div>
         </div>
     </div>

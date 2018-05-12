@@ -37,7 +37,12 @@
             <result name="toDetails">/admin/details.jsp</result>
             <result name="LibrariesList">/admin/getLibraryList.jsp</result>
             <result name="seeDetails">/admin/details.jsp</result>
-            <allowed-methods>getCurrentScoreSet,seeDetails,getAllLibraries,getLibraryDetails</allowed-methods>
+            <result name="toLogin">/login.jsp</result>
+            <allowed-methods>getCurrentScoreSet,seeDetails,getAllLibraries,getLibraryDetails,loginOut</allowed-methods>
+        </action>
+        <action name="LibraryAction_*" class="libraryAction" method="{1}">
+            <result name="success">/admin/Home.jsp</result>
+            <allowed-methods>upload</allowed-methods>
         </action>
 
     </package>

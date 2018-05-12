@@ -18,4 +18,13 @@ public class SubjectDaoImpl extends HibernateDaoSupport implements SubjectDao {
         List<Subject> subjects = query.list();
         return subjects;
     }
+
+    @Override
+    public void saveSubjectList(List<Subject> subjectList, Library l) {
+        for (int i = 0; i < subjectList.size(); i++) {
+            Subject s = subjectList.get(i);
+            s.setLibrary(l);
+            getHibernateTemplate().save(s);
+        }
+    }
 }

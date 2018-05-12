@@ -74,8 +74,7 @@ public class MakeSubject {
                     "\"questions\":[");
             sonCount = libraries.get(i).getSonCount();
             for (int j = count % sonCount; j < sonCount; j++, count++) {
-                sb.append("{\"question\": \"" + subjects.get(count).getContent() + "\"," +
-                        "\"analysis\":\"" + subjects.get(count).getAnalysis() + "\"," +
+                sb.append("{\"analysis\":\"" + subjects.get(count).getAnalysis() + "\"," +
                         "\"options\": [");
 
                 String[] strs = new String[4];
@@ -139,7 +138,7 @@ public class MakeSubject {
         s1.setOptionB("this is B");
         s1.setOptionC("this is C");
         s1.setOptionD("this is D");
-        s1.setContent("this is content");
+
         s1.setSort(1);
         s1.setAnalysis("this is analysis");
         s1.setAnswer('A');
@@ -148,7 +147,6 @@ public class MakeSubject {
         s2.setOptionB("this is B");
         s2.setOptionC("this is C");
         s2.setOptionD("this is D");
-        s2.setContent("this is content");
         s2.setSort(2);
         s2.setAnalysis("this is analysis");
         s2.setAnswer('B');

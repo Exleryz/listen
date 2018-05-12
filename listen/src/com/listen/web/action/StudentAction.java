@@ -22,6 +22,11 @@ public class StudentAction extends ActionSupport implements ModelDriven<Student>
     private Student student = new Student();
     private StudentService studentService;
 
+    @Override
+    public String execute() throws Exception {
+        return super.execute();
+    }
+
     /**
      * 登录
      *

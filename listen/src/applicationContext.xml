@@ -34,6 +34,10 @@
         <property name="libraryPoolDao" ref="libraryPoolDao"/>
         <property name="libraryDao" ref="libraryDao"/>
     </bean>
+    <bean name="libraryService" class="com.listen.service.impl.LibraryServiceImpl">
+        <property name="libraryDao" ref="libraryDao"/>
+        <property name="subjectDao" ref="subjectDao"/>
+    </bean>
     
     <!-- action -->
     <bean name="studentAction" class="com.listen.web.action.StudentAction">
@@ -41,6 +45,9 @@
     </bean>
     <bean name="adminAction" class="com.listen.web.action.AdminAction">
         <property name="adminService" ref="adminService"/>
+    </bean>
+    <bean name="libraryAction" class="com.listen.web.action.LibraryAction">
+        <property name="libraryService" ref="libraryService"/>
     </bean>
     
     <!-- sessionFactory -->

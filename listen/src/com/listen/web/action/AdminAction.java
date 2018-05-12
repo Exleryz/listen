@@ -52,6 +52,12 @@ public class AdminAction extends ActionSupport implements ModelDriven<Student> {
         return "LibrariesList";
     }
 
+    /**
+     * 单题详情查看
+     *
+     * @return
+     * @throws Exception
+     */
     public String getLibraryDetails() throws Exception {
         String libraryId = ServletActionContext.getRequest().getParameter("libraryId");
         System.out.println(libraryId);
@@ -59,6 +65,19 @@ public class AdminAction extends ActionSupport implements ModelDriven<Student> {
         ActionContext.getContext().put("library", l);
         return "seeDetails";
     }
+
+    /**
+     * 登出
+     *
+     * @return
+     * @throws Exception
+     */
+    public String loginOut() throws Exception {
+        ActionContext.getContext().getSession().remove("admin");
+        return "toLogin";
+    }
+
+
 
     public AdminService getAdminService() {
         return adminService;
