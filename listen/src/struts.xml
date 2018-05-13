@@ -46,6 +46,9 @@
             <result name="librariesList">/admin/Home.jsp</result>
             <allowed-methods>upload,getAllLibraries,deleteLibrary</allowed-methods>
         </action>
+        <action name="CheckAction_*" class="checkAction" method="{1}">
+
+        </action>
 
     </package>
 </struts>

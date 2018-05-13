@@ -49,4 +49,9 @@ public class LibraryPoolDaoImpl extends HibernateDaoSupport implements LibraryPo
         }
         return null;
     }
+
+    @Override
+    public void updateLP(LibraryPool libraryPool) {
+        getHibernateTemplate().update(libraryPool);
+    }
 }

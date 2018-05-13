@@ -17,6 +17,11 @@ public class AdminAction extends ActionSupport implements ModelDriven<Student> {
     private Student admin = new Student();
     private AdminService adminService;
 
+    /**
+     * 查看当前关卡设置 规定分数。。。。 ajax及点击设置后的数据回显
+     * @return
+     * @throws Exception
+     */
     public String getCurrentScoreSet() throws Exception {
         String currentCheck = ServletActionContext.getRequest().getParameter("currentCheck");
         String currentGrade = ServletActionContext.getRequest().getParameter("currentGrade");

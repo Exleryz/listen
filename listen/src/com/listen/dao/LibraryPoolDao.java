@@ -12,4 +12,7 @@ public interface LibraryPoolDao {
     LibraryPool getLpIdByGradeAndCheckId(Integer grade, Integer checkId);
 
     LibraryPool getByGradeAndCheckId(int currentGrade, int currentCheck);
+
+    void updateLP(LibraryPool libraryPool);
+
 }

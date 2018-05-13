@@ -11,6 +11,11 @@ import java.util.List;
 
 public class SubjectDaoImpl extends HibernateDaoSupport implements SubjectDao {
 
+    /**
+     * 获得当前关卡的题库池(所有)
+     * @param libIdList
+     * @return
+     */
     @Override
     public List<Subject> findSubUseLibId(List<Integer> libIdList) {
         Query query = currentSession().createQuery("from Subject where libraryId in (:findList)");
@@ -19,6 +24,15 @@ public class SubjectDaoImpl extends HibernateDaoSupport implements SubjectDao {
         return subjects;
     }
 
+    public List<Subject> findSubRanByLibId() {
+        return null;
+    }
+
+    /**
+     * 保存题目列表
+     * @param subjectList
+     * @param l
+     */
     @Override
     public void saveSubjectList(List<Subject> subjectList, Library l) {
         for (int i = 0; i < subjectList.size(); i++) {
@@ -27,4 +41,5 @@ public class SubjectDaoImpl extends HibernateDaoSupport implements SubjectDao {
             getHibernateTemplate().save(s);
         }
     }
+
 }

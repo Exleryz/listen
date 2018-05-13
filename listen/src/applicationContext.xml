@@ -21,6 +21,7 @@
     <bean name="subjectDao" class="com.listen.dao.impl.SubjectDaoImpl">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
+    <!--end-->
     
     <!-- service -->
     <bean name="studentService" class="com.listen.service.impl.StudentServiceImpl">
@@ -38,6 +39,10 @@
         <property name="libraryDao" ref="libraryDao"/>
         <property name="subjectDao" ref="subjectDao"/>
     </bean>
+    <bean name="checkService" class="com.listen.service.impl.CheckServiceImpl">
+        <property name="libraryPoolDao" ref="libraryPoolDao"/>
+    </bean>
+    <!--end-->
     
     <!-- action -->
     <bean name="studentAction" class="com.listen.web.action.StudentAction">
@@ -49,6 +54,10 @@
     <bean name="libraryAction" class="com.listen.web.action.LibraryAction">
         <property name="libraryService" ref="libraryService"/>
     </bean>
+    <bean name="checkAction" class="com.listen.web.action.CheckAction">
+        <property name="checkService" ref="checkService"/>
+    </bean>
+    <!--end-->
     
     <!-- sessionFactory -->
     <bean class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" name="sessionFactory">
