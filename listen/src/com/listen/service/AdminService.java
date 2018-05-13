@@ -12,7 +12,5 @@ public interface AdminService {
 
     LibraryPool getSetByGAndC(int currentCheck, int currentGrade);
 
-    List<Library> getAllLibraries();
-
     Library getLibraryDetails(Integer id);
 }

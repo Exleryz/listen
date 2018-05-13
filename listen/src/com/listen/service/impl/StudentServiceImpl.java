@@ -87,7 +87,8 @@ public class StudentServiceImpl implements StudentService {
 
     /**
      * 初始化学生等级
-     *  @param s
+     *
+     * @param s
      * @param score
      */
     @Override
@@ -115,6 +116,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     /**
+     * 获得当前关卡的题库池(每个题目)
+     *
      * @param grade
      * @param checkId
      * @return
@@ -126,10 +129,9 @@ public class StudentServiceImpl implements StudentService {
         // use id get sys_subject_librarypool 题库id
         List<Integer> libIdList = libraryPoolDao.findLibIdUseLpId(lpId);
         // 使用题库id 从 Library获得 标题 资源路径
-        List<Library> libraries = libraryDao.findLibUseLibId(libIdList);
-        // 利用题库id 从 Sbuject表中寻找题目
+        List<Library> libraries = libraryDao.findLibByLibIds(libIdList);
+        // 利用题库id 从 Subject表中寻找题目
         List<Subject> subjects = subjectDao.findSubUseLibId(libIdList);
-        System.out.println("\n");
         String jsonString = MakeSubject.initSubject(libraries, subjects);
         return jsonString;
     }
@@ -172,6 +174,7 @@ public class StudentServiceImpl implements StudentService {
 
     /**
      * 所有关数的历史做题记录 分页
+     *
      * @param student
      * @param currentPage
      * @param pageSize
@@ -224,9 +227,6 @@ public class StudentServiceImpl implements StudentService {
         pageSize = 5;
         PageBean pb = new PageBean(currentPage, totalCount, pageSize);
         List<SysStudentLibraryPool> list = studentDao.getCurrentCheckPageList(stu, pb.getStart(), pb.getPageSize(), lpId);
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println("service list item：" + i + "---------" + list.get(i));
-        }
         pb.setList(list);
         JsonConfig config = new JsonConfig();
         config.setExcludes(new String[]{"lp", "stu"});

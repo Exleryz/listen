@@ -38,11 +38,13 @@
             <result name="LibrariesList">/admin/getLibraryList.jsp</result>
             <result name="seeDetails">/admin/details.jsp</result>
             <result name="toLogin">/login.jsp</result>
-            <allowed-methods>getCurrentScoreSet,seeDetails,getAllLibraries,getLibraryDetails,loginOut</allowed-methods>
+            <allowed-methods>getCurrentScoreSet,seeDetails,getLibraryDetails,loginOut</allowed-methods>
         </action>
         <action name="LibraryAction_*" class="libraryAction" method="{1}">
             <result name="success">/admin/Home.jsp</result>
-            <allowed-methods>upload</allowed-methods>
+            <!-- 待完成页面 -->
+            <result name="librariesList">/admin/Home.jsp</result>
+            <allowed-methods>upload,getAllLibraries,deleteLibrary</allowed-methods>
         </action>
 
     </package>

@@ -41,18 +41,6 @@ public class AdminAction extends ActionSupport implements ModelDriven<Student> {
     }
 
     /**
-     * 获取所有题目(all) 分页待实现
-     *
-     * @return
-     * @throws Exception
-     */
-    public String getAllLibraries() throws Exception {
-        List<Library> libraries = adminService.getAllLibraries();
-        ActionContext.getContext().put("librariesList", libraries);
-        return "LibrariesList";
-    }
-
-    /**
      * 单题详情查看
      *
      * @return

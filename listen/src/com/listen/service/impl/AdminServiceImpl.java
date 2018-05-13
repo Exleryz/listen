@@ -8,7 +8,6 @@ import com.listen.service.AdminService;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 
-import java.util.List;
 
 public class AdminServiceImpl implements AdminService {
 
@@ -42,16 +41,6 @@ public class AdminServiceImpl implements AdminService {
     public LibraryPool getSetByGAndC(int currentCheck, int currentGrade) {
         LibraryPool lp = libraryPoolDao.getByGradeAndCheckId(currentGrade, currentCheck);
         return lp;
-    }
-
-    @Override
-    public List<Library> getAllLibraries() {
-        List<Library> libraries = libraryDao.getAll();
-        for (Library l :
-                libraries) {
-            System.out.println(l);
-        }
-        return libraries;
     }
 
     /**

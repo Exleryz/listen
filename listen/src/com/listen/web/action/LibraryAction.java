@@ -5,6 +5,7 @@ import com.listen.domain.Library;
 import com.listen.domain.Student;
 import com.listen.domain.Subject;
 import com.listen.service.LibraryService;
+import com.listen.utils.PageBean;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -43,7 +44,7 @@ public class LibraryAction extends ActionSupport implements ModelDriven<Library>
             String path = ServletActionContext.getServletContext().getRealPath("/file/test");
             String listenLibraryName = listenLibrary.getName();
             // 保存文件
-//            listenLibrary.renameTo(new File(path + "/" + listenLibraryFileName));
+            listenLibrary.renameTo(new File(path + "/" + listenLibraryFileName));
             // 设置文件路径
 
             // 保存题目信息及其子题
@@ -64,6 +65,48 @@ public class LibraryAction extends ActionSupport implements ModelDriven<Library>
         return null;
     }
 
+    /**
+     * 获取所有题目列表 分页
+     *
+     * @return
+     * @throws Exception
+     */
+    public String getAllLibraries() throws Exception {
+        String currentPage = ServletActionContext.getRequest().getParameter("currentPage");
+        System.out.println(currentPage);
+        if ("".equals(currentPage) || currentPage == null) {
+            currentPage = "0";
+        }
+        PageBean pb = libraryService.getCurrentPageBean(Integer.parseInt(currentPage), 10);
+        ActionContext.getContext().put("pageBean", pb);
+        return "librariesList";
+    }
+
+    /**
+     * 删除题目 ajax
+     * @return
+     * @throws Exception
+     */
+    public String deleteLibrary() throws Exception {
+        String libraryId = ServletActionContext.getRequest().getParameter("libraryId");
+        if (libraryService.deleteLibrary(Integer.parseInt(libraryId))) {
+            ServletActionContext.getResponse().getWriter().write("success");
+        } else {
+            ServletActionContext.getResponse().getWriter().write("error");
+        }
+        return null;
+    }
+
+    /**
+     * 修改题目(未完成)
+     * @return
+     * @throws Exception
+     */
+    public String execute() throws Exception {
+        String libraryId = ServletActionContext.getRequest().getParameter("libraryId");
+
+        return super.execute();
+    }
 
     public File getListenLibrary() {
         return listenLibrary;

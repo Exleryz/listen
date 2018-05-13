@@ -181,20 +181,18 @@ public class StudentAction extends ActionSupport implements ModelDriven<Student>
     }
 
     /**
-     * 根据当前关卡 页 返回当前关卡的历史记录
+     * 根据当前关卡 分页 返回当前关卡的历史记录
      * @return
      * @throws Exception
      */
     public String getCurrentHistoryList() throws Exception {
         String currentCheck = ServletActionContext.getRequest().getParameter("currentCheck");
         String currentPage = ServletActionContext.getRequest().getParameter("currentPage");
-        System.out.println(currentPage);
         if (currentPage.equals("") && currentPage == null) {
             currentPage = "0";
         }
         Student stu = (Student) ActionContext.getContext().getSession().get("student");
         JSONObject jsonObject = studentService.getCurrentPageBean(stu, Integer.parseInt(currentPage), Integer.parseInt(currentCheck), 5);
-        System.out.println("this is currentHistoryList Json" + jsonObject);
         ServletActionContext.getResponse().getWriter().write(jsonObject.toString());
         return null;
     }
