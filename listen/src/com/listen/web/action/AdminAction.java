@@ -19,6 +19,7 @@ public class AdminAction extends ActionSupport implements ModelDriven<Student> {
 
     /**
      * 查看当前关卡设置 规定分数。。。。 ajax及点击设置后的数据回显
+     *
      * @return
      * @throws Exception
      */
@@ -56,8 +57,10 @@ public class AdminAction extends ActionSupport implements ModelDriven<Student> {
         System.out.println(libraryId);
         Library l = adminService.getLibraryDetails(Integer.parseInt(libraryId));
         ActionContext.getContext().put("library", l);
-        return "seeDetails";
+        return "seeDetail";
     }
+
+
 
     /**
      * 登出
@@ -69,7 +72,6 @@ public class AdminAction extends ActionSupport implements ModelDriven<Student> {
         ActionContext.getContext().getSession().remove("admin");
         return "toLogin";
     }
-
 
 
     public AdminService getAdminService() {

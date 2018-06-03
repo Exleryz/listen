@@ -118,6 +118,7 @@ public class StudentServiceImpl implements StudentService {
     /**
      * 获得当前关卡的题库池(每个题目)
      * 未完成(随机)
+     *
      * @param grade
      * @param checkId
      * @return
@@ -128,6 +129,10 @@ public class StudentServiceImpl implements StudentService {
         Integer lpId = libraryPoolDao.findLibIdUseCurrentCheckId(grade, checkId);
         // use id get sys_subject_librarypool 题库id
         List<Integer> libIdList = libraryPoolDao.findLibIdUseLpId(lpId);
+        if (libIdList.size() == 0) {
+            String error = "管理员未指定改等级的题库";
+            throw new RuntimeException("{\"error\":\"" + error + "\"}");
+        }
         // 使用题库id 从 Library获得 标题 资源路径
         List<Library> libraries = libraryDao.findLibByLibIds(libIdList);
         // 利用题库id 从 Subject表中寻找题目

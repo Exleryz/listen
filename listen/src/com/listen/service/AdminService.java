@@ -4,8 +4,6 @@ import com.listen.domain.Library;
 import com.listen.domain.LibraryPool;
 import net.sf.json.JSONObject;
 
-import java.util.List;
-
 public interface AdminService {
 
     JSONObject getCurrentCheckScoreSet(int currentCheck, int currentGrade);
@@ -13,4 +11,5 @@ public interface AdminService {
     LibraryPool getSetByGAndC(int currentCheck, int currentGrade);
 
     Library getLibraryDetails(Integer id);
+
 }

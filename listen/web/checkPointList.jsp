@@ -40,7 +40,6 @@
         {
             window.location.href = "${pageContext.request.contextPath}/login.jsp";
         }
-
     });
 
     function chbgcol(obj) {
@@ -57,7 +56,7 @@
             $.ajax({
                 type: "GET",
                 url: "${pageContext.request.contextPath}/StudentAction_getCurrentHistoryList",
-                data: "currentCheck=" + id + "&&currentPage=" + currentPage,
+                data: "currentCheck=" + id + "&currentPage=" + currentPage,
                 dataType: "json",
                 success: function (data) {
                     console.log(data);

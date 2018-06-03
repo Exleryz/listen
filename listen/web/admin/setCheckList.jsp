@@ -28,11 +28,16 @@
         // showDetails();
     }
 
+    function submitIdToSettting() {
+        var checkId = $(".selected").attr("id"); //获取id
+        window.location.href = "${pageContext.request.contextPath}/AdminAction_seeDetails?currentCheck=" + checkId + "&currentGrade=1";
+    }
+
     function showDetails() {
         $.ajax({
             type: "GET",
             url: "${pageContext.request.contextPath}/AdminAction_getCurrentScoreSet",
-            data: "currentCheck=" + id + "&&currentGrade=" + 1,
+            data: "currentCheck=" + id + "&currentGrade=" + 1,
             dataType: "json",
             success: function (data) {
                 console.log(data);
@@ -130,7 +135,7 @@
     </div>
 
     <div class="starttest">
-        <button class="btn btn-success">设置当前选中关卡</button>
+        <button class="btn btn-success" onclick="submitIdToSettting()">设置当前选中关卡</button>
     </div>
 </div>
 <!-- 返回上一层 -->

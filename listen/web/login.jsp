@@ -11,8 +11,8 @@
 <head>
     <title>Title</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link href="${pageContext.request.contextPath }/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/css/main.css">
 </head>
 <script type="text/javascript">
     function submitRegister() {
@@ -82,7 +82,7 @@
                         <div class="col-lg-3"></div>
                         <div class="col-lg-6">
                             <!-- 下面这个输入框为密码输入框 -->
-                            <input id="password" class="input" name="password" type="password" placeholder="请输入密码"/>
+                            <input id="apassword" class="input" name="password" type="password" placeholder="请输入密码"/>
                         </div>
                         <div class="col-lg-2" style="margin-left: -0px;margin-top: 10px" id="errormsg">
                             <font color="red" id="login_error_msg">${error}</font>
@@ -135,7 +135,7 @@
     </div>
 </div>
 
-<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/main.js"></script>
 </body>

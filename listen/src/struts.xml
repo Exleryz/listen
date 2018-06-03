@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE struts PUBLIC
-    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
-    "http://struts.apache.org/dtds/struts-2.5.dtd">
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
 
 <struts>
     <constant name="struts.objectFactory" value="spring"/>
@@ -33,17 +33,18 @@
                 login,register,checkAccount,loginOut,initGrade,submitGrade,initSubject,getScore,getList,pageTest,getCurrentHistoryList
             </allowed-methods>
         </action>
+
         <action name="AdminAction_*" class="adminAction" method="{1}">
             <result name="toDetails">/admin/details.jsp</result>
             <result name="LibrariesList">/admin/getLibraryList.jsp</result>
-            <result name="seeDetails">/admin/details.jsp</result>
+            <result name="seeDetail">/admin/details.jsp</result>
             <result name="toLogin">/login.jsp</result>
-            <allowed-methods>getCurrentScoreSet,seeDetails,getLibraryDetails,loginOut</allowed-methods>
+            <allowed-methods>getCurrentScoreSet,seeDetails,getLibraryDetails,addLibToLP,loginOut,delLibInLibPool</allowed-methods>
         </action>
         <action name="LibraryAction_*" class="libraryAction" method="{1}">
             <result name="success">/admin/Home.jsp</result>
             <!-- 待完成页面 -->
-            <result name="librariesList">/admin/Home.jsp</result>
+            <result name="librariesList">/library/list.jsp</result>
             <allowed-methods>upload,getAllLibraries,deleteLibrary</allowed-methods>
         </action>
         <action name="CheckAction_*" class="checkAction" method="{1}">

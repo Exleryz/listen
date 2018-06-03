@@ -4,8 +4,14 @@ import com.listen.dao.LibraryPoolDao;
 import com.listen.domain.LibraryPool;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+import org.springframework.test.context.jdbc.Sql;
 
+import java.math.BigInteger;
 import java.util.List;
 
 public class LibraryPoolDaoImpl extends HibernateDaoSupport implements LibraryPoolDao {
@@ -53,5 +59,35 @@ public class LibraryPoolDaoImpl extends HibernateDaoSupport implements LibraryPo
     @Override
     public void updateLP(LibraryPool libraryPool) {
         getHibernateTemplate().update(libraryPool);
+    }
+
+    @Override
+    public Integer findLpIdAndLibId(int lpId, int libId) {
+        SQLQuery sqlQuery = currentSession().createSQLQuery("select count(*) from syslibrarylibrarypool where lpid = ? and libid = ?");
+        sqlQuery.setParameter(0, lpId);
+        sqlQuery.setParameter(1, libId);
+        BigInteger count = (BigInteger) sqlQuery.uniqueResult();
+        return count.intValue();
+    }
+
+    @Override
+    public void saveLib(int lpId ,int libId) {
+        SQLQuery sqlQuery = currentSession().createSQLQuery("insert into syslibrarylibrarypool(libid, lpid) values(?,?)");
+        sqlQuery.setParameter(0, libId);
+        sqlQuery.setParameter(1, lpId);
+        sqlQuery.uniqueResult();
+    }
+
+    /**
+     * 删除 syslibrarylibrarypool 表中 关卡lpid 关联的题目 libid
+     * @param lpId
+     * @param libId
+     */
+    @Override
+    public void deleteLib(int lpId, int libId) {
+        SQLQuery sqlQuery = currentSession().createSQLQuery("delete from syslibrarylibrarypool where lpId = ? and libid = ?");
+        sqlQuery.setParameter(0, lpId);
+        sqlQuery.setParameter(1, libId);
+        sqlQuery.uniqueResult();
     }
 }

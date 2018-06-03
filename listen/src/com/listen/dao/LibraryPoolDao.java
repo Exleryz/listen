@@ -15,4 +15,9 @@ public interface LibraryPoolDao {
 
     void updateLP(LibraryPool libraryPool);
 
+    Integer findLpIdAndLibId(int lpId, int libId);
+
+    void saveLib(int lpId, int libId);
+
+    void deleteLib(int lpId, int libId);
 }

@@ -7,16 +7,48 @@
 <struts>
     <constant name="struts.objectFactory" value="spring"/>
     <package name="listen" namespace="/" extends="struts-default">
+        <!-- 注册拦截器 -->
+        <interceptors>
+            <interceptor name="privilegeInterceptor"
+                         class="com.listen.web.interceptor.PrivilegeInterceptor"></interceptor>
+            <!-- 配置拦截器栈 -->
+            <interceptor-stack name="myStack">
+                <interceptor-ref name="privilegeInterceptor">
+                    <param name="excludeMethods">login,register</param>
+                </interceptor-ref>
+                <interceptor-ref name="defaultStack"></interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        <!-- 指定默认拦截器栈 -->
+        <default-interceptor-ref name="myStack"></default-interceptor-ref>
+
         <action name="StudentAction_*" class="studentAction" method="{1}">
             <result name="toHome" type="redirect">/home.jsp</result>
+            <result name="toAdminHome" type="redirect">/admin/Home.jsp</result>
             <result name="toLogin" type="redirect">/login.jsp</result>
             <result name="login">/login.jsp</result>
             <result name="register">/login.jsp</result>
-            <result name="toSubject">/Examination.jsp</result>
-            <result name="historyList">/checkPointList.jsp</result>
+            <result name="showList">/checkPointList.jsp</result>
             <allowed-methods>
-                login,register,checkAccount,loginOut,initGrade,submitGrade,initSubject,getScore,getList,pageTest
+                login,register,checkAccount,loginOut,initGrade,submitGrade,initSubject,getScore,getList,pageTest,getCurrentHistoryList
             </allowed-methods>
         </action>
+        <action name="AdminAction_*" class="adminAction" method="{1}">
+            <result name="toDetails">/admin/details.jsp</result>
+            <result name="LibrariesList">/admin/getLibraryList.jsp</result>
+            <result name="seeDetails">/admin/details.jsp</result>
+            <result name="toLogin">/login.jsp</result>
+            <allowed-methods>getCurrentScoreSet,seeDetails,getLibraryDetails,loginOut</allowed-methods>
+        </action>
+        <action name="LibraryAction_*" class="libraryAction" method="{1}">
+            <result name="success">/admin/Home.jsp</result>
+            <!-- 待完成页面 -->
+            <result name="librariesList">/admin/Home.jsp</result>
+            <allowed-methods>upload,getAllLibraries,deleteLibrary</allowed-methods>
+        </action>
+        <action name="CheckAction_*" class="checkAction" method="{1}">
+
+        </action>
+
     </package>
 </struts>

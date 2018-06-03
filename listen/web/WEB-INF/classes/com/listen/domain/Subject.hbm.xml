@@ -4,7 +4,7 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-    <class name="com.listen.domain.Subject" table="Subject">
+    <class name="com.listen.domain.Subject" table="subject">
         <id name="id">
             <generator class="native"></generator>
         </id>
@@ -15,7 +15,6 @@
         <property name="optionD"/>
         <property name="sort"/>
         <property name="analysis"/>
-        <property name="content"/>
         <many-to-one name="library" class="com.listen.domain.Library" column="libraryId" cascade="none"/>
     </class>
 </hibernate-mapping>

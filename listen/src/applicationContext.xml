@@ -41,6 +41,7 @@
     </bean>
     <bean name="checkService" class="com.listen.service.impl.CheckServiceImpl">
         <property name="libraryPoolDao" ref="libraryPoolDao"/>
+        <property name="libraryDao" ref="libraryDao"/>
     </bean>
     <!--end-->
     
