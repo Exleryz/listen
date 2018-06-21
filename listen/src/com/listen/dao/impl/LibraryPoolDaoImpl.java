@@ -16,8 +16,15 @@ import java.util.List;
 
 public class LibraryPoolDaoImpl extends HibernateDaoSupport implements LibraryPoolDao {
 
+    /**
+     * 根据gradeid checkid 查找 lpid
+     *
+     * @param grade
+     * @param checkId
+     * @return
+     */
     @Override
-    public Integer findLibIdUseCurrentCheckId(Integer grade, Integer checkId) {
+    public Integer findLPIdByCheckAndGrade(Integer grade, Integer checkId) {
         SQLQuery sqlQuery = currentSession().createSQLQuery("select id from LibraryPool where checkPoint = ? and grade = ?");
         sqlQuery.setParameter(0, checkId);
         sqlQuery.setParameter(1, grade);
@@ -26,6 +33,12 @@ public class LibraryPoolDaoImpl extends HibernateDaoSupport implements LibraryPo
         return id;
     }
 
+    /**
+     * 根据lpid查找libid
+     *
+     * @param lpId
+     * @return
+     */
     @Override
     public List<Integer> findLibIdUseLpId(Integer lpId) {
         SQLQuery sqlQuery = currentSession().createSQLQuery("select libid from SysLibraryLibraryPool where lpid = ?");
@@ -35,17 +48,42 @@ public class LibraryPoolDaoImpl extends HibernateDaoSupport implements LibraryPo
         return list;
     }
 
+    /**
+     * 根据grade check 获取lp对象
+     *
+     * @param grade
+     * @param checkId
+     * @return
+     */
     @Override
     public LibraryPool getLpIdByGradeAndCheckId(Integer grade, Integer checkId) {
         Query query = currentSession().createSQLQuery("select * from LibraryPool where grade = ? and checkPoint = ?").addEntity(LibraryPool.class);
         query.setParameter(0, grade);
         query.setParameter(1, checkId);
         LibraryPool lp = (LibraryPool) query.uniqueResult();
-//        lp.setLibrarieSet(null);
-//        System.out.println(lp + "1111111111111111111111111111111");
         return lp;
     }
 
+    /**
+     * 根据lpid获取ip对象
+     * @param lpId
+     * @return
+     */
+    @Override
+    public LibraryPool findLPByLPId(Integer lpId) {
+        SQLQuery sqlQuery = currentSession().createSQLQuery("select * from LibraryPool where id=?").addEntity(LibraryPool.class);
+        sqlQuery.setParameter(0, lpId);
+        LibraryPool lp = (LibraryPool) sqlQuery.uniqueResult();
+        System.out.println(lp);    // 返回的id(lpid)到sysllp表中根据lp id寻找libid  根据libid从library表中寻找题目
+        return lp;
+    }
+
+    /**
+     *
+     * @param currentGrade
+     * @param currentCheck
+     * @return
+     */
     @Override
     public LibraryPool getByGradeAndCheckId(int currentGrade, int currentCheck) {
         List<LibraryPool> libraryPools = (List<LibraryPool>) getHibernateTemplate().find("from LibraryPool where grade=? and checkPoint=?", currentGrade, currentCheck);
@@ -71,15 +109,16 @@ public class LibraryPoolDaoImpl extends HibernateDaoSupport implements LibraryPo
     }
 
     @Override
-    public void saveLib(int lpId ,int libId) {
+    public void saveLib(int lpId, int libId) {
         SQLQuery sqlQuery = currentSession().createSQLQuery("insert into SysLibraryLibraryPool(libid, lpid) values(?,?)");
         sqlQuery.setParameter(0, libId);
         sqlQuery.setParameter(1, lpId);
-        sqlQuery.uniqueResult();
+        sqlQuery.executeUpdate();
     }
 
     /**
      * 删除 syslibrarylibrarypool 表中 关卡lpid 关联的题目 libid
+     *
      * @param lpId
      * @param libId
      */

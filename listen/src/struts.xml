@@ -39,16 +39,24 @@
             <result name="LibrariesList">/admin/getLibraryList.jsp</result>
             <result name="seeDetail">/admin/details.jsp</result>
             <result name="toLogin">/login.jsp</result>
-            <allowed-methods>getCurrentScoreSet,seeDetails,getLibraryDetails,addLibToLP,loginOut,delLibInLibPool</allowed-methods>
+            <allowed-methods>getCurrentScoreSet,seeDetails,getLibraryDetails,,loginOut</allowed-methods>
         </action>
+
         <action name="LibraryAction_*" class="libraryAction" method="{1}">
             <result name="success">/admin/Home.jsp</result>
             <!-- 待完成页面 -->
-            <result name="librariesList">/library/list.jsp</result>
+            <result name="librariesList">/library/chooseLibraries.jsp</result>
             <allowed-methods>upload,getAllLibraries,deleteLibrary</allowed-methods>
         </action>
-        <action name="CheckAction_*" class="checkAction" method="{1}">
 
+        <action name="CheckAction_*" class="checkAction" method="{1}">
+            <result name="showLibraryDet" type="redirectAction">
+                <param name="actionName">AdminAction_seeDetails</param>
+                <param name="namespace">/</param>
+                <param name="currentCheck">${currentCheck}</param>
+                <param name="currentGrade">${currentGrade}</param>
+            </result>
+            <allowed-methods>addLibToLP,delLibInLibPool</allowed-methods>
         </action>
 
     </package>

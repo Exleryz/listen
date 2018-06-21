@@ -126,7 +126,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public String getCurrentCheckPool(Integer grade, Integer checkId) {
         // get LibraryPool currentCheck id
-        Integer lpId = libraryPoolDao.findLibIdUseCurrentCheckId(grade, checkId);
+        Integer lpId = libraryPoolDao.findLPIdByCheckAndGrade(grade, checkId);
         // use id get sys_subject_librarypool 题库id
         List<Integer> libIdList = libraryPoolDao.findLibIdUseLpId(lpId);
         if (libIdList.size() == 0) {

@@ -5,6 +5,7 @@ import com.listen.dao.LibraryPoolDao;
 import com.listen.domain.Library;
 import com.listen.domain.LibraryPool;
 import com.listen.service.CheckService;
+import org.omg.PortableServer.LIFESPAN_POLICY_ID;
 
 public class CheckServiceImpl implements CheckService {
 
@@ -27,24 +28,28 @@ public class CheckServiceImpl implements CheckService {
      * 把lib添加进Libpool 为关卡添加题目
      *
      * @param lpId
-     * @param libId
+     * @param libIds
      */
     @Override
-    public void saveLibToLibPool(int lpId, int libId) {
+    public void saveLibToLibPool(int lpId, Integer[] libIds) {
+        // 若效率不行 删除 //
         // 是否要检查题目是否存在
-        Library library = libraryDao.getById(libId);
-        Integer count = libraryPoolDao.findLpIdAndLibId(lpId, libId);
-        if (count == 1) {
-            // 此题在当前关卡中已存在
-        }
-        if (count == 0) {
-            if (null != library) {
-                libraryPoolDao.saveLib(lpId, libId);
-            } else {
+        for (int i = 0; i < libIds.length; i++) {
+            //Library library = libraryDao.getById(libIds[i]);
+            //
+            Integer count = libraryPoolDao.findLpIdAndLibId(lpId, libIds[i]);
+            if (count == 1) {
+                // 此题在当前关卡中已存在
+            } else if (count == 0) {
+                //if (null != library) {    //
+                libraryPoolDao.saveLib(lpId, libIds[i]);
+                //} else {    //
                 // 此题不存在
+                //}    //
             }
         }
     }
+
 
     /**
      * 从Libpool中删除题目lib
@@ -70,7 +75,19 @@ public class CheckServiceImpl implements CheckService {
     }
 
     /**
+     * 根据lpId 获得 LP对象
+     *
+     * @param lpId
+     */
+    @Override
+    public LibraryPool getLPByLPId(Integer lpId) {
+        LibraryPool lp = libraryPoolDao.findLPByLPId(lpId);
+        return lp;
+    }
+
+    /**
      * 设置关卡的题库池
+     *
      * @return
      */
 

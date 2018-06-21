@@ -12,14 +12,16 @@ import java.util.List;
 
 public class LibraryDaoImpl extends HibernateDaoSupport implements LibraryDao {
 
+    /**
+     *
+     * @param libIdList
+     * @return
+     */
     @Override
     public List<Library> findLibByLibIds(List<Integer> libIdList) {
         Query query = currentSession().createQuery("from Library where id in (:findList)");
         query.setParameterList("findList", libIdList);
         List<Library> libraries = query.list();
-//        for (Library l : libraries) {
-//            System.out.println(l);
-//        }
         return libraries;
     }
 

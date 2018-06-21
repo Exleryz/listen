@@ -5,7 +5,7 @@ import com.listen.domain.LibraryPool;
 import java.util.List;
 
 public interface LibraryPoolDao {
-    Integer findLibIdUseCurrentCheckId(Integer grade, Integer checkId);
+    Integer findLPIdByCheckAndGrade(Integer grade, Integer checkId);
 
     List<Integer> findLibIdUseLpId(Integer lpId);
 
@@ -20,4 +20,7 @@ public interface LibraryPoolDao {
     void saveLib(int lpId, int libId);
 
     void deleteLib(int lpId, int libId);
+
+    LibraryPool findLPByLPId(Integer lpId);
+
 }

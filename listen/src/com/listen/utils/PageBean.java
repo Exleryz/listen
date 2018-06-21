@@ -17,7 +17,6 @@ public class PageBean {
 
 
     public PageBean(Integer currentPage, Integer totalCount, Integer pageSize) {
-        System.out.println("start");
         this.totalCount = totalCount;
 
         this.currentPage = currentPage;
@@ -33,7 +32,6 @@ public class PageBean {
 
         // 计算总页数
         this.totalPage = (this.totalCount + this.pageSize - 1) / this.pageSize;
-        System.out.println(this.totalPage + "tc");
         // 判断当前页数是否超出范围
         // 不能小于1
         if (this.currentPage < 1) {
@@ -43,7 +41,6 @@ public class PageBean {
         if (this.currentPage > this.totalPage) {
             this.currentPage = totalPage;
         }
-        System.out.println("end");
     }
 
     // 计算起始索引方法

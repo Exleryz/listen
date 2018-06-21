@@ -37,7 +37,7 @@
         <br>
     </s:iterator>
     <div>
-        <button>添加题目</button>
+        <button onclick="window.location.href='${pageContext.request.contextPath}/LibraryAction_getAllLibraries.action?lpId=${lp.id}'">添加题目</button>
     </div>
     <br/>
 </div>

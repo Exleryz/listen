@@ -33,7 +33,7 @@ public class AdminAction extends ActionSupport implements ModelDriven<Student> {
     }
 
     /**
-     * 点击设置时的数据回显
+     * 显示关卡的详情信息
      *
      * @return
      * @throws Exception
@@ -59,7 +59,6 @@ public class AdminAction extends ActionSupport implements ModelDriven<Student> {
         ActionContext.getContext().put("library", l);
         return "seeDetail";
     }
-
 
 
     /**
