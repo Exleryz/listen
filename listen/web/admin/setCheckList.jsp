@@ -19,12 +19,12 @@
     var id;
 
     function chbgcol(obj) {
-        $("li").css({"background-color": "#FFF", "color": "#FFF"});
+        $("li").css({"background-color": "#FFF", "color": "black"});
         $("li").removeClass("selected");
-        $(obj).css({"background-color": "#2E918C", "color": "#fff"});
+        $(obj).css({"background-color": "#2E918C", "color": "red"});
         $(obj).addClass("selected");
         id = $(obj).attr("id");
-        alert(id);
+        //alert(id);
         // showDetails();
     }
 
