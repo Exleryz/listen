@@ -28,7 +28,7 @@ public class LibraryPoolDaoImpl extends HibernateDaoSupport implements LibraryPo
 
     @Override
     public List<Integer> findLibIdUseLpId(Integer lpId) {
-        SQLQuery sqlQuery = currentSession().createSQLQuery("select libid from syslibrarylibrarypool where lpid = ?");
+        SQLQuery sqlQuery = currentSession().createSQLQuery("select libid from SysLibraryLibraryPool where lpid = ?");
         sqlQuery.setParameter(0, lpId);
         List<Integer> list = sqlQuery.list();
         System.out.println(list);
@@ -37,7 +37,7 @@ public class LibraryPoolDaoImpl extends HibernateDaoSupport implements LibraryPo
 
     @Override
     public LibraryPool getLpIdByGradeAndCheckId(Integer grade, Integer checkId) {
-        Query query = currentSession().createSQLQuery("select * from librarypool where grade = ? and checkPoint = ?").addEntity(LibraryPool.class);
+        Query query = currentSession().createSQLQuery("select * from LibraryPool where grade = ? and checkPoint = ?").addEntity(LibraryPool.class);
         query.setParameter(0, grade);
         query.setParameter(1, checkId);
         LibraryPool lp = (LibraryPool) query.uniqueResult();
@@ -63,7 +63,7 @@ public class LibraryPoolDaoImpl extends HibernateDaoSupport implements LibraryPo
 
     @Override
     public Integer findLpIdAndLibId(int lpId, int libId) {
-        SQLQuery sqlQuery = currentSession().createSQLQuery("select count(*) from syslibrarylibrarypool where lpid = ? and libid = ?");
+        SQLQuery sqlQuery = currentSession().createSQLQuery("select count(*) from SysLibraryLibraryPool where lpid = ? and libid = ?");
         sqlQuery.setParameter(0, lpId);
         sqlQuery.setParameter(1, libId);
         BigInteger count = (BigInteger) sqlQuery.uniqueResult();
@@ -72,7 +72,7 @@ public class LibraryPoolDaoImpl extends HibernateDaoSupport implements LibraryPo
 
     @Override
     public void saveLib(int lpId ,int libId) {
-        SQLQuery sqlQuery = currentSession().createSQLQuery("insert into syslibrarylibrarypool(libid, lpid) values(?,?)");
+        SQLQuery sqlQuery = currentSession().createSQLQuery("insert into SysLibraryLibraryPool(libid, lpid) values(?,?)");
         sqlQuery.setParameter(0, libId);
         sqlQuery.setParameter(1, lpId);
         sqlQuery.uniqueResult();
@@ -85,7 +85,7 @@ public class LibraryPoolDaoImpl extends HibernateDaoSupport implements LibraryPo
      */
     @Override
     public void deleteLib(int lpId, int libId) {
-        SQLQuery sqlQuery = currentSession().createSQLQuery("delete from syslibrarylibrarypool where lpId = ? and libid = ?");
+        SQLQuery sqlQuery = currentSession().createSQLQuery("delete from SysLibraryLibraryPool where lpId = ? and libid = ?");
         sqlQuery.setParameter(0, lpId);
         sqlQuery.setParameter(1, libId);
         sqlQuery.uniqueResult();

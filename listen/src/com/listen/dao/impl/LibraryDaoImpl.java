@@ -51,7 +51,7 @@ public class LibraryDaoImpl extends HibernateDaoSupport implements LibraryDao {
      */
     @Override
     public int getTotalCount() {
-        SQLQuery sqlQuery = currentSession().createSQLQuery("select count(id) from library");
+        SQLQuery sqlQuery = currentSession().createSQLQuery("select count(id) from Library");
         BigInteger count = (BigInteger) sqlQuery.uniqueResult();
         return count.intValue();
     }
@@ -64,7 +64,7 @@ public class LibraryDaoImpl extends HibernateDaoSupport implements LibraryDao {
      */
     @Override
     public List<Library> getList(int start, int pageSize) {
-        SQLQuery sqlQuery = currentSession().createSQLQuery("select * from library order by id desc").addEntity(Library.class);
+        SQLQuery sqlQuery = currentSession().createSQLQuery("select * from Library order by id desc").addEntity(Library.class);
         sqlQuery.setFirstResult(start);
         sqlQuery.setMaxResults(pageSize);
         List<Library> list = sqlQuery.list();

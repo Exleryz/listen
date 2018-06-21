@@ -7,8 +7,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
-import org.hibernate.hql.internal.antlr.SqlStatementLexer;
-import org.springframework.jdbc.object.SqlQuery;
 import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.test.context.jdbc.Sql;
@@ -119,7 +117,7 @@ public class StudentDaoImpl extends HibernateDaoSupport implements StudentDao {
      */
     @Override
     public void saveScore(Integer score, Integer count, Integer classify, Integer stuId, Integer lpId) {
-        SQLQuery sqlQuery = currentSession().createSQLQuery("insert into sysstudentlibrarypool (score, time, count, classify, stuId, lpId) values (?, ?, ?, ?, ?, ?)");
+        SQLQuery sqlQuery = currentSession().createSQLQuery("insert into SysStudentLibraryPool (score, time, count, classify, stuId, lpId) values (?, ?, ?, ?, ?, ?)");
         sqlQuery.setParameter(0, score);
         sqlQuery.setParameter(1, "1");
         sqlQuery.setParameter(2, count);
@@ -166,7 +164,7 @@ public class StudentDaoImpl extends HibernateDaoSupport implements StudentDao {
      */
     @Override
     public List<SysStudentLibraryPool> getPageList(Student student, int start, Integer pageSize) {
-        SQLQuery sqlQuery = currentSession().createSQLQuery("select * from sysstudentlibrarypool where stuId = ?").addEntity(SysStudentLibraryPool.class);
+        SQLQuery sqlQuery = currentSession().createSQLQuery("select * from SysStudentLibraryPool where stuId = ?").addEntity(SysStudentLibraryPool.class);
         sqlQuery.setParameter(0, student.getId());
         sqlQuery.setFirstResult(start);
         sqlQuery.setMaxResults(pageSize);
@@ -200,7 +198,7 @@ public class StudentDaoImpl extends HibernateDaoSupport implements StudentDao {
      */
     @Override
     public List<SysStudentLibraryPool> getCurrentCheckPageList(Student stu, int start, Integer pageSize, Integer lpId) {
-        SQLQuery sqlQuery = currentSession().createSQLQuery("select * from sysstudentlibrarypool where stuId = ? and lpId = ? order by id desc").addEntity(SysStudentLibraryPool.class);
+        SQLQuery sqlQuery = currentSession().createSQLQuery("select * from SysStudentLibraryPool where stuId = ? and lpId = ? order by id desc").addEntity(SysStudentLibraryPool.class);
         sqlQuery.setParameter(0, stu.getId());
         sqlQuery.setParameter(1, lpId);
         sqlQuery.setFirstResult(start);
@@ -234,7 +232,7 @@ public class StudentDaoImpl extends HibernateDaoSupport implements StudentDao {
      */
     @Override
     public int getCurrentChecklpId(Integer checkPoint, Integer grade) {
-        SQLQuery sqlQuery = currentSession().createSQLQuery("select id from librarypool where grade=? and checkPoint=?");
+        SQLQuery sqlQuery = currentSession().createSQLQuery("select id from LibraryPool where grade=? and checkPoint=?");
         sqlQuery.setParameter(0, grade);
         sqlQuery.setParameter(1, checkPoint);
         Integer id = (Integer) sqlQuery.uniqueResult();

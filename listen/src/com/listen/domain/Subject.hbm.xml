@@ -3,7 +3,7 @@
         "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.listen.domain.Subject" table="subject">
+    <class name="com.listen.domain.Subject" table="Subject">
         <id name="id">
             <generator class="native"></generator>
         </id>
