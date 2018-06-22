@@ -52,7 +52,7 @@ public class CheckServiceImpl implements CheckService {
 
 
     /**
-     * 从Libpool中删除题目lib
+     * 从题库池中删除题目
      *
      * @param lpId
      * @param libId

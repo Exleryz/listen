@@ -57,9 +57,13 @@ public class CheckAction extends ActionSupport implements ModelDriven<LibraryPoo
      */
     public String delLibInLibPool() throws Exception {
         String lpId = ServletActionContext.getRequest().getParameter("lpId");
-        String lId = ServletActionContext.getRequest().getParameter("lId");
-        checkService.deleteLibByLibPool(Integer.parseInt(lpId), Integer.parseInt(lId));
-        return super.execute();    // 重新跳转到 关卡详情页面
+        String libId = ServletActionContext.getRequest().getParameter("libId");
+        checkService.deleteLibByLibPool(Integer.parseInt(lpId), Integer.parseInt(libId));
+        // 根据lpid 查询 lp对象
+        LibraryPool lp = checkService.getLPByLPId(Integer.parseInt(lpId));
+        currentCheck = lp.getCheckPoint().toString();
+        currentGrade = lp.getGrade().toString();
+        return "showLibraryDet";    // 重新跳转到 关卡详情页面
     }
 
 

@@ -127,6 +127,6 @@ public class LibraryPoolDaoImpl extends HibernateDaoSupport implements LibraryPo
         SQLQuery sqlQuery = currentSession().createSQLQuery("delete from SysLibraryLibraryPool where lpId = ? and libid = ?");
         sqlQuery.setParameter(0, lpId);
         sqlQuery.setParameter(1, libId);
-        sqlQuery.uniqueResult();
+        sqlQuery.executeUpdate();
     }
 }

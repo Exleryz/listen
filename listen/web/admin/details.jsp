@@ -33,7 +33,7 @@
         <s:property value="#status.index + 1"/>
         <input type="hidden" value="<s:property value="#lib.id"/>">
         <s:property value="#lib.title"/>
-        <button>删除题目</button>
+        <button onclick="window.location.href='${pageContext.request.contextPath}/CheckAction_delLibInLibPool.action?lpId=${lp.id}&libId=<s:property value="#lib.id"/>'">删除题目</button>
         <br>
     </s:iterator>
     <div>
