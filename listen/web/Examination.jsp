@@ -16,6 +16,11 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
 </head>
+<style type="text/css">
+    .testbox{
+        width: 100%;
+    }
+</style>
 <script type="text/javascript">
     var answer = new Array();
     var analysis = new Array();
