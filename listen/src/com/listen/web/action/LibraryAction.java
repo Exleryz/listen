@@ -10,7 +10,10 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import org.apache.struts2.ServletActionContext;
 
+import javax.sound.midi.Soundbank;
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class LibraryAction extends ActionSupport implements ModelDriven<Library> {
@@ -33,23 +36,26 @@ public class LibraryAction extends ActionSupport implements ModelDriven<Library>
     public String upload() throws Exception {
         Student admin = (Student) ActionContext.getContext().getSession().get("admin");
         library.setTeacher(admin);
-        System.out.println(library);
-        System.out.println(subjectList.get(0));
         if (listenLibrary != null) {
             if ("".equals(listenLibraryFileName) || listenLibraryFileName == null) {
                 // 生成名称 或使用title
                 // 查询数据库中题目名称是否存在
             }
             String path = ServletActionContext.getServletContext().getRealPath("/file/test");
-            String listenLibraryName = listenLibrary.getName();
+            int i = listenLibraryFileName.lastIndexOf(".");
+            String name = listenLibraryFileName.substring(0, i);
+            String suffix = listenLibraryFileName.substring(i, listenLibraryFileName.length());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
+            name = name + sdf.format(new Date());
             // 保存文件
-            listenLibrary.renameTo(new File(path + "/" + listenLibraryFileName));
+            File f = new File(path + "/" + name + suffix);
+            listenLibrary.renameTo(f);
             // 设置文件路径
-
+            library.setSrc("/file/test/" + name + suffix);
             // 保存题目信息及其子题
             libraryService.saveLibrary(library, subjectList);
         }
-        return super.execute();
+        return null;
     }
 
     /**
@@ -83,6 +89,7 @@ public class LibraryAction extends ActionSupport implements ModelDriven<Library>
 
     /**
      * 删除题目 ajax
+     *
      * @return
      * @throws Exception
      */
@@ -98,6 +105,7 @@ public class LibraryAction extends ActionSupport implements ModelDriven<Library>
 
     /**
      * 修改题目(未完成)
+     *
      * @return
      * @throws Exception
      */
