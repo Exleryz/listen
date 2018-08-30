@@ -23,7 +23,7 @@ public class AdminServiceImpl implements AdminService {
      */
     @Override
     public JSONObject getCurrentCheckScoreSet(int currentCheck, int currentGrade) {
-        LibraryPool lp = libraryPoolDao.getByGradeAndCheckId(currentGrade, currentCheck);
+        LibraryPool lp = libraryPoolDao.getLpByGradeAndCheck(currentGrade, currentCheck);
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setExcludes(new String[]{"teacher", "libraryPoolSet"});
         JSONObject jsonObject = JSONObject.fromObject(lp, jsonConfig);
@@ -39,7 +39,7 @@ public class AdminServiceImpl implements AdminService {
      */
     @Override
     public LibraryPool getSetByGAndC(int currentCheck, int currentGrade) {
-        LibraryPool lp = libraryPoolDao.getByGradeAndCheckId(currentGrade, currentCheck);
+        LibraryPool lp = libraryPoolDao.getLpByGradeAndCheck(currentGrade, currentCheck);
         return lp;
     }
 
@@ -52,7 +52,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public Library getLibraryDetails(Integer id) {
         System.out.println(id);
-        Library l = libraryDao.getById(id);
+        Library l = libraryDao.findById(id);
         return l;
     }
 

@@ -21,6 +21,9 @@
     <bean name="subjectDao" class="com.listen.dao.impl.SubjectDaoImpl">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
+    <bean name="sysStudentLibraryPoolDao" class="com.listen.dao.impl.SysStudentLibraryPoolDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
     <!--end-->
     
     <!-- service -->

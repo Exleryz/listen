@@ -23,6 +23,8 @@ public class StudentServiceImpl implements StudentService {
 
     private SubjectDao subjectDao;
 
+    private SysStudentLibraryPoolDao sysStudentLibraryPoolDao;
+
     /**
      * 根据学生账号 查找学生是否存在
      *
@@ -34,6 +36,9 @@ public class StudentServiceImpl implements StudentService {
         if (existS != null) {
             throw new RuntimeException("用户名已存在");
         }
+        //
+        student.setGrade(0);
+        student.setClassify(0);
         studentDao.save(student);
     }
 
@@ -62,7 +67,7 @@ public class StudentServiceImpl implements StudentService {
      */
     @Override
     public void findStudentByAccount(String account) {
-        if (studentDao.findByStudentAccount(account)) {
+        if (studentDao.getByStudentAccount(account) != null) {
             throw new RuntimeException("该账号已存在");
         } else {
             throw new RuntimeException("该账号可以使用");
@@ -96,13 +101,13 @@ public class StudentServiceImpl implements StudentService {
         s.setCurrentCheck(0);
         if (score <= 70) {
             s.setGrade(1);
-            studentDao.updateGrade(s);
+            studentDao.update(s);
         } else if (score <= 90) {
             s.setGrade(2);
-            studentDao.updateGrade(s);
+            studentDao.update(s);
         } else {
             s.setGrade(3);
-            studentDao.updateGrade(s);
+            studentDao.update(s);
         }
     }
 
@@ -126,7 +131,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public String getCurrentCheckPool(Integer grade, Integer checkId) {
         // get LibraryPool currentCheck id
-        Integer lpId = libraryPoolDao.findLPIdByCheckAndGrade(grade, checkId);
+        Integer lpId = libraryPoolDao.getLpByGradeAndCheck(grade, checkId).getId();
         // use id get sys_subject_librarypool 题库id
         List<Integer> libIdList = libraryPoolDao.findLibIdUseLpId(lpId);
         if (libIdList.size() == 0) {
@@ -150,11 +155,19 @@ public class StudentServiceImpl implements StudentService {
      */
     @Override
     public void saveScore(Integer grade, Integer checkId, Integer score, Student student) {
-        LibraryPool lp = libraryPoolDao.getLpIdByGradeAndCheckId(grade, checkId);
-        Integer count = studentDao.countThisCheckId(student, lp.getId());
+        LibraryPool lp = libraryPoolDao.getLpByGradeAndCheck(grade, checkId);
+        Integer count = sysStudentLibraryPoolDao.getCurrentCheckCount(student, lp.getId());
 //        做题次数
         count += 1;
-        studentDao.saveScore(score, count, 0, student.getId(), lp.getId());
+        SysStudentLibraryPool sslp = new SysStudentLibraryPool();
+        sslp.setClassify(0);
+        sslp.setCount(count);
+        sslp.setScore(score);
+        sslp.setLp(lp);
+        sslp.setStu(student);
+        sysStudentLibraryPoolDao.save(sslp);
+
+//        studentDao.saveScore(score, count, 0, student.getId(), lp.getId());
         if (score > lp.getScore()) {    // 分数大于规定分数
 //            pass
             if (checkId == student.getCurrentCheck() + 1) {    // 做的是该闯的关
@@ -165,16 +178,10 @@ public class StudentServiceImpl implements StudentService {
                     student.setGrade(student.getGrade() + 1);
                 }
                 // 更新学生状态
-                studentDao.updateStudent(student);
+                studentDao.update(student);
             }
         }
 
-    }
-
-    @Override
-    public List<SysStudentLibraryPool> getlist(Student stu) {
-        List<SysStudentLibraryPool> list = studentDao.getAllCheckList(stu);
-        return list;
     }
 
     /**
@@ -188,11 +195,11 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public JSONObject getPageBean(Student student, Integer currentPage, Integer pageSize) {
         //
-        int totalCount = studentDao.getTotalCount(student);
+        int totalCount = sysStudentLibraryPoolDao.getTotalCount(student);
         // 创建PageBean对象
         pageSize = 5;
         PageBean pb = new PageBean(currentPage, totalCount, pageSize);
-        List<SysStudentLibraryPool> list = studentDao.getPageList(student, pb.getStart(), pb.getPageSize());
+        List<SysStudentLibraryPool> list = sysStudentLibraryPoolDao.getPageList(student, pb.getStart(), pb.getPageSize());
         JSONObject jsonObject = new JSONObject();
         for (int i = 0; i < list.size(); i++) {
             JSONObject o1 = new JSONObject();
@@ -227,11 +234,11 @@ public class StudentServiceImpl implements StudentService {
     public JSONObject getCurrentPageBean(Student stu, Integer currentPage, Integer checkPoint, int pageSize) {
         //
         int lpId = studentDao.getCurrentChecklpId(checkPoint, stu.getGrade());
-        int totalCount = studentDao.getCurrentCheckCount(stu, lpId);
+        int totalCount = sysStudentLibraryPoolDao.getCurrentCheckCount(stu, lpId);
         // 创建PageBean对象
         pageSize = 5;
         PageBean pb = new PageBean(currentPage, totalCount, pageSize);
-        List<SysStudentLibraryPool> list = studentDao.getCurrentCheckPageList(stu, pb.getStart(), pb.getPageSize(), lpId);
+        List<SysStudentLibraryPool> list = sysStudentLibraryPoolDao.getCurrentCheckPageList(stu, pb.getStart(), pb.getPageSize(), lpId);
         pb.setList(list);
         JsonConfig config = new JsonConfig();
         config.setExcludes(new String[]{"lp", "stu"});
@@ -239,44 +246,27 @@ public class StudentServiceImpl implements StudentService {
         return jsonObject;
     }
 
-    public SubjectDao getSubjectDao() {
-        return subjectDao;
-    }
-
     public void setSubjectDao(SubjectDao subjectDao) {
         this.subjectDao = subjectDao;
-    }
-
-    public LibraryDao getLibraryDao() {
-        return libraryDao;
     }
 
     public void setLibraryDao(LibraryDao libraryDao) {
         this.libraryDao = libraryDao;
     }
 
-    public LibraryPoolDao getLibraryPoolDao() {
-        return libraryPoolDao;
-    }
-
     public void setLibraryPoolDao(LibraryPoolDao libraryPoolDao) {
         this.libraryPoolDao = libraryPoolDao;
-    }
-
-    public VocabularyDao getVocabularyDao() {
-        return vocabularyDao;
     }
 
     public void setVocabularyDao(VocabularyDao vocabularyDao) {
         this.vocabularyDao = vocabularyDao;
     }
 
-    public StudentDao getStudentDao() {
-        return studentDao;
-    }
-
     public void setStudentDao(StudentDao studentDao) {
         this.studentDao = studentDao;
     }
 
+    public void setSysStudentLibraryPoolDao(SysStudentLibraryPoolDao sysStudentLibraryPoolDao) {
+        this.sysStudentLibraryPoolDao = sysStudentLibraryPoolDao;
+    }
 }

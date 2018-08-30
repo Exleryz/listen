@@ -17,9 +17,9 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     public void saveLibrary(Library library, List<Subject> subjectList) {
         // 保存题目
-        Library l = libraryDao.saveLibrary(library);
+        libraryDao.save(library);
         // 保存子题
-        subjectDao.saveSubjectList(subjectList, l);
+        subjectDao.saveSubjectList(subjectList, library);
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.listen.utils;
 
+import org.hibernate.criterion.DetachedCriteria;
+
 import java.util.List;
 
 public class PageBean {
@@ -14,6 +16,9 @@ public class PageBean {
     private List list;
     // 每页显示条数
     private Integer pageSize;
+
+    private DetachedCriteria dc;    // 查询条件
+
 
 
     public PageBean(Integer currentPage, Integer totalCount, Integer pageSize) {
@@ -86,5 +91,13 @@ public class PageBean {
 
     public void setList(List list) {
         this.list = list;
+    }
+
+    public DetachedCriteria getDc() {
+        return dc;
+    }
+
+    public void setDc(DetachedCriteria dc) {
+        this.dc = dc;
     }
 }

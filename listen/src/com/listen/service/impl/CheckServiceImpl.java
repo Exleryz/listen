@@ -19,9 +19,9 @@ public class CheckServiceImpl implements CheckService {
      */
     @Override
     public void setLibraryPool(LibraryPool libraryPool) {
-        LibraryPool lp = libraryPoolDao.getByGradeAndCheckId(libraryPool.getGrade(), libraryPool.getCheckPoint());
+        LibraryPool lp = libraryPoolDao.getLpByGradeAndCheck(libraryPool.getGrade(), libraryPool.getCheckPoint());
         libraryPool.setId(lp.getId());
-        libraryPoolDao.updateLP(libraryPool);
+        libraryPoolDao.update(libraryPool);
     }
 
     /**
@@ -37,7 +37,7 @@ public class CheckServiceImpl implements CheckService {
         for (int i = 0; i < libIds.length; i++) {
             //Library library = libraryDao.getById(libIds[i]);
             //
-            Integer count = libraryPoolDao.findLpIdAndLibId(lpId, libIds[i]);
+            Integer count = libraryPoolDao.findLibCount(lpId, libIds[i]);
             if (count == 1) {
                 // 此题在当前关卡中已存在
             } else if (count == 0) {
@@ -60,8 +60,8 @@ public class CheckServiceImpl implements CheckService {
     @Override
     public void deleteLibByLibPool(int lpId, int libId) {
         // 检查题目是否存在
-        Library library = libraryDao.getById(libId);
-        Integer count = libraryPoolDao.findLpIdAndLibId(lpId, libId);
+        Library library = libraryDao.findById(libId);
+        Integer count = libraryPoolDao.findLibCount(lpId, libId);
         if (count == 0) {
             // 此题在当前关卡中不存在
         }
@@ -81,7 +81,7 @@ public class CheckServiceImpl implements CheckService {
      */
     @Override
     public LibraryPool getLPByLPId(Integer lpId) {
-        LibraryPool lp = libraryPoolDao.findLPByLPId(lpId);
+        LibraryPool lp = libraryPoolDao.findById(lpId);
         return lp;
     }
 

@@ -173,15 +173,6 @@ public class StudentAction extends ActionSupport implements ModelDriven<Student>
         return "toHome";
     }
 
-    @Deprecated
-    public String getList() throws Exception {
-        Student stu = (Student) ActionContext.getContext().getSession().get("student");
-        List<SysStudentLibraryPool> list = studentService.getlist(stu);
-        ActionContext.getContext().put("stulp", list);
-//        return "historyList";
-        return null;
-    }
-
     /**
      * 根据当前关卡 分页 返回当前关卡的历史记录
      * @return

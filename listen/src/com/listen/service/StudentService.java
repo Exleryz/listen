@@ -25,8 +25,6 @@ public interface StudentService {
 
     void saveScore(Integer grade, Integer checkId, Integer score, Student student);
 
-    List<SysStudentLibraryPool> getlist(Student stu);
-
     // 分页业务方法
     JSONObject getPageBean(Student student, Integer currentPage, Integer pageSize);
 
