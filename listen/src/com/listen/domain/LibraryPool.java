@@ -1,24 +1,46 @@
 package com.listen.domain;
 
-
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * FileName LibraryPool
+ * Created by Exler
+ * Time 2018-08-30 10:07
+ * Description: 题库池类
+ */
+
 public class LibraryPool {
+
+    /**
+     * 题库池id
+     */
     private Integer id;
+
+    /**
+     * 题库池所属等级
+     */
     private Integer grade;
+
+    /**
+     * 题库池所属关卡
+     */
     private Integer checkPoint;
+
+    /**
+     * 题库池通过规定分数
+     */
     private Double score;
+
+    /**
+     * 题库池题目数量
+     */
     private Integer subjectCount;
+
+    /**
+     * 题库池中的题目
+     */
     private Set<Library> librarieSet = new HashSet<>();
-
-    public Set<Library> getLibrarieSet() {
-        return librarieSet;
-    }
-
-    public void setLibrarieSet(Set<Library> librarieSet) {
-        this.librarieSet = librarieSet;
-    }
 
     public Integer getId() {
         return id;
@@ -58,6 +80,14 @@ public class LibraryPool {
 
     public void setSubjectCount(Integer subjectCount) {
         this.subjectCount = subjectCount;
+    }
+
+    public Set<Library> getLibrarieSet() {
+        return librarieSet;
+    }
+
+    public void setLibrarieSet(Set<Library> librarieSet) {
+        this.librarieSet = librarieSet;
     }
 
     @Override

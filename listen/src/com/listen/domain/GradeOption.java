@@ -1,9 +1,24 @@
 package com.listen.domain;
 
+/**
+ * FileName GradeOption
+ * Created by Exler
+ * Time 2018-08-30 9:59
+ * Description: 选项包装类
+ */
 public class GradeOption {
+    /**
+     * 题目序号
+     */
     private int sort;    // 0 1 2 3
+    /**
+     * 是否是答案
+     */
     private boolean answer;    // true false
-    private String content;    // XXXXXXXXXXXXXXXXXXXXX
+    /**
+     * 选项内容
+     */
+    private String content;
 
     public int getSort() {
         return sort;

@@ -1,13 +1,49 @@
 package com.listen.domain;
 
+/**
+ * FileName SysStudentLibraryPool
+ * Created by Exler
+ * Time 2018-08-30 10:19
+ * Description:
+ */
 public class SysStudentLibraryPool {
+
+    /**
+     * id
+     */
     private Integer id;
+    /**
+     * 做题用户
+     * 用户id
+     */
     private Student stu;
+
+    /**
+     * 对应题库池
+     * 题库池id
+     */
     private LibraryPool lp;
+
+    /**
+     * 所得分数
+     */
     private Integer score;
+
+    /**
+     * // todo: 不知道啥意思
+     */
     private String time;
+
+    /**
+     * 第几次做题
+     */
     private Integer count;
-    private Integer classify;    // 考试 练习
+
+    /**
+     * 试卷类别
+     * 考试 练习
+     */
+    private Integer classify;
 
     public Integer getId() {
         return id;

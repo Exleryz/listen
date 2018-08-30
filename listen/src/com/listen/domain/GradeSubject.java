@@ -2,10 +2,29 @@ package com.listen.domain;
 
 import java.util.List;
 
+/**
+ * FileName GradeSubject
+ * Created by Exler
+ * Time 2018-08-30 10:03
+ * Description: 题目包装类
+ */
+
 public class GradeSubject {
+    /**
+     * 子题数
+     */
     private int count;
+    /**
+     * 题目问题
+     */
     private String question;
+    /**
+     * 题目选项
+     */
     private List<GradeOption> options;
+    /**
+     * 题目等级
+     */
     private int grade;
 
     public int getCount() {
@@ -48,3 +67,4 @@ public class GradeSubject {
                 '}';
     }
 }
+

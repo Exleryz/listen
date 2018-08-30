@@ -3,18 +3,54 @@ package com.listen.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * FileName Student
+ * Created by Exler
+ * Time 2018-08-30 10:10
+ * Description: 用户类
+ */
+
 public class Student {
 
+    /**
+     * 用户id
+     */
     private Integer id;
+
+    /**
+     * 用户姓名
+     */
     private String name;
+
+    /**
+     * 用户账号
+     */
     private String account;
+
+    /**
+     * 密码
+     */
     private String password;
+
+    /**
+     * 用户所处等级
+     */
     private Integer grade;
+
+    /**
+     * 用户类别
+     */
     private Integer classify;    // 0 学生 1 教师 2 管理员
+
+    /**
+     * 用户所处当前关卡
+     */
     private Integer currentCheck;
 
+    /**
+     * 用户与做题记录表对应 sysStudentLibraryPool
+     */
     private Set<SysStudentLibraryPool> sysStudentLibraryPoolSet = new HashSet<>();
-
 
     public Integer getId() {
         return id;

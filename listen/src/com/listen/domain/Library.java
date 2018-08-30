@@ -3,13 +3,13 @@ package com.listen.domain;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Library{
-    private Integer id;
-    private String src;
-    private String title;
-    private Integer sonCount;    // 题目有几道子题
-    private Student teacher;    // 上传题目教师id
-    private Set<LibraryPool> libraryPoolSet = new HashSet<>();
+/**
+ * FileName Library
+ * Created by Exler
+ * Time 2018-08-30 9:51
+ * Description: 大题类
+ */
+public class Library {
 
     public Library() {
     }
@@ -20,14 +20,35 @@ public class Library{
         this.teacher = teacher;
     }
 
+    /**
+     * 大题id
+     */
+    private Integer id;
 
-    public Set<LibraryPool> getLibraryPoolSet() {
-        return libraryPoolSet;
-    }
+    /**
+     * 大题音频文件存放位置
+     */
+    private String src;
 
-    public void setLibraryPoolSet(Set<LibraryPool> libraryPoolSet) {
-        this.libraryPoolSet = libraryPoolSet;
-    }
+    /**
+     * 大题名称
+     */
+    private String title;
+
+    /**
+     * 大题的子题数
+     */
+    private Integer sonCount;
+
+    /**
+     * 上传题目的教师id
+     */
+    private Student teacher;
+
+    /**
+     * 题库池与大题的对应关系 sysLibraryLibraryPool
+     */
+    private Set<LibraryPool> libraryPoolSet = new HashSet<>();
 
     public Integer getId() {
         return id;
@@ -67,6 +88,14 @@ public class Library{
 
     public void setSonCount(Integer sonCount) {
         this.sonCount = sonCount;
+    }
+
+    public Set<LibraryPool> getLibraryPoolSet() {
+        return libraryPoolSet;
+    }
+
+    public void setLibraryPoolSet(Set<LibraryPool> libraryPoolSet) {
+        this.libraryPoolSet = libraryPoolSet;
     }
 
     @Override

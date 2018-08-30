@@ -1,15 +1,60 @@
 package com.listen.domain;
 
+/**
+ * FileName Subject
+ * Created by Exler
+ * Time 2018-08-30 10:14
+ * Description: 小题类
+ * 一个大题目包含个数不定的小题
+ */
+
 public class Subject {
+
+    /**
+     * 小题id
+     */
     private Integer id;
-    private Library library;    // library的id
-    private Character answer;    // 答案
+
+    /**
+     * 大题
+     * library的id
+     */
+    private Library library;
+
+    /**
+     * 答案
+     */
+    private Character answer;
+
+    /**
+     * 选项A内容
+     */
     private String optionA;
+
+    /**
+     * 选项B内容
+     */
     private String optionB;
+
+    /**
+     * 选项C内容
+     */
     private String optionC;
+
+    /**
+     * 选项D内容
+     */
     private String optionD;
-    private Integer sort;    // 当前题目在大题中的排序
-    private String analysis;    // 当前题目的解析
+
+    /**
+     * 当前题目在大题中的排序
+     */
+    private Integer sort;
+
+    /**
+     * 当前题目的解析
+     */
+    private String analysis;
 
     public Integer getId() {
         return id;
@@ -98,3 +143,4 @@ public class Subject {
                 '}';
     }
 }
+

@@ -1,12 +1,47 @@
 package com.listen.domain;
 
+/**
+ * FileName Vocabulary
+ * Created by Exler
+ * Time 2018-08-30 10:23
+ * Description: 词汇类
+ */
+
 public class Vocabulary {
+
+    /**
+     * id
+     */
     private Integer id;
+
+    /**
+     * 中文意思
+     */
     private String chinese;
+
+    /**
+     * 单词
+     */
     private String english;
+
+    /**
+     * 解释1
+     */
     private String explain1;
+
+    /**
+     * 解释2
+     */
     private String explain2;
+
+    /**
+     * 解释3
+     */
     private String explain3;
+
+    /**
+     * 词汇等级
+     */
     private Integer grade;
 
     public Integer getId() {
