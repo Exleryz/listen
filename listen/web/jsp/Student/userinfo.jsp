@@ -13,15 +13,15 @@
     <meta charset="UTF-8">
     <title>index</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-    <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../css/main.css">
+    <script type="text/javascript" src="../../js/jquery-1.12.4.js"></script>
 </head>
 <script type="text/javascript">
     $(document).ready(function () {
         if (${sessionScope.get("student") == null})
         {
-            window.location.href = "${pageContext.request.contextPath}/login.jsp";
+            window.location.href = "../../login.jsp";
         }
 
     });
@@ -34,7 +34,7 @@
     <div class="container">
         <div class="row center-block">
             <div class="col-md-4">
-                <img src="images/1.jpg" class="img-circle userimg center-block">
+                <img src="../../images/1.jpg" class="img-circle userimg center-block">
             </div>
             <div class="col-md-8">
                 <h4>
@@ -64,8 +64,8 @@
     <span class="glyphicon glyphicon-cog"></span>
 </a>
 
-<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="../../js/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../js/main.js"></script>
 </body>
 </html>

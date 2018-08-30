@@ -13,9 +13,9 @@
     <meta charset="UTF-8">
     <title>index</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <script src="js/jquery-1.12.4.js" type="text/javascript"></script>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="../../js/jquery-1.12.4.js" type="text/javascript"></script>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../css/main.css">
 </head>
 <style type="text/css">
     .top1 {
@@ -32,7 +32,7 @@
     $(document).ready(function () {
         if (${sessionScope.get("student") == null})
         {
-            window.location.href = "${pageContext.request.contextPath}/login.jsp";
+            window.location.href = "../../login.jsp";
         }
 
     });
@@ -182,8 +182,8 @@
     <span class="glyphicon glyphicon-chevron-left"></span>
 </a>
 
-<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="../../js/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../js/main.js"></script>
 </body>
 </html>

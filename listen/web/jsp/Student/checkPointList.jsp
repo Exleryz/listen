@@ -14,9 +14,9 @@
     <meta charset="UTF-8">
     <title>index</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-    <script src="js/jquery-1.12.4.js"></script>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../css/main.css">
+    <script src="../../js/jquery-1.12.4.js"></script>
 </head>
 <style type="text/css">
     .btn_left {
@@ -36,9 +36,8 @@
     var totalPage;
 
     $(document).ready(function () {
-        if (${sessionScope.get("student") == null})
-        {
-            window.location.href = "${pageContext.request.contextPath}/login.jsp";
+        if (${sessionScope.get("student") == null}) {
+            window.location.href = "../../login.jsp";
         }
     });
 
@@ -84,7 +83,12 @@
 
     function submitIdToSubject() {
         var checkId = $(".selected").attr("id"); //获取id
-        window.location.href = "${pageContext.request.contextPath}/Examination.jsp?checkId=" + checkId;
+        var currentId = <s:property value='%{#session.student.currentCheck + 1}'/>;
+        if (currentId >= checkId) {
+            window.location.href = "${pageContext.request.contextPath}/Examination.jsp?checkId=" + checkId;
+        } else {
+            alert("请先通过之前的关卡！");
+        }
     }
 
     function pre() {
@@ -112,21 +116,22 @@
     <div class="changebox">
         <s:iterator begin="1" end="25" step="5" status="i">
             <%-- #{} 保证{}内的是ognl表达式--%>
+            <%-- 当前关卡 == index red  < yellow > blue  --%>
             <ul class="row">
                 <li onclick="chbgcol(this)" class="item" id="<S:property value="#i.index*5+1"/>"><font
-                        color="<s:property value='%{#session.student.currentCheck< (#i.index*5) ?"blue":"red"}'/>"><S:property
+                        color="<s:property value='%{#session.student.currentCheck< (#i.index*5) ?"blue":#session.student.currentCheck == (#i.index*5)? "red":"yellow"}'/>"><S:property
                         value="#i.index*5+1"/></font></li>
                 <li onclick="chbgcol(this)" class="item" id="<S:property value="#i.index*5+2"/>"><font
-                        color="<s:property value='%{#session.student.currentCheck< #i.index*5+1 ?"blue":"red"}'/>"><S:property
+                        color="<s:property value='%{#session.student.currentCheck< #i.index*5+1 ?"blue":#session.student.currentCheck == (#i.index*5+1)? "red":"yellow"}'/>"><S:property
                         value="#i.index*5+2"/></font></li>
                 <li onclick="chbgcol(this)" class="item" id="<S:property value="#i.index*5+3"/>"><font
-                        color="<s:property value='%{#session.student.currentCheck< #i.index*5+2 ?"blue":"red"}'/>"><S:property
+                        color="<s:property value='%{#session.student.currentCheck< #i.index*5+2 ?"blue":#session.student.currentCheck == (#i.index*5+2)? "red":"yellow"}'/>"><S:property
                         value="#i.index*5+3"/></font></li>
                 <li onclick="chbgcol(this)" class="item" id="<S:property value="#i.index*5+4"/>"><font
-                        color="<s:property value='%{#session.student.currentCheck< #i.index*5+3 ?"blue":"red"}'/>"><S:property
+                        color="<s:property value='%{#session.student.currentCheck< #i.index*5+3 ?"blue":#session.student.currentCheck == (#i.index*5+3)? "red":"yellow"}'/>"><S:property
                         value="#i.index*5+4"/></font></li>
                 <li onclick="chbgcol(this)" class="item" id="<S:property value="#i.index*5+5"/>"><font
-                        color="<s:property value='%{#session.student.currentCheck< #i.index*5+4 ?"blue":"red"}'/>"><S:property
+                        color="<s:property value='%{#session.student.currentCheck< #i.index*5+4 ?"blue":#session.student.currentCheck == (#i.index*5+4)? "red":"yellow"}'/>"><S:property
                         value="#i.index*5+5"/></font></li>
             </ul>
         </s:iterator>
@@ -176,8 +181,8 @@
     <span class="glyphicon glyphicon-chevron-left"></span>
 </a>
 
-<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="../../js/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../js/main.js"></script>
 </body>
 </html>

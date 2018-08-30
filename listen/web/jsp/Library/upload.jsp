@@ -11,8 +11,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="../css/main.css">
-    <link rel="stylesheet" type="text/css" href="../layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="../../css/main.css">
+    <link rel="stylesheet" type="text/css" href="../../layui/css/layui.css">
 </head>
 <body>
 <form class="layui-form" action="${pageContext.request.contextPath}/LibraryAction_upload" enctype="multipart/form-data"
@@ -88,9 +88,9 @@
 
 </form>
 
-<script type="text/javascript" src="../js/jquery-1.12.4.js"></script>
-<script type="text/javascript" src="../js/main.js"></script>
-<script type="text/javascript" src="../layui/layui.all.js"></script>
+<script type="text/javascript" src="../../js/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="../../js/main.js"></script>
+<script type="text/javascript" src="../../layui/layui.all.js"></script>
 <script type="text/javascript">
     layui.use('upload', function () {
         var $ = layui.jquery

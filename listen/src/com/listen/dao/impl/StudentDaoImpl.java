@@ -65,6 +65,20 @@ public class StudentDaoImpl extends BaseDaoImpl<Student> implements StudentDao {
     }
 
     /**
+     * 更新学生 等级 关数
+     *
+     * @param student
+     */
+    @Override
+    public void updateGradeAndCheck(Student student) {
+        SQLQuery sqlQuery = currentSession().createSQLQuery("update Student SET grade=?,currentCheck=? where id=?");
+        sqlQuery.setParameter(0, student.getGrade());
+        sqlQuery.setParameter(1, student.getCurrentCheck());
+        sqlQuery.setParameter(2, student.getId());
+        sqlQuery.executeUpdate();
+    }
+
+    /**
      * 获取学生历史闯关分页数据列表
      */
 }

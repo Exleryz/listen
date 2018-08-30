@@ -13,15 +13,15 @@
     <meta charset="UTF-8">
     <title>index</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-    <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../css/main.css">
+    <script type="text/javascript" src="../../js/jquery-1.12.4.js"></script>
 </head>
 <script type="text/javascript">
     $(document).ready(function () {
         if (${sessionScope.get("student") == null})
         {
-            window.location.href = "${pageContext.request.contextPath}/login.jsp";
+            window.location.href = "../../login.jsp";
         }
 
     });
@@ -43,7 +43,7 @@
             </div>
             <div class="collapse navbar-collapse" id="example-navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="${pageContext.request.contextPath}/userinfo.jsp"><span
+                    <li><a href="${pageContext.request.contextPath}/jsp/Student/userinfo.jsp"><span
                             class="glyphicon glyphicon-user"></span>Personal Center</a></li>
                     <li><a href="${pageContext.request.contextPath}/StudentAction_loginOut.action"><span
                             class="glyphicon glyphicon-log-in"></span>Sign out</a></li>
@@ -57,7 +57,7 @@
     <div class="container">
         <div class="row center-block">
             <div class="col-md-2">
-                <img src="images/1.jpg" class="img-circle userimg center-block">
+                <img src="../../images/1.jpg" class="img-circle userimg center-block">
             </div>
             <div class="col-md-8">
                 <h4>
@@ -74,14 +74,14 @@
         <div class="container">
             <div class="row center-block">
                 <div class="col-md-4">
-                    <img src="images/big5.jpg" class=" taskimg conter-block">
+                    <img src="../../images/big5.jpg" class=" taskimg conter-block">
                 </div>
                 <div class="col-md-4">
                     <h2 style="color: red">rating exam</h2>
                     <h6>First You Should Do This
                         <small>(hang in the air)</small>
                     </h6>
-                    <button onclick="javascript:window.location.href='${pageContext.request.contextPath}/initGrade.jsp'"
+                    <button onclick="javascript:window.location.href='initGrade.jsp'"
                             class="btn btn-block btn-success startbtn">Now Start
                     </button>
                 </div>
@@ -103,14 +103,14 @@
             <%--<button class="btn btn-block btn-success startbtn">开始</button>--%>
             <%--</div>--%>
             <div class="col-md-6">
-                <img src="images/oneplus_1.jpg" class=" taskimg conter-block">
+                <img src="../../images/oneplus_1.jpg" class=" taskimg conter-block">
                 <h2 class="text-muted">闯关</h2>
                 <%--加载 历史记录--%>
-                <button class="btn btn-block btn-success startbtn" onclick="javascript:window.location.href='${pageContext.request.contextPath}/checkPointList.jsp'">开始</button>
+                <button class="btn btn-block btn-success startbtn" onclick="javascript:window.location.href='checkPointList.jsp'">开始</button>
             </div>
 
             <div class="col-md-6">
-                <img src="images/oneplus_2.jpg" class=" taskimg conter-block">
+                <img src="../../images/oneplus_2.jpg" class=" taskimg conter-block">
                 <h2 class="text-muted">资料</h2>
                 <button class="btn btn-block btn-success startbtn">开始</button>
             </div>
@@ -131,8 +131,8 @@
         </div>
     </div>
 </footer>
-<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="../../js/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../js/main.js"></script>
 </body>
 </html>

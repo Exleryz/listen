@@ -112,16 +112,9 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void initGradeCode(Student s, float score) {
         s.setCurrentCheck(0);
-        if (score <= 70) {
-            s.setGrade(1);
-            studentDao.update(s);
-        } else if (score <= 90) {
-            s.setGrade(2);
-            studentDao.update(s);
-        } else {
-            s.setGrade(3);
-            studentDao.update(s);
-        }
+//        <= 70 1 <= 90 2 >90 3
+        s.setGrade(score <= 70 ? 1 : score <= 90 ? 2 : 3);
+        studentDao.updateGradeAndCheck(s);
     }
 
     /**
@@ -182,16 +175,18 @@ public class StudentServiceImpl implements StudentService {
 
 //        studentDao.saveScore(score, count, 0, student.getId(), lp.getId());
         if (score > lp.getScore()) {    // 分数大于规定分数
-//            pass
+//          pass
             if (checkId == student.getCurrentCheck() + 1) {    // 做的是该闯的关
-                if (checkId < 25) {    // 关数大于总关数
+                if (checkId < 25) {
+                    // 关数小于总关数 todo 关卡数 0-24
                     student.setCurrentCheck(student.getCurrentCheck() + 1);
                 } else {
+                    // 关数大于总关数
                     student.setCurrentCheck(0);
                     student.setGrade(student.getGrade() + 1);
                 }
                 // 更新学生状态
-                studentDao.update(student);
+                studentDao.updateGradeAndCheck(student);
             }
         }
 

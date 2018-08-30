@@ -23,29 +23,29 @@
         <default-interceptor-ref name="myStack"></default-interceptor-ref>
 
         <action name="StudentAction_*" class="studentAction" method="{1}">
-            <result name="toHome" type="redirect">/home.jsp</result>
-            <result name="toAdminHome" type="redirect">/admin/Home.jsp</result>
+            <result name="toHome" type="redirect">/jsp/Student/home.jsp</result>
+            <result name="toAdminHome" type="redirect">/jsp/Admin/Home.jsp</result>
             <result name="toLogin" type="redirect">/login.jsp</result>
             <result name="login">/login.jsp</result>
             <result name="register">/login.jsp</result>
-            <result name="showList">/checkPointList.jsp</result>
+            <result name="showList">/jsp/Student/checkPointList.jsp</result>
             <allowed-methods>
                 login,register,checkAccount,loginOut,initGrade,submitGrade,initSubject,getScore,pageTest,getCurrentHistoryList
             </allowed-methods>
         </action>
 
         <action name="AdminAction_*" class="adminAction" method="{1}">
-            <result name="toDetails">/admin/details.jsp</result>
-            <result name="LibrariesList">/admin/getLibraryList.jsp</result>
-            <result name="seeDetail">/admin/details.jsp</result>
+            <result name="toDetails">/jsp/Admin/details.jsp</result>
+            <result name="LibrariesList">/jsp/Admin/getLibraryList.jsp</result>
+            <result name="seeDetail">/jsp/Admin/details.jsp</result>
             <result name="toLogin">/login.jsp</result>
             <allowed-methods>getCurrentScoreSet,seeDetails,getLibraryDetails,,loginOut</allowed-methods>
         </action>
 
         <action name="LibraryAction_*" class="libraryAction" method="{1}">
-            <result name="success">/admin/Home.jsp</result>
+            <result name="success">/jsp/Admin/Home.jsp</result>
             <!-- 待完成页面 -->
-            <result name="librariesList">/library/chooseLibraries.jsp</result>
+            <result name="librariesList">/jsp/Library/chooseLibraries.jsp</result>
             <allowed-methods>upload,getAllLibraries,deleteLibrary</allowed-methods>
         </action>
 
