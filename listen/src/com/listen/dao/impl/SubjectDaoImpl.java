@@ -1,18 +1,25 @@
 package com.listen.dao.impl;
 
-
 import com.listen.dao.SubjectDao;
+import com.listen.dao.base.impl.BaseDaoImpl;
 import com.listen.domain.Library;
 import com.listen.domain.Subject;
 import org.hibernate.Query;
-import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 import java.util.List;
 
-public class SubjectDaoImpl extends HibernateDaoSupport implements SubjectDao {
+/**
+ * FileName SubjectDaoImpl
+ * Created by Exler
+ * Time 2018-08-30 13:43
+ * Description:
+ */
+
+public class SubjectDaoImpl extends BaseDaoImpl<Subject> implements SubjectDao {
 
     /**
      * 获得当前关卡的题库池(所有)
+     *
      * @param libIdList
      * @return
      */
@@ -24,12 +31,9 @@ public class SubjectDaoImpl extends HibernateDaoSupport implements SubjectDao {
         return subjects;
     }
 
-    public List<Subject> findSubRanByLibId() {
-        return null;
-    }
-
     /**
      * 保存题目列表
+     *
      * @param subjectList
      * @param l
      */

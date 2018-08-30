@@ -1,40 +1,46 @@
 package com.listen.dao.impl;
 
+
 import com.listen.dao.LibraryPoolDao;
+import com.listen.dao.base.impl.BaseDaoImpl;
 import com.listen.domain.LibraryPool;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
-import org.junit.Before;
-import org.junit.Test;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
-import org.springframework.test.context.jdbc.Sql;
 
 import java.math.BigInteger;
 import java.util.List;
 
-public class LibraryPoolDaoImpl extends HibernateDaoSupport implements LibraryPoolDao {
+/**
+ * FileName LibraryPoolDaoImpl
+ * Created by Exler
+ * Time 2018-08-30 13:42
+ * Description:
+ */
+
+public class LibraryPoolDaoImpl extends BaseDaoImpl<LibraryPool> implements LibraryPoolDao {
 
     /**
-     * 根据gradeid checkid 查找 lpid
+     * 根据等级 关卡获取lp对象
      *
      * @param grade
      * @param checkId
      * @return
      */
     @Override
-    public Integer findLPIdByCheckAndGrade(Integer grade, Integer checkId) {
-        SQLQuery sqlQuery = currentSession().createSQLQuery("select id from LibraryPool where checkPoint = ? and grade = ?");
-        sqlQuery.setParameter(0, checkId);
-        sqlQuery.setParameter(1, grade);
-        Integer id = (Integer) sqlQuery.uniqueResult();
-        System.out.println(id);    // 返回的id(lpid)到sysllp表中根据lp id寻找libid  根据libid从library表中寻找题目
-        return id;
+    public LibraryPool getLpByGradeAndCheck(Integer grade, Integer checkId) {
+        Query query = currentSession().createSQLQuery("select * from LibraryPool where grade = ? and checkPoint = ?").addEntity(LibraryPool.class);
+        query.setParameter(0, grade);
+        query.setParameter(1, checkId);
+        LibraryPool lp = (LibraryPool) query.uniqueResult();
+        if (lp != null) {
+            return lp;
+        }
+        return null;
     }
 
     /**
-     * 根据lpid查找libid
+     * syslibrarylibrarypool
+     * 根据题库池 lpid查找题库池中所有题目id libid
      *
      * @param lpId
      * @return
@@ -48,59 +54,17 @@ public class LibraryPoolDaoImpl extends HibernateDaoSupport implements LibraryPo
         return list;
     }
 
-    /**
-     * 根据grade check 获取lp对象
-     *
-     * @param grade
-     * @param checkId
-     * @return
-     */
-    @Override
-    public LibraryPool getLpIdByGradeAndCheckId(Integer grade, Integer checkId) {
-        Query query = currentSession().createSQLQuery("select * from LibraryPool where grade = ? and checkPoint = ?").addEntity(LibraryPool.class);
-        query.setParameter(0, grade);
-        query.setParameter(1, checkId);
-        LibraryPool lp = (LibraryPool) query.uniqueResult();
-        return lp;
-    }
 
     /**
-     * 根据lpid获取ip对象
+     * syslibrarylibrarypool
+     * 当前关卡题库池中题目数量
+     *
      * @param lpId
+     * @param libId
      * @return
      */
     @Override
-    public LibraryPool findLPByLPId(Integer lpId) {
-        SQLQuery sqlQuery = currentSession().createSQLQuery("select * from LibraryPool where id=?").addEntity(LibraryPool.class);
-        sqlQuery.setParameter(0, lpId);
-        LibraryPool lp = (LibraryPool) sqlQuery.uniqueResult();
-        System.out.println(lp);    // 返回的id(lpid)到sysllp表中根据lp id寻找libid  根据libid从library表中寻找题目
-        return lp;
-    }
-
-    /**
-     *
-     * @param currentGrade
-     * @param currentCheck
-     * @return
-     */
-    @Override
-    public LibraryPool getByGradeAndCheckId(int currentGrade, int currentCheck) {
-        List<LibraryPool> libraryPools = (List<LibraryPool>) getHibernateTemplate().find("from LibraryPool where grade=? and checkPoint=?", currentGrade, currentCheck);
-        System.out.println(libraryPools.get(0));
-        if (libraryPools.get(0) != null) {
-            return libraryPools.get(0);
-        }
-        return null;
-    }
-
-    @Override
-    public void updateLP(LibraryPool libraryPool) {
-        getHibernateTemplate().update(libraryPool);
-    }
-
-    @Override
-    public Integer findLpIdAndLibId(int lpId, int libId) {
+    public Integer findLibCount(int lpId, int libId) {
         SQLQuery sqlQuery = currentSession().createSQLQuery("select count(*) from SysLibraryLibraryPool where lpid = ? and libid = ?");
         sqlQuery.setParameter(0, lpId);
         sqlQuery.setParameter(1, libId);
@@ -108,6 +72,13 @@ public class LibraryPoolDaoImpl extends HibernateDaoSupport implements LibraryPo
         return count.intValue();
     }
 
+    /**
+     * syslibrarylibrarypool
+     * 题库池中添加题目
+     *
+     * @param lpId
+     * @param libId
+     */
     @Override
     public void saveLib(int lpId, int libId) {
         SQLQuery sqlQuery = currentSession().createSQLQuery("insert into SysLibraryLibraryPool(libid, lpid) values(?,?)");
@@ -117,7 +88,9 @@ public class LibraryPoolDaoImpl extends HibernateDaoSupport implements LibraryPo
     }
 
     /**
-     * 删除 syslibrarylibrarypool 表中 关卡lpid 关联的题目 libid
+     * syslibrarylibrarypool
+     * 删除题库池中的题目
+     * 删除 syslibrarylibrarypool 表中 关卡lpid 关联的题目id libid
      *
      * @param lpId
      * @param libId

@@ -1,18 +1,26 @@
 package com.listen.dao.impl;
 
 import com.listen.dao.LibraryDao;
+import com.listen.dao.base.impl.BaseDaoImpl;
 import com.listen.domain.Library;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
-import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.List;
 
-public class LibraryDaoImpl extends HibernateDaoSupport implements LibraryDao {
+/**
+ * FileName LibraryDaoImpl
+ * Created by Exler
+ * Time 2018-08-30 10:33
+ * Description: 题目Dao
+ */
+
+public class LibraryDaoImpl extends BaseDaoImpl<Library> implements LibraryDao {
 
     /**
+     * 根据题目ids查找题目
      *
      * @param libIdList
      * @return
@@ -23,27 +31,6 @@ public class LibraryDaoImpl extends HibernateDaoSupport implements LibraryDao {
         query.setParameterList("findList", libIdList);
         List<Library> libraries = query.list();
         return libraries;
-    }
-
-    /**
-     * 获得单题详情
-     *
-     * @param id
-     * @return
-     */
-    @Override
-    public Library getById(Serializable id) {
-        Library library = getHibernateTemplate().get(Library.class, id);
-        return library;
-    }
-
-    /**
-     * 保存题目
-     */
-    @Override
-    public Library saveLibrary(Library library) {
-        getHibernateTemplate().save(library);
-        return library;
     }
 
     /**
@@ -60,6 +47,7 @@ public class LibraryDaoImpl extends HibernateDaoSupport implements LibraryDao {
 
     /**
      * 倒序分页查询题目
+     *
      * @param start
      * @param pageSize
      * @return
@@ -75,13 +63,14 @@ public class LibraryDaoImpl extends HibernateDaoSupport implements LibraryDao {
 
     /**
      * 删除对应id的题目
+     *
      * @param id
      */
     @Override
     public boolean deleteLibraryById(Serializable id) {
-        Library l = this.getById(id);
+        Library l = this.findById(id);
         if (l != null) {
-            getHibernateTemplate().delete(l);
+            this.delete(l);
             return true;
         }
         return false;

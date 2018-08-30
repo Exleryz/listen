@@ -1,17 +1,15 @@
 package com.listen.dao;
 
+import com.listen.dao.base.BaseDao;
 import com.listen.domain.Library;
 
 import java.io.Serializable;
 import java.util.List;
 
-public interface LibraryDao {
+
+public interface LibraryDao extends BaseDao<Library> {
 
     List<Library> findLibByLibIds(List<Integer> libIdList);
-
-    Library getById(Serializable id);
-
-    Library saveLibrary(Library library);
 
     int getTotalCount();
 
