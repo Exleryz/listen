@@ -9,6 +9,13 @@ import com.listen.utils.PageBean;
 
 import java.util.List;
 
+/**
+ * FileName LibraryServiceImpl
+ * Created by Exler
+ * Time 2018-08-30 14:18
+ * Description:
+ */
+
 public class LibraryServiceImpl implements LibraryService {
 
     private LibraryDao libraryDao;

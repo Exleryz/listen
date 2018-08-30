@@ -5,7 +5,13 @@ import com.listen.dao.LibraryPoolDao;
 import com.listen.domain.Library;
 import com.listen.domain.LibraryPool;
 import com.listen.service.CheckService;
-import org.omg.PortableServer.LIFESPAN_POLICY_ID;
+
+/**
+ * FileName CheckServiceImpl
+ * Created by Exler
+ * Time 2018-08-30 14:19
+ * Description:
+ */
 
 public class CheckServiceImpl implements CheckService {
 

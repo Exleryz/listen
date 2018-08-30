@@ -8,6 +8,12 @@ import com.listen.service.AdminService;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 
+/**
+ * FileName AdminServiceImpl
+ * Created by Exler
+ * Time 2018-08-30 14:20
+ * Description: 管理员service
+ */
 
 public class AdminServiceImpl implements AdminService {
 
