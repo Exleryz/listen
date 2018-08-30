@@ -1,22 +1,20 @@
 package com.listen.web.action;
 
 import com.listen.domain.Student;
-import com.listen.domain.SysStudentLibraryPool;
 import com.listen.service.StudentService;
-
-import com.listen.utils.PageBean;
-import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import net.sf.json.JSON;
 import net.sf.json.JSONObject;
-import net.sf.json.JsonConfig;
 import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.dispatcher.Parameter;
 
-import java.util.List;
-
+/**
+ * FileName StudentAction
+ * Created by Exler
+ * Time 2018-08-30 14:28
+ * Description:
+ */
 
 public class StudentAction extends ActionSupport implements ModelDriven<Student> {
 
@@ -73,6 +71,7 @@ public class StudentAction extends ActionSupport implements ModelDriven<Student>
 
     /**
      * ajax 检查账号是否存在
+     *
      * @return
      * @throws Exception
      */
@@ -102,6 +101,7 @@ public class StudentAction extends ActionSupport implements ModelDriven<Student>
 
     /**
      * ajax 加载词汇
+     *
      * @return
      * @throws Exception
      */
@@ -113,7 +113,7 @@ public class StudentAction extends ActionSupport implements ModelDriven<Student>
     }
 
     /**
-     *  词汇测试提交等级
+     * 词汇测试提交等级
      *
      * @return
      * @throws Exception
@@ -127,7 +127,6 @@ public class StudentAction extends ActionSupport implements ModelDriven<Student>
     }
 
     /**
-     *
      * @return
      * @throws Exception
      */
@@ -175,6 +174,7 @@ public class StudentAction extends ActionSupport implements ModelDriven<Student>
 
     /**
      * 根据当前关卡 分页 返回当前关卡的历史记录
+     *
      * @return
      * @throws Exception
      */

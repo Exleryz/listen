@@ -10,7 +10,12 @@ import com.opensymphony.xwork2.ModelDriven;
 import net.sf.json.JSONObject;
 import org.apache.struts2.ServletActionContext;
 
-import java.util.List;
+/**
+ * FileName AdminAction
+ * Created by Exler
+ * Time 2018-08-30 14:25
+ * Description:
+ */
 
 public class AdminAction extends ActionSupport implements ModelDriven<Student> {
 
@@ -60,7 +65,6 @@ public class AdminAction extends ActionSupport implements ModelDriven<Student> {
         return "seeDetail";
     }
 
-
     /**
      * 登出
      *
@@ -71,7 +75,6 @@ public class AdminAction extends ActionSupport implements ModelDriven<Student> {
         ActionContext.getContext().getSession().remove("admin");
         return "toLogin";
     }
-
 
     public AdminService getAdminService() {
         return adminService;

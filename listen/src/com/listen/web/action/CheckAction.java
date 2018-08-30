@@ -6,6 +6,13 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import org.apache.struts2.ServletActionContext;
 
+/**
+ * FileName CheckAction
+ * Created by Exler
+ * Time 2018-08-30 14:26
+ * Description:
+ */
+
 public class CheckAction extends ActionSupport implements ModelDriven<LibraryPool> {
 
     private LibraryPool libraryPool = new LibraryPool();

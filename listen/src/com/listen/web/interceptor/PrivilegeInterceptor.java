@@ -7,6 +7,13 @@ import com.opensymphony.xwork2.interceptor.MethodFilterInterceptor;
 
 import java.util.Map;
 
+/**
+ * FileName PrivilegeInterceptor
+ * Created by Exler
+ * Time 2018-08-30 14:29
+ * Description:
+ */
+
 public class PrivilegeInterceptor extends MethodFilterInterceptor {
 
     @Override    // 不校验登录和注册方法

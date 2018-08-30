@@ -29,6 +29,7 @@
         <property name="libraryPoolDao" ref="libraryPoolDao"/>
         <property name="libraryDao" ref="libraryDao"/>
         <property name="subjectDao" ref="subjectDao"/>
+        <property name="sysStudentLibraryPoolDao" ref="sysStudentLibraryPoolDao"/>
     </bean>
     
     <!-- action -->
