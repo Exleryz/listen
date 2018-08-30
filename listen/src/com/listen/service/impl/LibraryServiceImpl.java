@@ -6,6 +6,9 @@ import com.listen.domain.Library;
 import com.listen.domain.Subject;
 import com.listen.service.LibraryService;
 import com.listen.utils.PageBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,9 +19,12 @@ import java.util.List;
  * Description:
  */
 
+@Service
+@Transactional
 public class LibraryServiceImpl implements LibraryService {
-
+    @Autowired
     private LibraryDao libraryDao;
+    @Autowired
     private SubjectDao subjectDao;
 
     @Override
@@ -48,19 +54,4 @@ public class LibraryServiceImpl implements LibraryService {
         return libraryDao.deleteLibraryById(id);
     }
 
-    public LibraryDao getLibraryDao() {
-        return libraryDao;
-    }
-
-    public void setLibraryDao(LibraryDao libraryDao) {
-        this.libraryDao = libraryDao;
-    }
-
-    public SubjectDao getSubjectDao() {
-        return subjectDao;
-    }
-
-    public void setSubjectDao(SubjectDao subjectDao) {
-        this.subjectDao = subjectDao;
-    }
 }

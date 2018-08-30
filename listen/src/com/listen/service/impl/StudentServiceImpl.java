@@ -8,6 +8,9 @@ import com.listen.utils.PageBean;
 import net.sf.json.JSON;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,18 +21,21 @@ import java.util.List;
  * Description:
  */
 
+@Service
+@Transactional
 public class StudentServiceImpl implements StudentService {
 
+    @Autowired
     private StudentDao studentDao;
-
+    @Autowired
     private VocabularyDao vocabularyDao;
-
+    @Autowired
     private LibraryPoolDao libraryPoolDao;
-
+    @Autowired
     private LibraryDao libraryDao;
-
+    @Autowired
     private SubjectDao subjectDao;
-
+    @Autowired
     private SysStudentLibraryPoolDao sysStudentLibraryPoolDao;
 
     /**
@@ -253,27 +259,4 @@ public class StudentServiceImpl implements StudentService {
         return jsonObject;
     }
 
-    public void setSubjectDao(SubjectDao subjectDao) {
-        this.subjectDao = subjectDao;
-    }
-
-    public void setLibraryDao(LibraryDao libraryDao) {
-        this.libraryDao = libraryDao;
-    }
-
-    public void setLibraryPoolDao(LibraryPoolDao libraryPoolDao) {
-        this.libraryPoolDao = libraryPoolDao;
-    }
-
-    public void setVocabularyDao(VocabularyDao vocabularyDao) {
-        this.vocabularyDao = vocabularyDao;
-    }
-
-    public void setStudentDao(StudentDao studentDao) {
-        this.studentDao = studentDao;
-    }
-
-    public void setSysStudentLibraryPoolDao(SysStudentLibraryPoolDao sysStudentLibraryPoolDao) {
-        this.sysStudentLibraryPoolDao = sysStudentLibraryPoolDao;
-    }
 }

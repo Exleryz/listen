@@ -5,6 +5,9 @@ import com.listen.dao.LibraryPoolDao;
 import com.listen.domain.Library;
 import com.listen.domain.LibraryPool;
 import com.listen.service.CheckService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * FileName CheckServiceImpl
@@ -13,9 +16,13 @@ import com.listen.service.CheckService;
  * Description:
  */
 
+@Service
+@Transactional
 public class CheckServiceImpl implements CheckService {
 
+    @Autowired
     private LibraryPoolDao libraryPoolDao;
+    @Autowired
     private LibraryDao libraryDao;
 
     /**
@@ -97,19 +104,4 @@ public class CheckServiceImpl implements CheckService {
      * @return
      */
 
-    public LibraryPoolDao getLibraryPoolDao() {
-        return libraryPoolDao;
-    }
-
-    public void setLibraryPoolDao(LibraryPoolDao libraryPoolDao) {
-        this.libraryPoolDao = libraryPoolDao;
-    }
-
-    public LibraryDao getLibraryDao() {
-        return libraryDao;
-    }
-
-    public void setLibraryDao(LibraryDao libraryDao) {
-        this.libraryDao = libraryDao;
-    }
 }

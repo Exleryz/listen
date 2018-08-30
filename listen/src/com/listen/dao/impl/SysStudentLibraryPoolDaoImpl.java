@@ -5,6 +5,7 @@ import com.listen.dao.base.impl.BaseDaoImpl;
 import com.listen.domain.Student;
 import com.listen.domain.SysStudentLibraryPool;
 import org.hibernate.SQLQuery;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
  * Description: 学生做题记录 中间表
  */
 
+@Repository
 public class SysStudentLibraryPoolDaoImpl extends BaseDaoImpl<SysStudentLibraryPool> implements SysStudentLibraryPoolDao {
 
     /**

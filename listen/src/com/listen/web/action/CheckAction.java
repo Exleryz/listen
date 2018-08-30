@@ -5,6 +5,9 @@ import com.listen.service.CheckService;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import org.apache.struts2.ServletActionContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 /**
  * FileName CheckAction
@@ -13,9 +16,12 @@ import org.apache.struts2.ServletActionContext;
  * Description:
  */
 
+@Controller
+@Scope("prototype")
 public class CheckAction extends ActionSupport implements ModelDriven<LibraryPool> {
 
     private LibraryPool libraryPool = new LibraryPool();
+    @Autowired
     private CheckService checkService;
     private String currentCheck;
     private String currentGrade;
@@ -71,15 +77,6 @@ public class CheckAction extends ActionSupport implements ModelDriven<LibraryPoo
         currentCheck = lp.getCheckPoint().toString();
         currentGrade = lp.getGrade().toString();
         return "showLibraryDet";    // 重新跳转到 关卡详情页面
-    }
-
-
-    public CheckService getCheckService() {
-        return checkService;
-    }
-
-    public void setCheckService(CheckService checkService) {
-        this.checkService = checkService;
     }
 
     public String getCurrentCheck() {

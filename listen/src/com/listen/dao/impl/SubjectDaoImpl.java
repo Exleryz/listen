@@ -5,6 +5,7 @@ import com.listen.dao.base.impl.BaseDaoImpl;
 import com.listen.domain.Library;
 import com.listen.domain.Subject;
 import org.hibernate.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * Description:
  */
 
+@Repository
 public class SubjectDaoImpl extends BaseDaoImpl<Subject> implements SubjectDao {
 
     /**

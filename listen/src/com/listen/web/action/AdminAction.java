@@ -9,6 +9,9 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import net.sf.json.JSONObject;
 import org.apache.struts2.ServletActionContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 /**
  * FileName AdminAction
@@ -16,10 +19,12 @@ import org.apache.struts2.ServletActionContext;
  * Time 2018-08-30 14:25
  * Description:
  */
-
+@Controller
+@Scope("prototype")
 public class AdminAction extends ActionSupport implements ModelDriven<Student> {
 
     private Student admin = new Student();
+   @Autowired
     private AdminService adminService;
 
     /**
@@ -78,10 +83,6 @@ public class AdminAction extends ActionSupport implements ModelDriven<Student> {
 
     public AdminService getAdminService() {
         return adminService;
-    }
-
-    public void setAdminService(AdminService adminService) {
-        this.adminService = adminService;
     }
 
     @Override

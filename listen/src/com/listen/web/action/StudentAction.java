@@ -8,6 +8,9 @@ import com.opensymphony.xwork2.ModelDriven;
 import net.sf.json.JSON;
 import net.sf.json.JSONObject;
 import org.apache.struts2.ServletActionContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 /**
  * FileName StudentAction
@@ -16,9 +19,12 @@ import org.apache.struts2.ServletActionContext;
  * Description:
  */
 
+@Controller
+@Scope("prototype")
 public class StudentAction extends ActionSupport implements ModelDriven<Student> {
 
     private Student student = new Student();
+    @Autowired
     private StudentService studentService;
 
     @Override
@@ -43,6 +49,7 @@ public class StudentAction extends ActionSupport implements ModelDriven<Student>
             ActionContext.getContext().put("error", e.getMessage());
             return "login";
         }
+        s.setPassword(null);
         if (s.getClassify() == 0) {
             ActionContext.getContext().getSession().put("student", s);
             return "toHome";
@@ -206,14 +213,6 @@ public class StudentAction extends ActionSupport implements ModelDriven<Student>
         JSONObject jsonObject = studentService.getPageBean(stu, Integer.parseInt(currentPage), 5);
         System.out.println(jsonObject);
         return null;
-    }
-
-    public StudentService getStudentService() {
-        return studentService;
-    }
-
-    public void setStudentService(StudentService studentService) {
-        this.studentService = studentService;
     }
 
     @Override

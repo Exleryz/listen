@@ -4,6 +4,7 @@ import com.listen.dao.VocabularyDao;
 import com.listen.dao.base.impl.BaseDaoImpl;
 import com.listen.domain.Vocabulary;
 import org.hibernate.SQLQuery;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
  * Description:
  */
 
+@Repository
 public class VocabularyDaoImpl extends BaseDaoImpl<Vocabulary> implements VocabularyDao {
 
     @Override

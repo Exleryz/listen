@@ -6,6 +6,7 @@ import com.listen.dao.base.impl.BaseDaoImpl;
 import com.listen.domain.LibraryPool;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
  * Description:
  */
 
+@Repository
 public class LibraryPoolDaoImpl extends BaseDaoImpl<LibraryPool> implements LibraryPoolDao {
 
     /**

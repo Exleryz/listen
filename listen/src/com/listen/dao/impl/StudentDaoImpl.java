@@ -3,11 +3,10 @@ package com.listen.dao.impl;
 import com.listen.dao.StudentDao;
 import com.listen.dao.base.impl.BaseDaoImpl;
 import com.listen.domain.Student;
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
 import org.hibernate.SQLQuery;
-import org.hibernate.Session;
-import org.springframework.orm.hibernate5.HibernateCallback;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * FileName StudentDaoImpl
@@ -16,6 +15,7 @@ import org.springframework.orm.hibernate5.HibernateCallback;
  * Description:
  */
 
+@Repository
 public class StudentDaoImpl extends BaseDaoImpl<Student> implements StudentDao {
 
     /**
@@ -25,16 +25,14 @@ public class StudentDaoImpl extends BaseDaoImpl<Student> implements StudentDao {
      * @return
      */
     @Override
-    public Student getByStudentAccount(final String account) {
-        return getHibernateTemplate().execute(new HibernateCallback<Student>() {
-            @Override
-            public Student doInHibernate(Session session) throws HibernateException {
-                String hql = "from Student where account = ?";
-                Query query = session.createQuery(hql);
-                query.setParameter(0, account);
-                return (Student) query.uniqueResult();
-            }
-        });
+    public Student getByStudentAccount(String account) {
+        SQLQuery sqlQuery = currentSession().createSQLQuery("select * from Student where account = ?").addEntity(Student.class);
+        sqlQuery.setParameter(0, account);
+        List<Student> list = sqlQuery.list();
+        if (list != null && list.size() > 0) {
+            return list.get(0);
+        }
+        return null;
     }
 
     /**

@@ -9,6 +9,9 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import org.apache.struts2.ServletActionContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -22,6 +25,8 @@ import java.util.List;
  * Description:
  */
 
+@Controller
+@Scope("prototype")
 public class LibraryAction extends ActionSupport implements ModelDriven<Library> {
 
     private Library library = new Library();
@@ -31,6 +36,7 @@ public class LibraryAction extends ActionSupport implements ModelDriven<Library>
     private String listenLibraryContentType;
     private List<Subject> subjectList;
 
+    @Autowired
     private LibraryService libraryService;
 
     /**
@@ -151,14 +157,6 @@ public class LibraryAction extends ActionSupport implements ModelDriven<Library>
 
     public void setSubjectList(List<Subject> subjectList) {
         this.subjectList = subjectList;
-    }
-
-    public LibraryService getLibraryService() {
-        return libraryService;
-    }
-
-    public void setLibraryService(LibraryService libraryService) {
-        this.libraryService = libraryService;
     }
 
     @Override

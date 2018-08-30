@@ -14,7 +14,7 @@
             <!-- 配置拦截器栈 -->
             <interceptor-stack name="myStack">
                 <interceptor-ref name="privilegeInterceptor">
-                    <param name="excludeMethods">login,register</param>
+                    <param name="excludeMethods">login,register,checkAccount</param>
                 </interceptor-ref>
                 <interceptor-ref name="defaultStack"></interceptor-ref>
             </interceptor-stack>

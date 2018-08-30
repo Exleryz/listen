@@ -7,6 +7,9 @@ import com.listen.domain.LibraryPool;
 import com.listen.service.AdminService;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * FileName AdminServiceImpl
@@ -15,9 +18,13 @@ import net.sf.json.JsonConfig;
  * Description: 管理员service
  */
 
+@Service
+@Transactional
 public class AdminServiceImpl implements AdminService {
 
+    @Autowired
     private LibraryPoolDao libraryPoolDao;
+    @Autowired
     private LibraryDao libraryDao;
 
     /**
@@ -60,22 +67,5 @@ public class AdminServiceImpl implements AdminService {
         System.out.println(id);
         Library l = libraryDao.findById(id);
         return l;
-    }
-
-
-    public LibraryDao getLibraryDao() {
-        return libraryDao;
-    }
-
-    public void setLibraryDao(LibraryDao libraryDao) {
-        this.libraryDao = libraryDao;
-    }
-
-    public LibraryPoolDao getLibraryPoolDao() {
-        return libraryPoolDao;
-    }
-
-    public void setLibraryPoolDao(LibraryPoolDao libraryPoolDao) {
-        this.libraryPoolDao = libraryPoolDao;
     }
 }

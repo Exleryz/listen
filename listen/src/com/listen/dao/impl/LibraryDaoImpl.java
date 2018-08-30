@@ -5,6 +5,7 @@ import com.listen.dao.base.impl.BaseDaoImpl;
 import com.listen.domain.Library;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
+import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.math.BigInteger;
@@ -17,6 +18,7 @@ import java.util.List;
  * Description: 题目Dao
  */
 
+@Repository
 public class LibraryDaoImpl extends BaseDaoImpl<Library> implements LibraryDao {
 
     /**
