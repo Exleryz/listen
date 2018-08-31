@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -171,6 +174,8 @@ public class StudentServiceImpl implements StudentService {
         sslp.setScore(score);
         sslp.setLp(lp);
         sslp.setStu(student);
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        sslp.setTime(df.format(new Date()));
         sysStudentLibraryPoolDao.save(sslp);
 
 //        studentDao.saveScore(score, count, 0, student.getId(), lp.getId());

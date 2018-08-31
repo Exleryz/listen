@@ -1,6 +1,5 @@
 package com.listen.utils;
 
-
 import com.listen.domain.*;
 
 import net.sf.json.JSON;
@@ -10,6 +9,13 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+/**
+ * FileName A
+ * Created by Exler
+ * Time 2018-08-31 9:07
+ * Description: 组卷工具类
+ */
 
 public class MakeSubject {
 
@@ -78,6 +84,7 @@ public class MakeSubject {
                         "\"options\": [");
 
                 String[] strs = new String[4];
+                // 为什么不能直接转json?
                 if (subjects.get(count).getAnswer().equals('A'))
                     strs[0] = ("{\"option\":{\"content\":\"" + subjects.get(count).getOptionA() + "\",\"answer\":\"" + "true" + "\"}},");
                 else

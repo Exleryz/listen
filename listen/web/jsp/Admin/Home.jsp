@@ -91,6 +91,31 @@
     </div>
 </div>
 
+<div class="contentuser center-block">
+    <div class="container">
+        <div class="row center-block">
+            <div class="col-md-6">
+                <h2 class="text-muted" style="text-align: center;">数据统计</h2>
+
+                <button class="btn btn-success startbtn"
+                        onclick="javascript:window.location.href='setCheckList.jsp'">设置
+                </button>
+            </div>
+
+            <div class="col-md-6">
+                <h2 class="text-muted" style="text-align: center">积分管理</h2>
+                <%--查看题目列表--%>
+                <%--查看题目详情--%>
+                <%--上传题目--%>
+                <%--删除题目--%>
+                <%--(第一版中不完成)--%>
+                <%--修改题目--%>
+                <%--查询题目--%>
+                <button class="btn btn-success startbtn" onclick="javascript:window.location.href='../../library/uploadtest.jsp'">设置</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <footer class="center-block footer">
     <div class="container">

@@ -39,7 +39,7 @@
             <result name="LibrariesList">/jsp/Admin/getLibraryList.jsp</result>
             <result name="seeDetail">/jsp/Admin/details.jsp</result>
             <result name="toLogin">/login.jsp</result>
-            <allowed-methods>getCurrentScoreSet,seeDetails,getLibraryDetails,,loginOut</allowed-methods>
+            <allowed-methods>getCurrentScoreSet,seeDetails,getLibraryDetails,queryHistory,loginOut</allowed-methods>
         </action>
 
         <action name="LibraryAction_*" class="libraryAction" method="{1}">

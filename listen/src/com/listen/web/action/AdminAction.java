@@ -3,7 +3,9 @@ package com.listen.web.action;
 import com.listen.domain.Library;
 import com.listen.domain.LibraryPool;
 import com.listen.domain.Student;
+import com.listen.domain.SysStudentLibraryPoolVo;
 import com.listen.service.AdminService;
+import com.listen.utils.PageBean;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -24,7 +26,7 @@ import org.springframework.stereotype.Controller;
 public class AdminAction extends ActionSupport implements ModelDriven<Student> {
 
     private Student admin = new Student();
-   @Autowired
+    @Autowired
     private AdminService adminService;
 
     /**
@@ -68,6 +70,41 @@ public class AdminAction extends ActionSupport implements ModelDriven<Student> {
         Library l = adminService.getLibraryDetails(Integer.parseInt(libraryId));
         ActionContext.getContext().put("library", l);
         return "seeDetail";
+    }
+
+    /**
+     * 学生历史做题数据查询
+     *
+     * @return
+     * @throws Exception
+     */
+    public String queryHistory() throws Exception {
+        // 分页
+        String currentPage = ServletActionContext.getRequest().getParameter("currentPage");
+        // 传入的查询参数
+        // 学生姓名 学号 分数(大于 小于) 时间戳 等级 关数
+        SysStudentLibraryPoolVo vo = new SysStudentLibraryPoolVo();
+        vo.setStudentName(ServletActionContext.getRequest().getParameter("studentName"));
+        vo.setStudentAccount(ServletActionContext.getRequest().getParameter("studentAccount"));
+        try {
+            vo.setScore(Integer.parseInt(ServletActionContext.getRequest().getParameter("score")));
+            vo.setGrade(Integer.parseInt(ServletActionContext.getRequest().getParameter("grade")));
+            vo.setCheck(vo.getGrade() == null ? null : Integer.parseInt(ServletActionContext.getRequest().getParameter("check")));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        vo.setScoreOperator(vo.getScore() == null ? null : ServletActionContext.getRequest().getParameter("scoreOperator"));
+        vo.setTimeStart(ServletActionContext.getRequest().getParameter("timeStart"));
+        vo.setTimeEnd(ServletActionContext.getRequest().getParameter("timeEnd"));
+
+        // 默认查 测试
+        if ("".equals(currentPage) || currentPage == null) {
+            currentPage = "0";
+        }
+        PageBean pb = adminService.getQueryRecords(Integer.parseInt(currentPage), 10, vo);
+        ActionContext.getContext().put("pageBean", pb);
+//        return "librariesList";
+        return super.execute();
     }
 
     /**

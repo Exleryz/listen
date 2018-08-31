@@ -50,3 +50,31 @@ ajax查看历史闯关记录(点击的关卡 分页)
 ### 上传题目
 ### 设置关卡
 ### 管理学生
+### 数据统计
+查询某个条件做题的 student
+- 分页 查询条件
+```sql
+select
+  max(score) as score,
+  lpId,
+  id,
+  stuId
+from sysstudentlibrarypool
+where stuId in (select distinct (stuId)
+                from sysstudentlibrarypool
+                where 1 = 1
+                    and stuId = (select id from student where student.name = 'exler'))
+      and lpId = 1
+group by lpId, stuId
+order by score desc;
+```
+
+1. 子查询中取 学生id(有条件时取单个，没有条件时取所有的学生id)
+2. 根据关卡 学生id 分组，然后进行分数排序(取分数最大的)，也可以添加各种条件(指定关卡，指定时间戳等)
+3. 就能查询每关的每个学生的最大分数
+
+能根据用户名 做题时间 等级 关卡 找出每个人符合条件的做题最高分(默认)
+- 导出 Excel
+
+### 创建件一个 Result类
+-[ ] 用于返回数据

@@ -4,7 +4,9 @@ import com.listen.dao.LibraryDao;
 import com.listen.dao.LibraryPoolDao;
 import com.listen.domain.Library;
 import com.listen.domain.LibraryPool;
+import com.listen.domain.SysStudentLibraryPoolVo;
 import com.listen.service.AdminService;
+import com.listen.utils.PageBean;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,5 +69,11 @@ public class AdminServiceImpl implements AdminService {
         System.out.println(id);
         Library l = libraryDao.findById(id);
         return l;
+    }
+
+    @Override
+    public PageBean getQueryRecords(int currentPage, int pageSize, SysStudentLibraryPoolVo vo) {
+
+        return null;
     }
 }
