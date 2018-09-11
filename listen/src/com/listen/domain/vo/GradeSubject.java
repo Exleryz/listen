@@ -1,4 +1,6 @@
-package com.listen.domain;
+package com.listen.domain.vo;
+
+import com.listen.domain.vo.GradeOption;
 
 import java.util.List;
 

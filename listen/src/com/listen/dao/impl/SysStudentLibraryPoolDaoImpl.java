@@ -2,8 +2,10 @@ package com.listen.dao.impl;
 
 import com.listen.dao.SysStudentLibraryPoolDao;
 import com.listen.dao.base.impl.BaseDaoImpl;
+import com.listen.domain.vo.QuerySysStudentLibraryPoolVo;
 import com.listen.domain.Student;
 import com.listen.domain.SysStudentLibraryPool;
+import com.listen.utils.PageBean;
 import org.hibernate.SQLQuery;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +15,7 @@ import java.util.List;
 /**
  * FileName SysStudentLibraryPoolDaoImpl
  * Created by Exler
+ * @author Exler
  * Time 2018-08-30 11:46
  * Description: 学生做题记录 中间表
  */
@@ -87,6 +90,20 @@ public class SysStudentLibraryPoolDaoImpl extends BaseDaoImpl<SysStudentLibraryP
         sqlQuery.setParameter(1, lpId);
         BigInteger count = (BigInteger) sqlQuery.uniqueResult();
         return count.intValue();
+    }
+
+    @Override
+    public List<SysStudentLibraryPool> getQueryList(PageBean pb, StringBuffer sb, QuerySysStudentLibraryPoolVo vo) {
+        System.out.println(sb);
+        int paramCount = 0;
+        SQLQuery sqlQuery = currentSession().createSQLQuery(sb.toString()).addEntity(SysStudentLibraryPool.class);
+        /**
+         * 参数设置 模板
+         * sqlQuery.setParameter(paramCount, vo.getCheck());
+         * paramCount += 1;
+        */
+        List<SysStudentLibraryPool> list = sqlQuery.list();
+        return list;
     }
 
 }

@@ -1,8 +1,10 @@
 package com.listen.dao;
 
 import com.listen.dao.base.BaseDao;
+import com.listen.domain.vo.QuerySysStudentLibraryPoolVo;
 import com.listen.domain.Student;
 import com.listen.domain.SysStudentLibraryPool;
+import com.listen.utils.PageBean;
 
 import java.util.List;
 
@@ -16,4 +18,5 @@ public interface SysStudentLibraryPoolDao extends BaseDao<SysStudentLibraryPool>
 
     int getCurrentCheckCount(Student stu, Integer lpId);
 
+    List<SysStudentLibraryPool> getQueryList(PageBean pb, StringBuffer sb, QuerySysStudentLibraryPoolVo vo);
 }

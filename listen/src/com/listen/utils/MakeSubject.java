@@ -2,6 +2,8 @@ package com.listen.utils;
 
 import com.listen.domain.*;
 
+import com.listen.domain.vo.GradeOption;
+import com.listen.domain.vo.GradeSubject;
 import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import org.junit.Test;

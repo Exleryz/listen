@@ -1,13 +1,15 @@
-package com.listen.domain;
+package com.listen.domain.vo;
+
+import com.listen.domain.SysStudentLibraryPool;
 
 /**
  * FileName SysStudentLibraryPoolVo
- * Created by Exler
+ * @author Exler
  * Time 2018-08-31 16:23
  * Description: SysStudentLibraryPool包装类
  */
 
-public class SysStudentLibraryPoolVo extends SysStudentLibraryPool {
+public class QuerySysStudentLibraryPoolVo extends SysStudentLibraryPool {
 
     /**
      * 学生姓名

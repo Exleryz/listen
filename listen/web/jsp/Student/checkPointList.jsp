@@ -38,6 +38,10 @@
     $(document).ready(function () {
         if (${sessionScope.get("student") == null}) {
             window.location.href = "../../login.jsp";
+        } else {
+            if (${sessionScope.get("student").getGrade() == 0 }) {
+                alert("请先完成词汇测试");
+            }
         }
     });
 

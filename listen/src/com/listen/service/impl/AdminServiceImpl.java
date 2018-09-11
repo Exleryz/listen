@@ -5,17 +5,20 @@ import com.listen.dao.LibraryPoolDao;
 import com.listen.dao.SysStudentLibraryPoolDao;
 import com.listen.domain.Library;
 import com.listen.domain.LibraryPool;
-import com.listen.domain.SysStudentLibraryPoolVo;
+import com.listen.domain.vo.QuerySysStudentLibraryPoolVo;
+import com.listen.domain.SysStudentLibraryPool;
+import com.listen.domain.vo.SysStudentLibraryPoolVo;
 import com.listen.service.AdminService;
 import com.listen.utils.PageBean;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -87,7 +90,7 @@ public class AdminServiceImpl implements AdminService {
      * @return
      */
     @Override
-    public PageBean getQueryRecords(int currentPage, int pageSize, SysStudentLibraryPoolVo vo) {
+    public PageBean getQueryRecords(int currentPage, int pageSize, QuerySysStudentLibraryPoolVo vo) {
         StringBuffer sb = new StringBuffer();
         // 正常查询 查询全部 // todo 查询未分页
         sb.append("select\n" +
@@ -98,18 +101,21 @@ public class AdminServiceImpl implements AdminService {
                 "  classify,\n" +
                 "  stuId,\n" +
                 "  lpId\n" +
-                "from sysstudentlibrarypool");
+                "from SysStudentLibraryPool");
         // 正常查询 查询全部
-        sb.append("where 1 = 1 ");
+        sb.append(" where 1 = 1 ");
         if (StringUtils.isNotEmpty(vo.getTimeStart())) {
             // 查询时间区间
-            sb.append(" and time between '" + vo.getTimeStart() + "' and '" + vo.getTimeEnd() + "'");
+            sb.append(" and time between ? and ?");
         }
         sb.append(" and stuId in (select distinct (stuId)\n" +
-                "                          from sysstudentlibrarypool\n" +
+                "                          from SysStudentLibraryPool\n" +
                 "                          where 1 = 1)\n" +
                 "group by lpId, stuId\n" +
                 "order by lpId;");
+        int totalCount = 10;
+        PageBean pb = new PageBean(currentPage,totalCount,10);
+        List<SysStudentLibraryPool> list = sysStudentLibraryPoolDao.getQueryList(pb, sb, vo);
         // 学生姓名
 //        List<SysStudentLibraryPoolVo> list = sysStudentLibraryPoolDao.queryList(sb);
         /**
@@ -128,6 +134,19 @@ public class AdminServiceImpl implements AdminService {
          * group by lpId, stuId
          * order by score desc;
          */
-        return null;
+        List<SysStudentLibraryPoolVo> voList = new ArrayList<SysStudentLibraryPoolVo>();
+        for (SysStudentLibraryPool sysStudentLibraryPool : list) {
+            SysStudentLibraryPoolVo sysVo = new SysStudentLibraryPoolVo();
+            sysVo.setId(sysStudentLibraryPool.getId());
+            sysVo.setLpId(sysStudentLibraryPool.getLp().getId().toString());
+            sysVo.setStuId(sysStudentLibraryPool.getStu().getId().toString());
+            sysVo.setId(sysStudentLibraryPool.getId());
+            sysVo.setScore(sysStudentLibraryPool.getScore());
+            sysVo.setTime(sysStudentLibraryPool.getTime());
+            sysVo.setClassify(sysStudentLibraryPool.getClassify());
+            voList.add(sysVo);
+        }
+        pb.setList(voList);
+        return pb;
     }
 }

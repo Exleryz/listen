@@ -2,7 +2,7 @@ package com.listen.domain;
 
 /**
  * FileName SysStudentLibraryPool
- * Created by Exler
+ * @author Exler
  * Time 2018-08-30 10:19
  * Description:
  */
@@ -30,7 +30,7 @@ public class SysStudentLibraryPool {
     private Integer score;
 
     /**
-     * // todo: 不知道啥意思
+     * 做题提交的时间
      */
     private String time;
 

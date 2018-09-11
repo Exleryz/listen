@@ -98,7 +98,7 @@
                 <h2 class="text-muted" style="text-align: center;">数据统计</h2>
 
                 <button class="btn btn-success startbtn"
-                        onclick="javascript:window.location.href='setCheckList.jsp'">设置
+                        onclick="javascript:window.location.href='/jsp/Admin/Query.jsp'">设置
                 </button>
             </div>
 

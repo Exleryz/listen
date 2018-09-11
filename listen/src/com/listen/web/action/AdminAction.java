@@ -3,13 +3,15 @@ package com.listen.web.action;
 import com.listen.domain.Library;
 import com.listen.domain.LibraryPool;
 import com.listen.domain.Student;
-import com.listen.domain.SysStudentLibraryPoolVo;
+import com.listen.domain.vo.QuerySysStudentLibraryPoolVo;
 import com.listen.service.AdminService;
+import com.listen.utils.ListenResult;
 import com.listen.utils.PageBean;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -83,7 +85,7 @@ public class AdminAction extends ActionSupport implements ModelDriven<Student> {
         String currentPage = ServletActionContext.getRequest().getParameter("currentPage");
         // 传入的查询参数
         // 学生姓名 学号 分数(大于 小于) 时间戳 等级 关数
-        SysStudentLibraryPoolVo vo = new SysStudentLibraryPoolVo();
+        QuerySysStudentLibraryPoolVo vo = new QuerySysStudentLibraryPoolVo();
         vo.setStudentName(ServletActionContext.getRequest().getParameter("studentName"));
         vo.setStudentAccount(ServletActionContext.getRequest().getParameter("studentAccount"));
         try {
@@ -101,10 +103,14 @@ public class AdminAction extends ActionSupport implements ModelDriven<Student> {
         if ("".equals(currentPage) || currentPage == null) {
             currentPage = "0";
         }
-        PageBean pb = adminService.getQueryRecords(Integer.parseInt(currentPage), 10, vo);
-        ActionContext.getContext().put("pageBean", pb);
-//        return "librariesList";
-        return super.execute();
+        PageBean pb = adminService.getQueryRecords(Integer.parseInt(currentPage), 20, vo);
+        ListenResult result = new ListenResult("success", 100, pb);
+        JsonConfig config = new JsonConfig();
+        config.setExcludes(new String[]{"lp", "stu"});
+        JSONObject jsonObject = JSONObject.fromObject(result, config);
+        System.out.println(jsonObject.toString());
+        ServletActionContext.getResponse().getWriter().write(jsonObject.toString());
+        return null;
     }
 
     /**
@@ -116,10 +122,6 @@ public class AdminAction extends ActionSupport implements ModelDriven<Student> {
     public String loginOut() throws Exception {
         ActionContext.getContext().getSession().remove("admin");
         return "toLogin";
-    }
-
-    public AdminService getAdminService() {
-        return adminService;
     }
 
     @Override

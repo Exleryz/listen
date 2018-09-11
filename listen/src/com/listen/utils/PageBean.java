@@ -20,7 +20,6 @@ public class PageBean {
     private DetachedCriteria dc;    // 查询条件
 
 
-
     public PageBean(Integer currentPage, Integer totalCount, Integer pageSize) {
         this.totalCount = totalCount;
 

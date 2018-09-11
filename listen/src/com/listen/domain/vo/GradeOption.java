@@ -1,4 +1,4 @@
-package com.listen.domain;
+package com.listen.domain.vo;
 
 /**
  * FileName GradeOption
@@ -8,13 +8,13 @@ package com.listen.domain;
  */
 public class GradeOption {
     /**
-     * 题目序号
+     * 题目序号 0 1 2 3
      */
-    private int sort;    // 0 1 2 3
+    private int sort;
     /**
-     * 是否是答案
+     * 是否是答案 true false
      */
-    private boolean answer;    // true false
+    private boolean answer;
     /**
      * 选项内容
      */

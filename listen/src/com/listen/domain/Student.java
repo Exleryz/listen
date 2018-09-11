@@ -5,7 +5,7 @@ import java.util.Set;
 
 /**
  * FileName Student
- * Created by Exler
+ * @author Exler
  * Time 2018-08-30 10:10
  * Description: 用户类
  */
@@ -33,7 +33,7 @@ public class Student {
     private String password;
 
     /**
-     * 用户所处等级
+     * 用户所处等级 0还未进行单词测试
      */
     private Integer grade;
 
