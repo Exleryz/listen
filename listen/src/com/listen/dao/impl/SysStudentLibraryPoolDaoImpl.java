@@ -15,6 +15,7 @@ import java.util.List;
 /**
  * FileName SysStudentLibraryPoolDaoImpl
  * Created by Exler
+ *
  * @author Exler
  * Time 2018-08-30 11:46
  * Description: 学生做题记录 中间表
@@ -95,15 +96,31 @@ public class SysStudentLibraryPoolDaoImpl extends BaseDaoImpl<SysStudentLibraryP
     @Override
     public List<SysStudentLibraryPool> getQueryList(PageBean pb, StringBuffer sb, QuerySysStudentLibraryPoolVo vo) {
         System.out.println(sb);
-        int paramCount = 0;
+        // todo 设置分页
         SQLQuery sqlQuery = currentSession().createSQLQuery(sb.toString()).addEntity(SysStudentLibraryPool.class);
+        setParams(sqlQuery, vo);
+        List<SysStudentLibraryPool> list = sqlQuery.list();
+        return list;
+    }
+
+    @Override
+    public int getQueryCount(StringBuffer sb, QuerySysStudentLibraryPoolVo vo) {
+        System.out.println(sb);
+        SQLQuery sqlQuery = currentSession().createSQLQuery(sb.toString());
+        setParams(sqlQuery, vo);
+        BigInteger count = (BigInteger) sqlQuery.uniqueResult();
+        return count.intValue();
+    }
+
+
+    private SQLQuery setParams(SQLQuery sqlQuery, QuerySysStudentLibraryPoolVo vo) {
+        int paramCount = 0;
         /**
          * 参数设置 模板
          * sqlQuery.setParameter(paramCount, vo.getCheck());
          * paramCount += 1;
-        */
-        List<SysStudentLibraryPool> list = sqlQuery.list();
-        return list;
+         */
+        return sqlQuery;
     }
 
 }

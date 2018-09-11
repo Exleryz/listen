@@ -23,7 +23,8 @@ import java.util.List;
 
 /**
  * FileName AdminServiceImpl
- * Created by Exler
+ *
+ * @author Exler
  * Time 2018-08-30 14:20
  * Description: 管理员service
  */
@@ -92,7 +93,75 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public PageBean getQueryRecords(int currentPage, int pageSize, QuerySysStudentLibraryPoolVo vo) {
         StringBuffer sb = new StringBuffer();
-        // 正常查询 查询全部 // todo 查询未分页
+        sb = getQueryCondition(sb, vo);
+        int totalCount = sysStudentLibraryPoolDao.getQueryCount(getQueryCountSQL(sb), vo);
+//        int totalCount = 10;
+        PageBean pb = new PageBean(currentPage, totalCount, 20);
+        List<SysStudentLibraryPool> list = sysStudentLibraryPoolDao.getQueryList(pb, sb, vo);
+        List<SysStudentLibraryPoolVo> voList = new ArrayList<SysStudentLibraryPoolVo>();
+        if (list != null) {
+            for (SysStudentLibraryPool sysStudentLibraryPool : list) {
+                SysStudentLibraryPoolVo sysVo = new SysStudentLibraryPoolVo();
+                sysVo.setId(sysStudentLibraryPool.getId());
+                sysVo.setId(sysStudentLibraryPool.getId());
+                sysVo.setScore(sysStudentLibraryPool.getScore());
+                sysVo.setTime(sysStudentLibraryPool.getTime());
+                sysVo.setClassify(sysStudentLibraryPool.getClassify());
+                sysVo.setStuId(sysStudentLibraryPool.getStu().getId().toString());
+                sysVo.setLpId(sysStudentLibraryPool.getLp().getId().toString());
+                sysVo.setStudentName(sysStudentLibraryPool.getStu().getName());
+                voList.add(sysVo);
+            }
+        }
+        pb.setList(voList);
+        return pb;
+    }
+
+    /**
+     * max(score) as score,\n 可变 score
+     * @param sb
+     * @return
+     */
+    private StringBuffer getQueryCountSQL(StringBuffer sb) {
+        StringBuffer countSB = new StringBuffer();
+        countSB.append("select\n" +
+                "  count(*)\n" +
+                "from (\n" +
+                "       select\n" +
+                "         sys.id,\n" +
+                "         max(score) as score,\n" +
+                "         time,\n" +
+                "         count,\n" +
+                "         classify,\n" +
+                "         stuId,\n" +
+                "         lpId\n" +
+                "       from SysStudentLibraryPool sys where 1 = 1  and stuId in (select distinct (stuId)\n" +
+                "                                                             from SysStudentLibraryPool\n" +
+                "                                                             where 1 = 1)\n" +
+                "       group by lpId, stuId\n" +
+                "       order by lpId\n" +
+                "     ) t;");
+        return countSB;
+    }
+
+    /**
+     * select
+     * id,
+     * max(score) as score,
+     * time,
+     * count,
+     * classify,
+     * stuId,
+     * lpId
+     * from SysStudentLibraryPool
+     * where 1 = 1 and stuId in (select distinct (stuId)
+     * from SysStudentLibraryPool
+     * where 1 = 1)
+     * group by lpId, stuId 分组可去
+     * order by score desc;
+     */
+    private StringBuffer getQueryCondition(StringBuffer sb, QuerySysStudentLibraryPoolVo vo) {
+        // 正常查询 查询全部去重 // todo 查询未分页
         sb.append("select\n" +
                 "  id,\n" +
                 "  max(score) as score,\n" +
@@ -101,8 +170,7 @@ public class AdminServiceImpl implements AdminService {
                 "  classify,\n" +
                 "  stuId,\n" +
                 "  lpId\n" +
-                "from SysStudentLibraryPool");
-        // 正常查询 查询全部
+                " from SysStudentLibraryPool");
         sb.append(" where 1 = 1 ");
         if (StringUtils.isNotEmpty(vo.getTimeStart())) {
             // 查询时间区间
@@ -112,41 +180,7 @@ public class AdminServiceImpl implements AdminService {
                 "                          from SysStudentLibraryPool\n" +
                 "                          where 1 = 1)\n" +
                 "group by lpId, stuId\n" +
-                "order by lpId;");
-        int totalCount = 10;
-        PageBean pb = new PageBean(currentPage,totalCount,10);
-        List<SysStudentLibraryPool> list = sysStudentLibraryPoolDao.getQueryList(pb, sb, vo);
-        // 学生姓名
-//        List<SysStudentLibraryPoolVo> list = sysStudentLibraryPoolDao.queryList(sb);
-        /**
-         * select
-         *   id,
-         *   max(score) as score,
-         *   time,
-         *   count,
-         *   classify,
-         *   stuId,
-         *   lpId
-         * from sysstudentlibrarypool
-         * where 1 = 1 and stuId in (select distinct (stuId)
-         *                           from sysstudentlibrarypool
-         *                           where 1 = 1)
-         * group by lpId, stuId
-         * order by score desc;
-         */
-        List<SysStudentLibraryPoolVo> voList = new ArrayList<SysStudentLibraryPoolVo>();
-        for (SysStudentLibraryPool sysStudentLibraryPool : list) {
-            SysStudentLibraryPoolVo sysVo = new SysStudentLibraryPoolVo();
-            sysVo.setId(sysStudentLibraryPool.getId());
-            sysVo.setLpId(sysStudentLibraryPool.getLp().getId().toString());
-            sysVo.setStuId(sysStudentLibraryPool.getStu().getId().toString());
-            sysVo.setId(sysStudentLibraryPool.getId());
-            sysVo.setScore(sysStudentLibraryPool.getScore());
-            sysVo.setTime(sysStudentLibraryPool.getTime());
-            sysVo.setClassify(sysStudentLibraryPool.getClassify());
-            voList.add(sysVo);
-        }
-        pb.setList(voList);
-        return pb;
+                "order by lpId");
+        return sb;
     }
 }

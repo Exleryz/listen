@@ -19,4 +19,6 @@ public interface SysStudentLibraryPoolDao extends BaseDao<SysStudentLibraryPool>
     int getCurrentCheckCount(Student stu, Integer lpId);
 
     List<SysStudentLibraryPool> getQueryList(PageBean pb, StringBuffer sb, QuerySysStudentLibraryPoolVo vo);
+
+    int getQueryCount(StringBuffer sb, QuerySysStudentLibraryPoolVo vo);
 }

@@ -21,6 +21,11 @@ public class SysStudentLibraryPoolVo extends SysStudentLibraryPool {
      */
     private String lpId;
 
+    /**
+     *  学生姓名
+     * @return
+     */
+    private String studentName;
 
     public String getStuId() {
         return stuId;
@@ -36,5 +41,13 @@ public class SysStudentLibraryPoolVo extends SysStudentLibraryPool {
 
     public void setLpId(String lpId) {
         this.lpId = lpId;
+    }
+
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
     }
 }
