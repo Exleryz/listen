@@ -1,56 +1,52 @@
 package com.listen.pojo;
 
+import com.github.pagehelper.PageInfo;
+
+import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * FileName Library
- * Created by Exler
+ *
+ * @author Exler
  * Time 2018-08-30 9:51
  * Description: 大题类
  */
-@Table()
-public class Library {
 
-    public Library() {
-    }
-
-    public Library(Integer id, String title, User teacher) {
-        this.id = id;
-        this.title = title;
-        this.teacher = teacher;
-    }
+@Table(name = "Library")
+public class Library extends PageInfo<Library> {
 
     /**
      * 大题id
      */
+    @Id
+    @Column(name = "id")
     private Integer id;
 
     /**
      * 大题音频文件存放位置
      */
+    @Column(name = "src")
     private String src;
 
     /**
      * 大题名称
      */
+    @Column(name = "title")
     private String title;
-
-    /**
-     * 大题的子题数
-     */
-    private Integer sonCount;
 
     /**
      * 上传题目的教师id
      */
-    private User teacher;
+    @Column(name = "teacherId")
+    private Integer teacherId;
 
     /**
-     * 题库池与大题的对应关系 sysLibraryLibraryPool
+     * 大题的子题数
      */
-    private Set<LibraryPool> libraryPoolSet = new HashSet<>();
+    @Column(name = "sonCount")
+    private Integer sonCount;
 
     public Integer getId() {
         return id;
@@ -76,12 +72,12 @@ public class Library {
         this.title = title;
     }
 
-    public User getTeacher() {
-        return teacher;
+    public Integer getTeacherId() {
+        return teacherId;
     }
 
-    public void setTeacher(User teacher) {
-        this.teacher = teacher;
+    public void setTeacherId(Integer teacherId) {
+        this.teacherId = teacherId;
     }
 
     public Integer getSonCount() {
@@ -92,23 +88,14 @@ public class Library {
         this.sonCount = sonCount;
     }
 
-    public Set<LibraryPool> getLibraryPoolSet() {
-        return libraryPoolSet;
-    }
-
-    public void setLibraryPoolSet(Set<LibraryPool> libraryPoolSet) {
-        this.libraryPoolSet = libraryPoolSet;
-    }
-
     @Override
     public String toString() {
         return "Library{" +
                 "id=" + id +
                 ", src='" + src + '\'' +
                 ", title='" + title + '\'' +
+                ", teacherId=" + teacherId +
                 ", sonCount=" + sonCount +
-                ", teacher=" + teacher +
                 '}';
-//        输出libraryPoolSet 会造成栈溢出报错
     }
 }

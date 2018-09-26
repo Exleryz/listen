@@ -8,15 +8,16 @@ import javax.persistence.Table;
 
 /**
  * @author Exler
+ * 题库池id 与之关联的所有大题目
  */
-@Table(name = "syslibrarylibrarypool")
-public class SysLibraryLibrarypool extends PageInfo<SysLibraryLibrarypool> {
+@Table(name = "SysLibraryLibraryPool")
+public class SysLibraryLibraryPool extends PageInfo<SysLibraryLibraryPool> {
 
     @Id
-    @Column(name = "libid")
+    @Column(name = "libId")
     private Integer libId;
 
-    @Column(name = "lpid")
+    @Column(name = "lpId")
     private Integer lpId;
 
     public Integer getLibId() {
@@ -33,5 +34,13 @@ public class SysLibraryLibrarypool extends PageInfo<SysLibraryLibrarypool> {
 
     public void setLpId(Integer lpId) {
         this.lpId = lpId;
+    }
+
+    @Override
+    public String toString() {
+        return "SysLibraryLibraryPool{" +
+                "libId=" + libId +
+                ", lpId=" + lpId +
+                '}';
     }
 }

@@ -1,60 +1,78 @@
 package com.listen.pojo;
 
+import com.github.pagehelper.PageInfo;
+
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * FileName Subject
- * Created by Exler
+ *
+ * @author Exler
  * Time 2018-08-30 10:14
  * Description: 小题类
  * 一个大题目包含个数不定的小题
  */
 
-public class Subject {
+@Table(name = "Subject")
+public class Subject extends PageInfo<Subject> {
 
     /**
      * 小题id
      */
+    @Id
+    @Column(name = "id")
     private Integer id;
-
-    /**
-     * 大题
-     * library的id
-     */
-    private Library library;
 
     /**
      * 答案
      */
+    @Column(name = "answer")
     private Character answer;
 
     /**
      * 选项A内容
      */
+    @Column(name = "optionA")
     private String optionA;
 
     /**
      * 选项B内容
      */
+    @Column(name = "optionB")
     private String optionB;
 
     /**
      * 选项C内容
      */
+    @Column(name = "optionC")
     private String optionC;
 
     /**
      * 选项D内容
      */
+    @Column(name = "optionD")
     private String optionD;
 
     /**
      * 当前题目在大题中的排序
      */
+    @Column(name = "sort")
     private Integer sort;
 
     /**
      * 当前题目的解析
      */
+    @Column(name = "analysis")
     private String analysis;
+
+    /**
+     * 大题
+     * library的id
+     */
+    @Column(name = "libraryId")
+    private Integer libraryId;
 
     public Integer getId() {
         return id;
@@ -62,14 +80,6 @@ public class Subject {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Library getLibrary() {
-        return library;
-    }
-
-    public void setLibrary(Library library) {
-        this.library = library;
     }
 
     public Character getAnswer() {
@@ -128,11 +138,18 @@ public class Subject {
         this.analysis = analysis;
     }
 
+    public Integer getLibraryId() {
+        return libraryId;
+    }
+
+    public void setLibraryId(Integer libraryId) {
+        this.libraryId = libraryId;
+    }
+
     @Override
     public String toString() {
         return "Subject{" +
                 "id=" + id +
-                ", library=" + library +
                 ", answer=" + answer +
                 ", optionA='" + optionA + '\'' +
                 ", optionB='" + optionB + '\'' +
@@ -140,7 +157,7 @@ public class Subject {
                 ", optionD='" + optionD + '\'' +
                 ", sort=" + sort +
                 ", analysis='" + analysis + '\'' +
+                ", libraryId=" + libraryId +
                 '}';
     }
 }
-

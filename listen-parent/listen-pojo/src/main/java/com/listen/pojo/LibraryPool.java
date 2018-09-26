@@ -1,46 +1,52 @@
 package com.listen.pojo;
 
-import java.util.HashSet;
-import java.util.Set;
+import com.github.pagehelper.PageInfo;
+
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * FileName LibraryPool
- * Created by Exler
+ *
+ * @author Exler
  * Time 2018-08-30 10:07
  * Description: 题库池类
  */
 
-public class LibraryPool {
+@Table(name = "LibraryPool")
+public class LibraryPool extends PageInfo<LibraryPool> {
 
     /**
      * 题库池id
      */
+    @Id
+    @Column(name = "id")
     private Integer id;
 
     /**
      * 题库池所属等级
      */
+    @Column(name = "grade")
     private Integer grade;
 
     /**
      * 题库池所属关卡
      */
+    @Column(name = "checkPoint")
     private Integer checkPoint;
 
     /**
      * 题库池通过规定分数
      */
+    @Column(name = "score")
     private Double score;
 
     /**
      * 题库池题目数量
      */
+    @Column(name = "subjectCount")
     private Integer subjectCount;
-
-    /**
-     * 题库池中的题目
-     */
-    private Set<Library> librarieSet = new HashSet<>();
 
     public Integer getId() {
         return id;
@@ -82,14 +88,6 @@ public class LibraryPool {
         this.subjectCount = subjectCount;
     }
 
-    public Set<Library> getLibrarieSet() {
-        return librarieSet;
-    }
-
-    public void setLibrarieSet(Set<Library> librarieSet) {
-        this.librarieSet = librarieSet;
-    }
-
     @Override
     public String toString() {
         return "LibraryPool{" +
@@ -98,7 +96,6 @@ public class LibraryPool {
                 ", checkPoint=" + checkPoint +
                 ", score=" + score +
                 ", subjectCount=" + subjectCount +
-                ", librarieSet=" + librarieSet +
                 '}';
     }
 }

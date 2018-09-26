@@ -1,49 +1,68 @@
 package com.listen.pojo;
 
+import com.github.pagehelper.PageInfo;
+
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
- * FileName SysStudentLibraryPool
+ * FileName SysUserLibraryPool
+ *
  * @author Exler
  * Time 2018-08-30 10:19
  * Description:
  */
-public class SysStudentLibraryPool {
+
+@Table(name = "SysUserLibraryPool")
+public class SysUserLibraryPool extends PageInfo<SysUserLibraryPool> {
 
     /**
      * id
      */
+    @Id
+    @Column(name = "id")
     private Integer id;
-    /**
-     * 做题用户
-     * 用户id
-     */
-    private User stu;
+
 
     /**
      * 对应题库池
      * 题库池id
      */
-    private LibraryPool lp;
+    @Column(name = "lpId")
+    private Integer lpId;
 
     /**
      * 所得分数
      */
-    private Integer score;
+    @Column(name = "score")
+    private Double score;
 
     /**
      * 做题提交的时间
      */
+    @Column(name = "time")
     private String time;
 
     /**
      * 第几次做题
      */
+    @Column(name = "count")
     private Integer count;
 
     /**
      * 试卷类别
      * 考试 练习
      */
+    @Column(name = "classify")
     private Integer classify;
+
+    /**
+     * 做题用户
+     * 用户id
+     */
+    @Column(name = "userId")
+    private Integer userId;
 
     public Integer getId() {
         return id;
@@ -53,27 +72,19 @@ public class SysStudentLibraryPool {
         this.id = id;
     }
 
-    public User getStu() {
-        return stu;
+    public Integer getLpId() {
+        return lpId;
     }
 
-    public void setStu(User stu) {
-        this.stu = stu;
+    public void setLpId(Integer lpId) {
+        this.lpId = lpId;
     }
 
-    public LibraryPool getLp() {
-        return lp;
-    }
-
-    public void setLp(LibraryPool lp) {
-        this.lp = lp;
-    }
-
-    public Integer getScore() {
+    public Double getScore() {
         return score;
     }
 
-    public void setScore(Integer score) {
+    public void setScore(Double score) {
         this.score = score;
     }
 
@@ -101,16 +112,24 @@ public class SysStudentLibraryPool {
         this.classify = classify;
     }
 
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
-        return "SysStudentLibraryPool{" +
+        return "SysUserLibraryPool{" +
                 "id=" + id +
-                ", stu=" + stu.getId() +
-                ", lpId=" + lp.getId() +
+                ", lpId=" + lpId +
                 ", score=" + score +
                 ", time='" + time + '\'' +
                 ", count=" + count +
                 ", classify=" + classify +
+                ", userId=" + userId +
                 '}';
     }
 }

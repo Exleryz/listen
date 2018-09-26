@@ -1,5 +1,7 @@
 package com.listen.pojo;
 
+import com.github.pagehelper.PageInfo;
+
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -13,7 +15,7 @@ import javax.persistence.Table;
  */
 
 @Table(name = "Vocabulary")
-public class Vocabulary {
+public class Vocabulary extends PageInfo<Vocabulary> {
 
     /**
      * id
