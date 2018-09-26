@@ -1,47 +1,61 @@
 package com.listen.pojo;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * FileName Vocabulary
- * Created by Exler
+ *
+ * @author Exler
  * Time 2018-08-30 10:23
  * Description: 词汇类
  */
 
+@Table(name = "Vocabulary")
 public class Vocabulary {
 
     /**
      * id
      */
+    @Id
+    @Column(name = "id")
     private Integer id;
 
     /**
      * 中文意思
      */
+    @Column(name = "chinese")
     private String chinese;
 
     /**
      * 单词
      */
+    @Column(name = "english")
     private String english;
 
     /**
      * 解释1
      */
+    @Column(name = "explain1")
     private String explain1;
 
     /**
      * 解释2
      */
+    @Column(name = "explain2")
     private String explain2;
 
     /**
      * 解释3
      */
+    @Column(name = "explain3")
     private String explain3;
 
     /**
      * 词汇等级
      */
+    @Column(name = "grade")
     private Integer grade;
 
     public Integer getId() {
@@ -109,7 +123,7 @@ public class Vocabulary {
                 ", explain1='" + explain1 + '\'' +
                 ", explain2='" + explain2 + '\'' +
                 ", explain3='" + explain3 + '\'' +
-                ", grade='" + grade + '\'' +
+                ", grade=" + grade +
                 '}';
     }
 }

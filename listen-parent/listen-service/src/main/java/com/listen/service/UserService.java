@@ -2,7 +2,6 @@ package com.listen.service;
 
 import com.listen.common.utils.ListenResult;
 import com.listen.pojo.User;
-import com.listen.pojo.vo.UserVo;
 
 /**
  * @author Exler
@@ -12,18 +11,18 @@ public interface UserService {
     /**
      * 登录
      *
-     * @param userVo
+     * @param User
      * @return
      */
-    ListenResult login(UserVo userVo);
+    ListenResult login(User User);
 
     /**
      * 注册
      *
-     * @param userVo
+     * @param User
      * @return
      */
-    ListenResult register(UserVo userVo);
+    ListenResult register(User User);
 
     /**
      * 登出

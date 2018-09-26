@@ -14,6 +14,11 @@
 
     <!-- 依赖的jar包 -->
     <dependencies>
+        <dependency>
+            <groupId>com.exler</groupId>
+            <artifactId>listen-pojo</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
         <!-- 时间操作组件 -->
         <dependency>
             <groupId>joda-time</groupId>

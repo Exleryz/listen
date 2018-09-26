@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.listen.mapper.VocabularyMapper">
+    <!-- resultMap -->
+    <resultMap type="com.listen.pojo.Vocabulary" id="VocabularyMap">
+        <result property="id" column="id"/>
+        <result property="chinese" column="chinese"/>
+        <result property="english" column="english"/>
+        <result property="explain1" column="explain1"/>
+        <result property="explain2" column="explain2"/>
+        <result property="explain3" column="explain3"/>
+        <result property="grade" column="grade"/>
+    </resultMap>
+
+    <select id="getVocs" resultMap="VocabularyMap">
+        select *
+        from Vocabulary
+        where grade = #{grade} order by rand()
+        limit 0,#{num}
+    </select>
+</mapper>

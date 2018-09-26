@@ -2,7 +2,7 @@ package com.listen.controller;
 
 import com.listen.common.utils.CookieUtils;
 import com.listen.common.utils.ListenResult;
-import com.listen.pojo.vo.UserVo;
+import com.listen.pojo.User;
 import com.listen.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +27,22 @@ public class SsoController {
     @Value("${TOKEN_KEY}")
     private String TOKEN_KEY;
 
+    /**
+     * 登录
+     *
+     * @param user
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public ListenResult login(UserVo userVo, HttpServletRequest request, HttpServletResponse response) {
+    public ListenResult login(User user, HttpServletRequest request, HttpServletResponse response) {
         // 参数检查
-        if (StringUtils.isEmpty(userVo.getAccount()) || StringUtils.isEmpty(userVo.getPassword())) {
+        if (StringUtils.isEmpty(user.getAccount()) || StringUtils.isEmpty(user.getPassword())) {
             return ListenResult.error("账号/密码不可为空");
         }
-        ListenResult result = userService.login(userVo);
+        ListenResult result = userService.login(user);
         if (result.getCode() == 200) {
             // 用户登录成功
             String token = result.getData().toString();
@@ -47,22 +55,26 @@ public class SsoController {
     /**
      * 注册
      *
-     * @param userVo
+     * @param user
      * @return
      */
     @RequestMapping("/register")
     @ResponseBody
-    public ListenResult register(UserVo userVo) {
+    public ListenResult register(User user) {
         // 参数检查
-        if (StringUtils.isEmpty(userVo.getAccount()) || StringUtils.isEmpty(userVo.getPassword()) || StringUtils.isEmpty(userVo.getUsername())) {
+        if (StringUtils.isEmpty(user.getAccount()) || StringUtils.isEmpty(user.getPassword()) || StringUtils.isEmpty(user.getUsername())) {
             return ListenResult.error("账号/密码不可为空");
         }
-        ListenResult result = userService.register(userVo);
+        ListenResult result = userService.register(user);
         return result;
     }
 
     /**
      * 登出
+     *
+     * @param request
+     * @param response
+     * @return
      */
     @RequestMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {

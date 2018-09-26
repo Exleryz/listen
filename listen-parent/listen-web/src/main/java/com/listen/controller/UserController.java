@@ -2,8 +2,6 @@ package com.listen.controller;
 
 import com.listen.common.utils.ListenResult;
 import com.listen.pojo.User;
-import com.listen.pojo.Vocabulary;
-import com.listen.pojo.vo.UserVo;
 import com.listen.service.UserService;
 import com.listen.service.VocabularyService;
 import org.apache.commons.lang3.StringUtils;
@@ -26,7 +24,7 @@ public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
-    private VocabularyService VocabularyService
+    private VocabularyService vocabularyService;
 
     /**
      * ajax 检查账号是否存在
@@ -36,13 +34,13 @@ public class UserController {
      */
     @RequestMapping("/check")
     @ResponseBody
-    public ListenResult checkAccount(UserVo userVo) throws Exception {
+    public ListenResult checkAccount(User user) throws Exception {
         // 参数检查
-        if (StringUtils.isEmpty(userVo.getAccount())) {
+        if (StringUtils.isEmpty(user.getAccount())) {
             return ListenResult.error("账号不可为空");
         }
-        User user = userService.selectUserByAccount(userVo.getAccount());
-        if (user != null) {
+        User existUser = userService.selectUserByAccount(user.getAccount());
+        if (existUser != null) {
             return ListenResult.error("账号已存在");
         }
         return ListenResult.success(null);
@@ -54,11 +52,11 @@ public class UserController {
      * @return
      * @throws Exception
      */
-    public String initGrade() throws Exception {
-        JSON gradetestJson = .initGradetest();
-        ServletActionContext.getResponse().setCharacterEncoding("UTF-8");
-        ServletActionContext.getResponse().getWriter().write(gradetestJson.toString());
-        return null;
+    @RequestMapping("/initGrade")
+    @ResponseBody
+    public ListenResult initGrade() throws Exception {
+        ListenResult result = vocabularyService.initGradetest();
+        return result;
     }
 
 //    /**
