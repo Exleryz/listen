@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * FileName StudentAction
  *
@@ -59,19 +61,19 @@ public class UserController {
         return result;
     }
 
-//    /**
-//     * 词汇测试提交等级
-//     *
-//     * @return
-//     * @throws Exception
-//     */
-//    public String submitGrade() throws Exception {
-//        String score = ServletActionContext.getRequest().getParameter("score");
-//        System.out.println(score);
-//        Student s = (Student) ActionContext.getContext().getSession().get("student");
-//        studentService.initGradeCode(s, Float.parseFloat(score));
-//        return "toHome";
-//    }
+    /**
+     * 词汇测试提交等级
+     *
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/submitGrade")
+    @ResponseBody
+    public ListenResult submitGrade(Float score, HttpServletRequest request) throws Exception {
+        User user = (User) request.getAttribute("user");
+        ListenResult result = userService.initGradeCode(user, score);
+        return result;
+    }
 //
 //    /**
 //     * @return
@@ -138,16 +140,3 @@ public class UserController {
 //    }
 
 }
-
-
-//        import com.listen.domain.Student;
-//        import com.listen.service.StudentService;
-//        import com.opensymphony.xwork2.ActionContext;
-//        import com.opensymphony.xwork2.ActionSupport;
-//        import com.opensymphony.xwork2.ModelDriven;
-//        import net.sf.json.JSON;
-//        import net.sf.json.JSONObject;
-//        import org.apache.struts2.ServletActionContext;
-//        import org.springframework.beans.factory.annotation.Autowired;
-//        import org.springframework.context.annotation.Scope;
-//        import org.springframework.stereotype.Controller;

@@ -6,6 +6,7 @@ import com.listen.common.utils.ListenResult;
 import com.listen.mapper.UserMapper;
 import com.listen.pojo.User;
 import com.listen.service.UserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 import tk.mybatis.mapper.entity.Example;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author Exler
@@ -95,6 +98,41 @@ public class UserServiceImpl implements UserService {
         criteria.andEqualTo("account", account);
         User existUser = userMapper.selectOneByExample(example);
         return existUser;
+    }
+
+    @Override
+    public ListenResult getUserByToken(String token) {
+        // 根据token到redis中取用户信息
+        String json = jedisClient.get(JEDIS_KEY + token);
+        // 取不到用户信息 登录已经过期 返回登录过期
+        if (StringUtils.isBlank(json)) {
+            return new ListenResult("用户登录已经过期", 201, null);
+        }
+        // 取到用户信息 更新token的过期时间
+        User user = JsonUtils.jsonToPojo(json, User.class);
+        // 更新token的过期时间
+        jedisClient.expire(JEDIS_KEY + token, SESSION_EXPIRE);
+        return ListenResult.success(user);
+    }
+
+    /**
+     * 初始化学生等级
+     *
+     * @param user
+     * @param score
+     */
+    @Override
+    public ListenResult initGradeCode(User user, Float score) {
+        if (null == user.getCurrentCheck()) {
+            user.setCurrentCheck(0);
+            // <= 70 1 <= 90 2 >90 3
+            user.setGrade(score <= 70 ? 1 : score <= 90 ? 2 : 3);
+            int i = userMapper.updateByPrimaryKey(user);
+            if (i > 0) {
+                return ListenResult.success(null);
+            }
+        }
+        return ListenResult.error("获取初始等级失败");
     }
 
 }

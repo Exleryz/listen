@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 /**
  * @author Exler
@@ -45,7 +46,8 @@ public class SsoController {
         ListenResult result = userService.login(user);
         if (result.getCode() == 200) {
             // 用户登录成功
-            String token = result.getData().toString();
+            Map<String, String> session = (Map<String, String>) result.getData();
+            String token = session.get("token");
             // 如果登录成功把token写入cookie
             CookieUtils.setCookie(request, response, TOKEN_KEY, token);
         }

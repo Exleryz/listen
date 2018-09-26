@@ -38,4 +38,21 @@ public interface UserService {
      * @return
      */
     User selectUserByAccount(String account);
+
+    /**
+     * 根据token 获取用户信息
+     *
+     * @param token
+     * @return
+     */
+    ListenResult getUserByToken(String token);
+
+    /**
+     * 初始化学生等级
+     *
+     * @param user
+     * @param score
+     * @return
+     */
+    ListenResult initGradeCode(User user, Float score);
 }
