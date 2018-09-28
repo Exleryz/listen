@@ -1,6 +1,7 @@
 package com.listen.controller;
 
 import com.listen.common.utils.ListenResult;
+import com.listen.pojo.SysUserLibraryPool;
 import com.listen.pojo.User;
 import com.listen.service.LibraryPoolService;
 import com.listen.service.UserService;
@@ -81,21 +82,6 @@ public class UserController {
         ListenResult result = userService.initGradeCode(user, score);
         return result;
     }
-//
-//    /**
-//     * @return
-//     * @throws Exception
-//     */
-//    public String clearance() throws Exception {
-//        String checkcount = ServletActionContext.getRequest().getParameter("checkcount");
-//        Student s = (Student) ActionContext.getContext().getSession().get("student");
-//        try {
-//            studentService.openNewCheckPoint(s, checkcount);
-//            return "";
-//        } catch (Exception e) {
-//            return "";
-//        }
-//    }
 
     /**
      * ajax 加载听力试卷
@@ -105,30 +91,31 @@ public class UserController {
      */
     @RequestMapping("/initSubject")
     @ResponseBody
-    public ListenResult initSubject(HttpServletRequest request, Integer checkId) throws Exception {
+    public ListenResult initSubject(Integer checkPoint, HttpServletRequest request) throws Exception {
         User user = (User) request.getAttribute("user");
-        if (null == user.getGrade() || null == checkId) {
+        if (null == user.getGrade() || null == checkPoint) {
             return ListenResult.error("试卷加载异常");
         }
-        ListenResult result = libraryPoolService.getCurrentGradeSubjects(user.getGrade(), checkId);
+        ListenResult result = libraryPoolService.getCurrentGradeSubjects(user.getGrade(), checkPoint);
         return result;
     }
 
-//    /**
-//     * 提交当前关卡的分数
-//     *
-//     * @return
-//     * @throws Exception
-//     */
-//    public String getScore() throws Exception {
-//        String score = ServletActionContext.getRequest().getParameter("score");
-//        String checkId = ServletActionContext.getRequest().getParameter("checkId");
-//        System.out.println("current check point score _______________" + score + "  " + checkId);
-//        Student s = (Student) ActionContext.getContext().getSession().get("student");
-//        studentService.saveScore(s.getGrade(), Integer.parseInt(checkId), Integer.parseInt(score), s);
-//        return "toHome";
-//    }
-//
+    /**
+     * 提交当前关卡的分数 classify 为null 认为是练习
+     *
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/submitScore")
+    @ResponseBody
+    public ListenResult submitScore(SysUserLibraryPool sysUserLibraryPool, Integer checkPoint, HttpServletRequest request) throws Exception {
+        if (null == sysUserLibraryPool.getScore() || null == checkPoint) {
+            return ListenResult.error("试卷提交失败");
+        }
+        User user = (User) request.getAttribute("user");
+        return userService.saveScore(user, sysUserLibraryPool, checkPoint);
+    }
+
 //    /**
 //     * 根据当前关卡 分页 返回当前关卡的历史记录
 //     *

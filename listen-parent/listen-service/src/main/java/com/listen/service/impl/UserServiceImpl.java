@@ -3,7 +3,10 @@ package com.listen.service.impl;
 import com.listen.common.jedis.JedisClient;
 import com.listen.common.utils.JsonUtils;
 import com.listen.common.utils.ListenResult;
+import com.listen.mapper.LibraryPoolMapper;
+import com.listen.mapper.SysUserLibraryPoolMapper;
 import com.listen.mapper.UserMapper;
+import com.listen.pojo.SysUserLibraryPool;
 import com.listen.pojo.User;
 import com.listen.service.UserService;
 import org.apache.commons.lang3.StringUtils;
@@ -14,6 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 import tk.mybatis.mapper.entity.Example;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -26,6 +31,10 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private SysUserLibraryPoolMapper sysUserLibraryPoolMapper;
+    @Autowired
+    private LibraryPoolMapper libraryPoolMapper;
     @Autowired
     private JedisClient jedisClient;
     @Value("${JEDIS_KEY}")
@@ -132,6 +141,28 @@ public class UserServiceImpl implements UserService {
             return ListenResult.success(null);
         }
         return ListenResult.error("更新失败");
+    }
+
+    @Override
+    public ListenResult saveScore(User user, SysUserLibraryPool sysUserLibraryPool, Integer checkPoint) {
+        if (null == sysUserLibraryPool.getClassify()) {
+            sysUserLibraryPool.setClassify(0);
+        }
+        Integer lpId = libraryPoolMapper.selectLpByGradeAndCheck(user.getGrade(), checkPoint).getId();
+        sysUserLibraryPool.setLpId(lpId);
+        sysUserLibraryPool.setUserId(user.getId());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        sysUserLibraryPool.setTime(simpleDateFormat.format(new Date()));
+        Example example = new Example(SysUserLibraryPool.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("userId", user.getId());
+        criteria.andEqualTo("lpId", lpId);
+        criteria.andEqualTo("classify", sysUserLibraryPool.getClassify());
+        sysUserLibraryPool.setCount(sysUserLibraryPoolMapper.selectCountByExample(example) + 1);
+//        int insert = sysUserLibraryPoolMapper.insert(sysUserLibraryPool);
+//        return insert == 0 ? ListenResult.error("提交试卷保存失败") : ListenResult.success(null);
+        sysUserLibraryPoolMapper.insert(sysUserLibraryPool);
+        return ListenResult.success(null);
     }
 
 }

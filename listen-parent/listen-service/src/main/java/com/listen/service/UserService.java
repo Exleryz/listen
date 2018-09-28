@@ -1,6 +1,7 @@
 package com.listen.service;
 
 import com.listen.common.utils.ListenResult;
+import com.listen.pojo.SysUserLibraryPool;
 import com.listen.pojo.User;
 
 /**
@@ -55,4 +56,14 @@ public interface UserService {
      * @return
      */
     ListenResult initGradeCode(User user, Float score);
+
+    /**
+     * 保存试卷分数
+     *
+     * @param user
+     * @param sysUserLibraryPool
+     * @param checkPoint
+     * @return
+     */
+    ListenResult saveScore(User user, SysUserLibraryPool sysUserLibraryPool, Integer checkPoint);
 }

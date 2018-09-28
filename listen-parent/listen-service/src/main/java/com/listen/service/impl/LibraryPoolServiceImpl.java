@@ -34,10 +34,10 @@ public class LibraryPoolServiceImpl implements LibraryPoolService {
     private SubjectMapper subjectMapper;
 
     @Override
-    public ListenResult getCurrentGradeSubjects(Integer grade, Integer checkId) {
+    public ListenResult getCurrentGradeSubjects(Integer grade, Integer checkPoint) {
         // get LibraryPool currentCheck id
 
-        LibraryPool lp = libraryPoolMapper.selectLpByGradeAndCheck(grade, checkId);
+        LibraryPool lp = libraryPoolMapper.selectLpByGradeAndCheck(grade, checkPoint);
         // 根据获取题库池中的题目
         List<SysLibraryLibraryPoolVo> vosList = sysLibraryLibraryPoolMapper.selectLibIdsByLpId(lp.getId());
         //获取开始时间

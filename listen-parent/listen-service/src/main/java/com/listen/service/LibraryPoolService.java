@@ -11,8 +11,8 @@ public interface LibraryPoolService {
      * 获取当前关卡 的题目
      *
      * @param grade
-     * @param checkId
+     * @param checkPoint
      * @return
      */
-    ListenResult getCurrentGradeSubjects(Integer grade, Integer checkId);
+    ListenResult getCurrentGradeSubjects(Integer grade, Integer checkPoint);
 }
