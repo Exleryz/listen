@@ -1,7 +1,5 @@
 package com.listen.pojo;
 
-import com.github.pagehelper.PageInfo;
-
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -15,7 +13,7 @@ import javax.persistence.Table;
  */
 
 @Table(name = "LibraryPool")
-public class LibraryPool extends PageInfo<LibraryPool> {
+public class LibraryPool {
 
     /**
      * 题库池id
@@ -45,8 +43,8 @@ public class LibraryPool extends PageInfo<LibraryPool> {
     /**
      * 题库池题目数量
      */
-    @Column(name = "subjectCount")
-    private Integer subjectCount;
+    @Column(name = "libraryCount")
+    private Integer libraryCount;
 
     public Integer getId() {
         return id;
@@ -80,12 +78,12 @@ public class LibraryPool extends PageInfo<LibraryPool> {
         this.score = score;
     }
 
-    public Integer getSubjectCount() {
-        return subjectCount;
+    public Integer getLibraryCount() {
+        return libraryCount;
     }
 
-    public void setSubjectCount(Integer subjectCount) {
-        this.subjectCount = subjectCount;
+    public void setLibraryCount(Integer libraryCount) {
+        this.libraryCount = libraryCount;
     }
 
     @Override
@@ -95,7 +93,7 @@ public class LibraryPool extends PageInfo<LibraryPool> {
                 ", grade=" + grade +
                 ", checkPoint=" + checkPoint +
                 ", score=" + score +
-                ", subjectCount=" + subjectCount +
+                ", libraryCount=" + libraryCount +
                 '}';
     }
 }

@@ -5,10 +5,12 @@ import com.listen.common.vo.GradeSubject;
 import com.listen.pojo.Library;
 import com.listen.pojo.Subject;
 import com.listen.pojo.Vocabulary;
+import com.listen.common.vo.LibraryVo;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ScheduledExecutorService;
@@ -24,9 +26,15 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 public class MakeSubject {
 
-    public static List<GradeSubject> initTestJson(List<Vocabulary> list) {
+    /**
+     * 单词
+     *
+     * @param list
+     * @return
+     */
+    public static List<GradeSubject> initVocabulary(List<Vocabulary> list) {
         final List<GradeSubject> subjectList = new ArrayList<GradeSubject>();
-        ScheduledExecutorService es = new ScheduledThreadPoolExecutor(10, new BasicThreadFactory.Builder().namingPattern("pool-%d").daemon(true).build());
+        ScheduledExecutorService es = new ScheduledThreadPoolExecutor(10, new BasicThreadFactory.Builder().namingPattern("Vocabulary-pool-%d").daemon(true).build());
         // 题目总数50 10个数组一处理 需要计数5次
         final CountDownLatch latch = new CountDownLatch(5);
         for (int i = 0; i < 5; i++) {
@@ -39,9 +47,9 @@ public class MakeSubject {
                 @Override
                 public void run() {
                     try {
-                        exec(vocList, subjectList);
+                        execVocabulary(vocList, subjectList);
                     } catch (Exception e) {
-                    }finally {
+                    } finally {
                         latch.countDown();
                     }
                 }
@@ -56,7 +64,41 @@ public class MakeSubject {
         return subjectList;
     }
 
-    private static void exec(List<Vocabulary> vocList, List<GradeSubject> subjectList) {
+    /**
+     * 题目
+     *
+     * @param libraries
+     * @param subjectsMap
+     * @return
+     */
+    public static List<LibraryVo> initSubject(List<Library> libraries, Map<Integer, List<Subject>> subjectsMap) {
+        ScheduledExecutorService es = new ScheduledThreadPoolExecutor(10, new BasicThreadFactory.Builder().namingPattern("Subject-pool-%d").daemon(true).build());
+        final CountDownLatch latch = new CountDownLatch(libraries.size());
+        final List<LibraryVo> voList = new ArrayList<>(libraries.size());
+        for (final Library library : libraries) {
+            final List<Subject> subjects = subjectsMap.get(library.getId());
+            es.execute(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        execSubject(library, subjects, voList);
+                    } catch (Exception e) {
+                    } finally {
+                        latch.countDown();
+                    }
+                }
+            });
+        }
+        es.shutdown();
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            return null;
+        }
+        return voList;
+    }
+
+    private static void execVocabulary(List<Vocabulary> vocList, List<GradeSubject> subjectList) {
         for (int i = 0; i < vocList.size(); i++) {
             GradeSubject s = new GradeSubject();
             List<GradeOption> options = null;
@@ -66,88 +108,57 @@ public class MakeSubject {
             // add option
             for (int j = 0; j < 4; j++) {
                 o = new GradeOption();
-                o.setSort(j);
                 o.setAnswer(j == 0);
-                o.setContent(j == 0 ? vocList.get(i).getChinese() : j == 1 ? vocList.get(i).getExplain1() : j == 2 ? vocList.get(i).getExplain2() : vocList.get(i).getExplain3());
+                o.setContent(j == 0 ? vocList.get(i).getChinese() : j == 1 ? vocList.get(i).getExplain1() : j == 2 ?
+                        vocList.get(i).getExplain2() : vocList.get(i).getExplain3());
                 options.add(o);
             }
             // exchange answer
-            int optionTwo = 0;
-            int j = 0;
-            Random r = new Random();
-            do {
-                int optionOne = r.nextInt(4);
-                o = options.get(optionTwo);
-                options.set(optionTwo, options.get(optionOne));
-                options.set(optionOne, o);
-                optionTwo = r.nextInt(options.size());
-                j++;
-            } while (j < 2);
+            // add
+            s.setOptions(change(options, 0));
+            s.setGrade(vocList.get(i).getGrade());
             synchronized (subjectList) {
-                s.setCount(subjectList.size());
-                s.setOptions(options);
                 subjectList.add(s);
             }
         }
     }
 
-    public static String initSubject(List<Library> libraries, List<Subject> subjects) {
-        StringBuilder sb = new StringBuilder();
-        int count = 0;
-        int sonCount;
-        sb.append("[");
-        for (int i = 0; i < libraries.size(); i++) {
-            sb.append("{\"count\": " + i + "," +
-                    "\"src\": \"" + libraries.get(i).getSrc() + "\"," +
-                    "\"questions\":[");
-            sonCount = libraries.get(i).getSonCount();
-            for (int j = count % sonCount; j < sonCount; j++, count++) {
-                sb.append("{\"analysis\":\"" + subjects.get(count).getAnalysis() + "\"," +
-                        "\"options\": [");
+    private static void execSubject(Library library, List<Subject> subjects, List<LibraryVo> voList) {
+        // 大题Vo
+        LibraryVo vo = new LibraryVo();
+        // 题目list
+        List<GradeSubject> newSubjects = new ArrayList<>();
+        vo.setSrc(library.getSrc());
+        vo.setSubjectCount(library.getSubjectCount());
 
-                String[] strs = new String[4];
-                // 为什么不能直接转json?
-                if (subjects.get(count).getAnswer().equals('A'))
-                    strs[0] = ("{\"option\":{\"content\":\"" + subjects.get(count).getOptionA() + "\",\"answer\":\"" + "true" + "\"}},");
-                else
-                    strs[0] = ("{\"option\":{\"content\":\"" + subjects.get(count).getOptionA() + "\",\"answer\":\"" + "false" + "\"}},");
-                if (subjects.get(count).getAnswer().equals('B'))
-                    strs[1] = ("{\"option\":{\"content\":\"" + subjects.get(count).getOptionB() + "\",\"answer\":\"" + "true" + "\"}},");
-                else
-                    strs[1] = ("{\"option\":{\"content\":\"" + subjects.get(count).getOptionB() + "\",\"answer\":\"" + "false" + "\"}},");
-                if (subjects.get(count).getAnswer().equals('C'))
-                    strs[2] = ("{\"option\":{\"content\":\"" + subjects.get(count).getOptionC() + "\",\"answer\":\"" + "true" + "\"}},");
-                else
-                    strs[2] = ("{\"option\":{\"content\":\"" + subjects.get(count).getOptionC() + "\",\"answer\":\"" + "false" + "\"}},");
-                if (subjects.get(count).getAnswer().equals('D'))
-                    strs[3] = ("{\"option\":{\"content\":\"" + subjects.get(count).getOptionD() + "\",\"answer\":\"" + "true" + "\"}},");
-                else
-                    strs[3] = ("{\"option\":{\"content\":\"" + subjects.get(count).getOptionD() + "\",\"answer\":\"" + "false" + "\"}},");
-
-                Random r = new Random();
-                String temp = null;
-                for (int k = 0; k < 3; k++) {
-                    int one = r.nextInt(strs.length);
-                    int two = r.nextInt(strs.length);
-                    temp = strs[one];
-                    strs[one] = strs[two];
-                    strs[two] = temp;
-                }
-
-                sb.append(strs[0]);
-                sb.append(strs[1]);
-                sb.append(strs[2]);
-                sb.append(strs[3]);
-                sb.deleteCharAt(sb.length() - 1);
-                sb.append("]},");
+        for (Subject subject : subjects) {
+            // 获取正确答案
+            int tempSort = subject.getAnswer() - 'A';
+            List<GradeOption> options = new ArrayList<>(4);
+            for (int i = 0; i < 4; i++) {
+                GradeOption option = new GradeOption();
+                option.setAnswer(i == tempSort);
+                option.setContent(i == 0 ? subject.getOptionA() : i == 1 ? subject.getOptionB() : i == 2 ?
+                        subject.getOptionC() : subject.getOptionD());
+                options.add(option);
             }
-            count = 0;
-            sb.deleteCharAt(sb.length() - 1);
-            sb.append("]},");
-
+            // 交换选项
+            change(options, tempSort);
+            GradeSubject newSubject = new GradeSubject();
+            newSubject.setOptions(options);
+            newSubjects.add(newSubject);
         }
-        sb.deleteCharAt(sb.length() - 1);
-        sb.append("]");
-        return sb.toString();
+        vo.setSubjects(newSubjects);
+        voList.add(vo);
+    }
+
+    private static List<GradeOption> change(List<GradeOption> options, int index) {
+        // 交换选项
+        Random r = new Random();
+        int randomOption = r.nextInt(4);
+        GradeOption tempOption = options.get(index);
+        options.set(index, options.get(randomOption));
+        options.set(randomOption, tempOption);
+        return options;
     }
 }

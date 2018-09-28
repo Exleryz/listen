@@ -1,7 +1,5 @@
 package com.listen.pojo;
 
-import com.github.pagehelper.PageInfo;
-
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -15,7 +13,7 @@ import javax.persistence.Table;
  */
 
 @Table(name = "Library")
-public class Library extends PageInfo<Library> {
+public class Library {
 
     /**
      * 大题id
@@ -39,14 +37,20 @@ public class Library extends PageInfo<Library> {
     /**
      * 上传题目的教师id
      */
-    @Column(name = "teacherId")
-    private Integer teacherId;
+    @Column(name = "userId")
+    private Integer userId;
 
     /**
      * 大题的子题数
      */
-    @Column(name = "sonCount")
-    private Integer sonCount;
+    @Column(name = "subjectCount")
+    private Integer subjectCount;
+
+    /**
+     *  题目难度 1 2 3
+     */
+    @Column(name = "difficulty")
+    private Integer difficulty;
 
     public Integer getId() {
         return id;
@@ -72,20 +76,20 @@ public class Library extends PageInfo<Library> {
         this.title = title;
     }
 
-    public Integer getTeacherId() {
-        return teacherId;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setTeacherId(Integer teacherId) {
-        this.teacherId = teacherId;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public Integer getSonCount() {
-        return sonCount;
+    public Integer getSubjectCount() {
+        return subjectCount;
     }
 
-    public void setSonCount(Integer sonCount) {
-        this.sonCount = sonCount;
+    public void setSubjectCount(Integer subjectCount) {
+        this.subjectCount = subjectCount;
     }
 
     @Override
@@ -94,8 +98,8 @@ public class Library extends PageInfo<Library> {
                 "id=" + id +
                 ", src='" + src + '\'' +
                 ", title='" + title + '\'' +
-                ", teacherId=" + teacherId +
-                ", sonCount=" + sonCount +
+                ", userId=" + userId +
+                ", subjectCount=" + subjectCount +
                 '}';
     }
 }

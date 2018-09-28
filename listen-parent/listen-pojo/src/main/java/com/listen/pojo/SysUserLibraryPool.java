@@ -1,7 +1,5 @@
 package com.listen.pojo;
 
-import com.github.pagehelper.PageInfo;
-
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -15,7 +13,7 @@ import javax.persistence.Table;
  */
 
 @Table(name = "SysUserLibraryPool")
-public class SysUserLibraryPool extends PageInfo<SysUserLibraryPool> {
+public class SysUserLibraryPool {
 
     /**
      * id

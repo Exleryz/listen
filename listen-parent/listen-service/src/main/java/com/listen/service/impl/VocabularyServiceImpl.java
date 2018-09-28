@@ -24,10 +24,9 @@ public class VocabularyServiceImpl implements VocabularyService {
 
     @Override
     public ListenResult initGradetest() {
-        List<Vocabulary> list1 = vocabularyMapper.getVocs(1, 20);
-        list1.addAll(vocabularyMapper.getVocs(2, 30));
+        List<Vocabulary> list = vocabularyMapper.getVocs(1, 20);
+        list.addAll(vocabularyMapper.getVocs(2, 30));
 //        list1.addAll(vocabularyDao.getVocs(3, 10));
-        List<GradeSubject> gradeSubjects = MakeSubject.initTestJson(list1);
-        return ListenResult.success(gradeSubjects);
+        return ListenResult.success(MakeSubject.initVocabulary(list));
     }
 }

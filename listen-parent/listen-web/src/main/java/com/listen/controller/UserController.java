@@ -2,6 +2,7 @@ package com.listen.controller;
 
 import com.listen.common.utils.ListenResult;
 import com.listen.pojo.User;
+import com.listen.service.LibraryPoolService;
 import com.listen.service.UserService;
 import com.listen.service.VocabularyService;
 import org.apache.commons.lang3.StringUtils;
@@ -27,6 +28,8 @@ public class UserController {
     private UserService userService;
     @Autowired
     private VocabularyService vocabularyService;
+    @Autowired
+    private LibraryPoolService libraryPoolService;
 
     /**
      * ajax 检查账号是否存在
@@ -62,7 +65,7 @@ public class UserController {
     }
 
     /**
-     * 词汇测试提交等级
+     * 词汇测试提交 获取初始等级
      *
      * @return
      * @throws Exception
@@ -71,6 +74,10 @@ public class UserController {
     @ResponseBody
     public ListenResult submitGrade(Float score, HttpServletRequest request) throws Exception {
         User user = (User) request.getAttribute("user");
+        // 参数检查
+        if (null != user.getGrade() || null == score || null == user.getId()) {
+            return ListenResult.error("获取用户初始等级失败");
+        }
         ListenResult result = userService.initGradeCode(user, score);
         return result;
     }
@@ -89,23 +96,24 @@ public class UserController {
 //            return "";
 //        }
 //    }
-//
-//    /**
-//     * ajax 加载听力试卷
-//     *
-//     * @return
-//     * @throws Exception
-//     */
-//    public String initSubject() throws Exception {
-//        String checkId = ServletActionContext.getRequest().getParameter("checkId");
-//        Student s = (Student) ActionContext.getContext().getSession().get("student");
-//        String jsonString = studentService.getCurrentCheckPool(s.getGrade(), Integer.parseInt(checkId));
-//        ServletActionContext.getResponse().setCharacterEncoding("UTF-8");
-//        ServletActionContext.getResponse().getWriter().write(jsonString);
-//        System.out.println(jsonString);
-//        return null;
-//    }
-//
+
+    /**
+     * ajax 加载听力试卷
+     *
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/initSubject")
+    @ResponseBody
+    public ListenResult initSubject(HttpServletRequest request, Integer checkId) throws Exception {
+        User user = (User) request.getAttribute("user");
+        if (null == user.getGrade() || null == checkId) {
+            return ListenResult.error("试卷加载异常");
+        }
+        ListenResult result = libraryPoolService.getCurrentGradeSubjects(user.getGrade(), checkId);
+        return result;
+    }
+
 //    /**
 //     * 提交当前关卡的分数
 //     *

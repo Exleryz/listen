@@ -1,7 +1,5 @@
 package com.listen.pojo;
 
-import com.github.pagehelper.PageInfo;
-
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -16,7 +14,7 @@ import javax.persistence.Table;
  */
 
 @Table(name = "Subject")
-public class Subject extends PageInfo<Subject> {
+public class Subject {
 
     /**
      * 小题id
@@ -71,8 +69,8 @@ public class Subject extends PageInfo<Subject> {
      * 大题
      * library的id
      */
-    @Column(name = "libraryId")
-    private Integer libraryId;
+    @Column(name = "libId")
+    private Integer libId;
 
     public Integer getId() {
         return id;
@@ -138,12 +136,12 @@ public class Subject extends PageInfo<Subject> {
         this.analysis = analysis;
     }
 
-    public Integer getLibraryId() {
-        return libraryId;
+    public Integer getLiId() {
+        return libId;
     }
 
-    public void setLibraryId(Integer libraryId) {
-        this.libraryId = libraryId;
+    public void setLibId(Integer libraryId) {
+        this.libId = libraryId;
     }
 
     @Override
@@ -157,7 +155,7 @@ public class Subject extends PageInfo<Subject> {
                 ", optionD='" + optionD + '\'' +
                 ", sort=" + sort +
                 ", analysis='" + analysis + '\'' +
-                ", libraryId=" + libraryId +
+                ", libId=" + libId +
                 '}';
     }
 }

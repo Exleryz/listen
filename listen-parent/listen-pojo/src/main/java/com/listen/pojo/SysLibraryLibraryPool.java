@@ -1,7 +1,5 @@
 package com.listen.pojo;
 
-import com.github.pagehelper.PageInfo;
-
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -11,12 +9,13 @@ import javax.persistence.Table;
  * 题库池id 与之关联的所有大题目
  */
 @Table(name = "SysLibraryLibraryPool")
-public class SysLibraryLibraryPool extends PageInfo<SysLibraryLibraryPool> {
+public class SysLibraryLibraryPool {
 
     @Id
     @Column(name = "libId")
     private Integer libId;
 
+    @Id
     @Column(name = "lpId")
     private Integer lpId;
 

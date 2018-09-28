@@ -49,7 +49,7 @@ public class MakeSubjectTest {
         Library l = new Library();
         l.setId(1);
         l.setSrc("/asdfas/sadfasdf");
-        l.setSonCount(2);
+        l.setSubjectCount(2);
         libraries.add(l);
     }
 }

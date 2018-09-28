@@ -34,22 +34,23 @@ public class UserServiceImpl implements UserService {
     private Integer SESSION_EXPIRE;
 
     @Override
-    public ListenResult login(User User) {
+    public ListenResult login(User user) {
         // 根据账号查找账户
-        User selectUser = selectUserByAccount(User.getAccount());
+        User selectUser = selectUserByAccount(user.getAccount());
         if (selectUser == null) {
             return ListenResult.error("账号/密码错误");
         }
         // 账户存在验证密码
-        if (!DigestUtils.md5DigestAsHex((User.getPassword() + selectUser.getSalt()).getBytes()).equals(selectUser.getPassword())) {
+        if (!DigestUtils.md5DigestAsHex((user.getPassword() + selectUser.getSalt()).getBytes()).equals(selectUser.getPassword())) {
             // (用户输入的密码+盐)与数据库密码 不相等
             return ListenResult.error("账号/密码错误");
         }
         // 生成token
         String token = UUID.randomUUID().toString();
         // 把用户信息写入redis key:token value:用户信息
-        User.setPassword(null);
-        jedisClient.set(JEDIS_KEY + token, JsonUtils.objectToJson(User));
+        selectUser.setPassword(null);
+        selectUser.setSalt(null);
+        jedisClient.set(JEDIS_KEY + token, JsonUtils.objectToJson(selectUser));
         // 设置Session的过期时间
         jedisClient.expire(JEDIS_KEY + token, SESSION_EXPIRE);
         Map<String, String> data = new HashMap<>(2);
@@ -59,26 +60,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ListenResult register(User User) {
-        User existUser = selectUserByAccount(User.getAccount());
+    public ListenResult register(User user) {
+        User existUser = selectUserByAccount(user.getAccount());
         if (existUser != null) {
             return new ListenResult("账号已存在", 9, null);
         }
         // 盐
         String uuidSalt = UUID.randomUUID().toString().replace("-", "");
-        User.setSalt(uuidSalt);
+        user.setSalt(uuidSalt);
         // 密码加盐
-        String password = DigestUtils.md5DigestAsHex((User.getPassword() + uuidSalt).getBytes());
-        User.setPassword(password);
+        String password = DigestUtils.md5DigestAsHex((user.getPassword() + uuidSalt).getBytes());
+        user.setPassword(password);
         // 数据初始化
-        User.setGrade(0);
-        User.setClassify(0);
-        User.setCurrentCheck(null);
+        user.setGrade(0);
+        user.setClassify(0);
+        user.setCurrentCheck(null);
         // 插入
-        User user = new User();
-        BeanUtils.copyProperties(User, user);
-        userMapper.insert(user);
-        return ListenResult.success(user.getAccount());
+        User insertUser = new User();
+        BeanUtils.copyProperties(user, insertUser);
+        userMapper.insert(insertUser);
+        return ListenResult.success(insertUser.getAccount());
     }
 
     @Override
@@ -123,16 +124,14 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public ListenResult initGradeCode(User user, Float score) {
-        if (null == user.getCurrentCheck()) {
-            user.setCurrentCheck(0);
-            // <= 70 1 <= 90 2 >90 3
-            user.setGrade(score <= 70 ? 1 : score <= 90 ? 2 : 3);
-            int i = userMapper.updateByPrimaryKey(user);
-            if (i > 0) {
-                return ListenResult.success(null);
-            }
+        user.setCurrentCheck(0);
+        // <= 70 1 <= 90 2 >90 3
+        user.setGrade(score <= 70 ? 1 : score <= 90 ? 2 : 3);
+        int i = userMapper.updateByPrimaryKey(user);
+        if (i > 0) {
+            return ListenResult.success(null);
         }
-        return ListenResult.error("获取初始等级失败");
+        return ListenResult.error("更新失败");
     }
 
 }

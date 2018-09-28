@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.listen.mapper.SysLibraryLibraryPoolMapper">
+    <!-- resultMap -->
+    <resultMap type="com.listen.pojo.SysLibraryLibraryPool" id="SysLibraryLibraryPoolMap">
+        <result property="libId" column="libId"/>
+        <result property="lpId" column="lpId"/>
+    </resultMap>
+
+    <resultMap id="SysLibraryLibraryPoolVoMap" type="com.listen.pojo.vo.SysLibraryLibraryPoolVo"
+               extends="com.listen.mapper.SysLibraryLibraryPoolMapper.SysLibraryLibraryPoolMap">
+        <result property="difficulty" column="difficulty"/>
+    </resultMap>
+
+    <select id="selectLibIdsByLpId" resultMap="SysLibraryLibraryPoolVoMap">
+        select libid, difficulty
+        from SysLibraryLibraryPool
+               left join Library l on SysLibraryLibraryPool.libid = l.id
+        where lpid = #{lpId}
+        order by difficulty;
+    </select>
+</mapper>
