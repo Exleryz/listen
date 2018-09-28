@@ -94,7 +94,10 @@ public class UserController {
      */
     @RequestMapping("/history")
     @ResponseBody
-    public ListenResult getCurrentHistoryList(Integer checkPoint, Integer pageNum, Integer pageSize,HttpServletRequest request) throws Exception {
+    public ListenResult getCurrentHistoryList(Integer checkPoint, Integer pageNum, Integer pageSize, HttpServletRequest request) throws Exception {
+        if (null == checkPoint) {
+            return ListenResult.error("查询历史记录错误");
+        }
         User user = (User) request.getAttribute("user");
         return userService.getHistoryPage(user, checkPoint, pageNum, pageSize);
     }

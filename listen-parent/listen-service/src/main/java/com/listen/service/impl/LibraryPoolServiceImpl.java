@@ -75,9 +75,15 @@ public class LibraryPoolServiceImpl implements LibraryPoolService {
         List<LibraryVo> libraryVos = MakeSubject.initSubject(libraries, subjectsMap);
         // 试卷生成时间
         long endTime = System.currentTimeMillis();
-        System.out.println("endTime:\t" + (endTime - getTime)+"\n");
+        System.out.println("endTime:\t" + (endTime - getTime) + "\n");
 
         return null != libraryVos ? ListenResult.success(libraryVos) : ListenResult.error("服务器错误");
+    }
+
+    @Override
+    public ListenResult selectPoolByGradeAndCheckPoint(LibraryPool libraryPool) {
+        LibraryPool lp = libraryPoolMapper.selectLpByGradeAndCheck(libraryPool.getGrade(), libraryPool.getCheckPoint());
+        return ListenResult.success(lp);
     }
 
     private void test(LibraryPool lp, List<SysLibraryLibraryPoolVo> vosList) {

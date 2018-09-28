@@ -169,7 +169,7 @@ public class UserServiceImpl implements UserService {
         Example example = new Example(SysUserLibraryPool.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("userId", user.getId());
-        if (null != checkPoint) {
+        if (null != checkPoint && user.getGrade() > 1) {
             Integer lpId = libraryPoolMapper.selectLpByGradeAndCheck(user.getGrade(), checkPoint).getId();
             criteria.andEqualTo("lpId", lpId);
         }
@@ -178,8 +178,7 @@ public class UserServiceImpl implements UserService {
         example.orderBy("time").desc();
         PageHelper.startPage(pageNum == null ? 1 : pageNum, pageSize == null ? 8 : pageSize);
         List<SysUserLibraryPool> sysUserLibraryPools = sysUserLibraryPoolMapper.selectByExample(example);
-        PageInfo<SysUserLibraryPool> pageInfo = new PageInfo<SysUserLibraryPool>(sysUserLibraryPools);
-        pageInfo.setList(sysUserLibraryPools);
+        PageInfo pageInfo = new PageInfo(sysUserLibraryPools);
         return ListenResult.success(pageInfo);
     }
 

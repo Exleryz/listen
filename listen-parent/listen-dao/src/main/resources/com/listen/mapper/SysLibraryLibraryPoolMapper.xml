@@ -17,6 +17,6 @@
         from SysLibraryLibraryPool
                left join Library l on SysLibraryLibraryPool.libid = l.id
         where lpid = #{lpId}
-        order by difficulty;
+        order by difficulty
     </select>
 </mapper>

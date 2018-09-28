@@ -1,6 +1,7 @@
 package com.listen.controller;
 
 import com.listen.common.utils.ListenResult;
+import com.listen.pojo.LibraryPool;
 import com.listen.pojo.User;
 import com.listen.service.LibraryPoolService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,20 @@ public class LibraryPoolController {
         }
         ListenResult result = libraryPoolService.getCurrentGradeSubjects(user.getGrade(), checkPoint);
         return result;
+    }
+
+    /**
+     * 查看当前关卡设置
+     *
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/getSetting")
+    @ResponseBody
+    public ListenResult getCurrentScoreSet(LibraryPool libraryPool) throws Exception {
+        if (null == libraryPool.getGrade() || null == libraryPool.getCheckPoint()) {
+            return ListenResult.error("查询参数错误");
+        }
+        return libraryPoolService.selectPoolByGradeAndCheckPoint(libraryPool);
     }
 }
