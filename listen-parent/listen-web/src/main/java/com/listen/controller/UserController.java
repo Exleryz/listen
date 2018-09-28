@@ -53,19 +53,6 @@ public class UserController {
     }
 
     /**
-     * ajax 加载词汇
-     *
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping("/initGrade")
-    @ResponseBody
-    public ListenResult initGrade() throws Exception {
-        ListenResult result = vocabularyService.initGradetest();
-        return result;
-    }
-
-    /**
      * 词汇测试提交 获取初始等级
      *
      * @return
@@ -80,23 +67,6 @@ public class UserController {
             return ListenResult.error("获取用户初始等级失败");
         }
         ListenResult result = userService.initGradeCode(user, score);
-        return result;
-    }
-
-    /**
-     * ajax 加载听力试卷
-     *
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping("/initSubject")
-    @ResponseBody
-    public ListenResult initSubject(Integer checkPoint, HttpServletRequest request) throws Exception {
-        User user = (User) request.getAttribute("user");
-        if (null == user.getGrade() || null == checkPoint) {
-            return ListenResult.error("试卷加载异常");
-        }
-        ListenResult result = libraryPoolService.getCurrentGradeSubjects(user.getGrade(), checkPoint);
         return result;
     }
 
@@ -116,22 +86,17 @@ public class UserController {
         return userService.saveScore(user, sysUserLibraryPool, checkPoint);
     }
 
-//    /**
-//     * 根据当前关卡 分页 返回当前关卡的历史记录
-//     *
-//     * @return
-//     * @throws Exception
-//     */
-//    public String getCurrentHistoryList() throws Exception {
-//        String currentCheck = ServletActionContext.getRequest().getParameter("currentCheck");
-//        String currentPage = ServletActionContext.getRequest().getParameter("currentPage");
-//        if (currentPage.equals("") && currentPage == null) {
-//            currentPage = "0";
-//        }
-//        Student stu = (Student) ActionContext.getContext().getSession().get("student");
-//        JSONObject jsonObject = studentService.getCurrentPageBean(stu, Integer.parseInt(currentPage), Integer.parseInt(currentCheck), 5);
-//        ServletActionContext.getResponse().getWriter().write(jsonObject.toString());
-//        return null;
-//    }
+    /**
+     * 根据当前关卡 分页 返回历史记录
+     *
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/history")
+    @ResponseBody
+    public ListenResult getCurrentHistoryList(Integer checkPoint, Integer pageNum, Integer pageSize,HttpServletRequest request) throws Exception {
+        User user = (User) request.getAttribute("user");
+        return userService.getHistoryPage(user, checkPoint, pageNum, pageSize);
+    }
 
 }

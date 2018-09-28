@@ -66,4 +66,15 @@ public interface UserService {
      * @return
      */
     ListenResult saveScore(User user, SysUserLibraryPool sysUserLibraryPool, Integer checkPoint);
+
+    /**
+     * 获取历史做题记录
+     *
+     * @param user
+     * @param checkPoint
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    ListenResult getHistoryPage(User user, Integer checkPoint, Integer pageNum, Integer pageSize);
 }

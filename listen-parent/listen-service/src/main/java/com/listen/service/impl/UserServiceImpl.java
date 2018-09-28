@@ -1,5 +1,7 @@
 package com.listen.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.listen.common.jedis.JedisClient;
 import com.listen.common.utils.JsonUtils;
 import com.listen.common.utils.ListenResult;
@@ -18,10 +20,7 @@ import org.springframework.util.DigestUtils;
 import tk.mybatis.mapper.entity.Example;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @author Exler
@@ -163,6 +162,25 @@ public class UserServiceImpl implements UserService {
 //        return insert == 0 ? ListenResult.error("提交试卷保存失败") : ListenResult.success(null);
         sysUserLibraryPoolMapper.insert(sysUserLibraryPool);
         return ListenResult.success(null);
+    }
+
+    @Override
+    public ListenResult getHistoryPage(User user, Integer checkPoint, Integer pageNum, Integer pageSize) {
+        Example example = new Example(SysUserLibraryPool.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("userId", user.getId());
+        if (null != checkPoint) {
+            Integer lpId = libraryPoolMapper.selectLpByGradeAndCheck(user.getGrade(), checkPoint).getId();
+            criteria.andEqualTo("lpId", lpId);
+        }
+        // todo 只支持查询考试
+        criteria.andEqualTo("classify", 1);
+        example.orderBy("time").desc();
+        PageHelper.startPage(pageNum == null ? 1 : pageNum, pageSize == null ? 8 : pageSize);
+        List<SysUserLibraryPool> sysUserLibraryPools = sysUserLibraryPoolMapper.selectByExample(example);
+        PageInfo<SysUserLibraryPool> pageInfo = new PageInfo<SysUserLibraryPool>(sysUserLibraryPools);
+        pageInfo.setList(sysUserLibraryPools);
+        return ListenResult.success(pageInfo);
     }
 
 }

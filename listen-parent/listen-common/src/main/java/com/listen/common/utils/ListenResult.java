@@ -1,14 +1,12 @@
 package com.listen.common.utils;
 
-import com.github.pagehelper.PageInfo;
-
 /**
  * @author Exler
  * @FileName ListenResult
  * @time 2018-09-11 11:02
  * @Description:
  */
-public class ListenResult extends PageInfo<ListenResult> {
+public class ListenResult {
 
     private String msg;
     /**
