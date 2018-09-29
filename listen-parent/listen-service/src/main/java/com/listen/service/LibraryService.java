@@ -16,4 +16,12 @@ public interface LibraryService {
      * @return
      */
     ListenResult queryLibraryList(Integer lpId, Integer pageNum, Integer pageSize);
+
+    /**
+     * 根据id 查询题目
+     *
+     * @param libId
+     * @return
+     */
+    ListenResult getLibrary(Integer libId);
 }

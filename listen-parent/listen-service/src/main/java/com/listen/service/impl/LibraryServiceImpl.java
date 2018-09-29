@@ -44,4 +44,10 @@ public class LibraryServiceImpl implements LibraryService {
         pageInfo.setList(libraries);
         return ListenResult.success(pageInfo);
     }
+
+    @Override
+    public ListenResult getLibrary(Integer libId) {
+        // todo mapper 文件中设置QuerylibraryVoMap 里面包含list 题目
+        return null;
+    }
 }

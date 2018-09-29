@@ -10,6 +10,7 @@ import com.listen.mapper.SysLibraryLibraryPoolMapper;
 import com.listen.pojo.Library;
 import com.listen.pojo.LibraryPool;
 import com.listen.pojo.Subject;
+import com.listen.pojo.SysLibraryLibraryPool;
 import com.listen.pojo.vo.SysLibraryLibraryPoolVo;
 import com.listen.service.LibraryPoolService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,6 +85,30 @@ public class LibraryPoolServiceImpl implements LibraryPoolService {
     public ListenResult selectPoolByGradeAndCheckPoint(LibraryPool libraryPool) {
         LibraryPool lp = libraryPoolMapper.selectLpByGradeAndCheck(libraryPool.getGrade(), libraryPool.getCheckPoint());
         return ListenResult.success(lp);
+    }
+
+    @Override
+    public ListenResult updateLibraryPool(LibraryPool libraryPool) {
+        libraryPoolMapper.updateByPrimaryKeySelective(libraryPool);
+        return ListenResult.success(null);
+    }
+
+    @Override
+    public ListenResult insertLibraryToLibraryPool(SysLibraryLibraryPool sysLibraryLibraryPool, Integer[] libIds) {
+        for (Integer libId : libIds) {
+            sysLibraryLibraryPool.setLibId(libId);
+            sysLibraryLibraryPoolMapper.insert(sysLibraryLibraryPool);
+        }
+        return ListenResult.success(null);
+    }
+
+    @Override
+    public ListenResult deleteLibraryInPool(SysLibraryLibraryPool sysLibraryLibraryPool, Integer[] libIds) {
+        for (Integer libId : libIds) {
+            sysLibraryLibraryPool.setLibId(libId);
+            sysLibraryLibraryPoolMapper.delete(sysLibraryLibraryPool);
+        }
+        return ListenResult.success(null);
     }
 
     private void test(LibraryPool lp, List<SysLibraryLibraryPoolVo> vosList) {

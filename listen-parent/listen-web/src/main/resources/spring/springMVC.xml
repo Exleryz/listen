@@ -35,6 +35,7 @@
             </bean>
         </mvc:interceptor>
         <mvc:interceptor>
+            <mvc:mapping path="/*/admin/**"/>
             <mvc:mapping path="/admin/**"/>
             <bean class="com.listen.interceptor.AdminInterceptor"/>
         </mvc:interceptor>
