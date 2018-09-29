@@ -40,7 +40,7 @@ public class UserController {
      */
     @RequestMapping("/check")
     @ResponseBody
-    public ListenResult checkAccount(User user) throws Exception {
+    public ListenResult checkAccount(User user) {
         // 参数检查
         if (StringUtils.isEmpty(user.getAccount())) {
             return ListenResult.error("账号不可为空");
@@ -60,7 +60,7 @@ public class UserController {
      */
     @RequestMapping("/submitGrade")
     @ResponseBody
-    public ListenResult submitGrade(Float score, HttpServletRequest request) throws Exception {
+    public ListenResult submitGrade(Float score, HttpServletRequest request) {
         User user = (User) request.getAttribute("user");
         // 参数检查
         if (null != user.getGrade() || null == score || null == user.getId()) {
@@ -78,7 +78,7 @@ public class UserController {
      */
     @RequestMapping("/submitScore")
     @ResponseBody
-    public ListenResult submitScore(SysUserLibraryPool sysUserLibraryPool, Integer checkPoint, HttpServletRequest request) throws Exception {
+    public ListenResult submitScore(SysUserLibraryPool sysUserLibraryPool, Integer checkPoint, HttpServletRequest request) {
         if (null == sysUserLibraryPool.getScore() || null == checkPoint) {
             return ListenResult.error("试卷提交失败");
         }
@@ -94,7 +94,7 @@ public class UserController {
      */
     @RequestMapping("/history")
     @ResponseBody
-    public ListenResult getCurrentHistoryList(Integer checkPoint, Integer pageNum, Integer pageSize, HttpServletRequest request) throws Exception {
+    public ListenResult getCurrentHistoryList(Integer checkPoint, Integer pageNum, Integer pageSize, HttpServletRequest request) {
         if (null == checkPoint) {
             return ListenResult.error("查询历史记录错误");
         }
