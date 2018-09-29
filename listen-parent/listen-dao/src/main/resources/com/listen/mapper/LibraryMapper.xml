@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.listen.mapper.LibraryMapper">
+    <!-- resultMap -->
+    <resultMap type="com.listen.pojo.Library" id="LibraryMap">
+        <result property="id" column="id"/>
+        <result property="src" column="src"/>
+        <result property="title" column="title"/>
+        <result property="userId" column="userId"/>
+        <result property="subjectCount" column="subjectCount"/>
+        <result property="difficulty" column="difficulty"/>
+    </resultMap>
+    <resultMap id="QueryLibraryVoMap" type="com.listen.pojo.vo.QueryLibraryVo">
+        <collection property="subjects" ofType="com.listen.pojo.Subject" column="id" select="getSubjects">
+            <id property="id" column="id"/>
+            <result property="answer" column="answer"/>
+            <result property="optionA" column="optionA"/>
+            <result property="optionB" column="optionB"/>
+            <result property="optionC" column="optionC"/>
+            <result property="optionD" column="optionD"/>
+            <result property="sort" column="sort"/>
+            <result property="analysis" column="analysis"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectLibrary" resultMap="QueryLibraryVoMap">
+        select *
+        from Library L
+        where L.id = #{libId}
+    </select>
+
+    <select id="getSubjects" resultMap="subjects">
+        select *
+        from Subject
+        where libId = #{libId}
+    </select>
+</mapper>

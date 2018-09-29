@@ -57,6 +57,23 @@ public class LibraryPoolController {
     }
 
     /**
+     * 查找题库池中所有题目
+     *
+     * @param lpId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @RequestMapping("/queryList")
+    @ResponseBody
+    public ListenResult queryList(Integer lpId, Integer pageNum, Integer pageSize) {
+        if (null == lpId) {
+            return ListenResult.error("获取题目列表错误");
+        }
+        return libraryPoolService.queryLibraryListByPool(lpId, pageNum, pageSize);
+    }
+
+    /**
      * 设置当前选中关卡
      *
      * @return
@@ -79,7 +96,7 @@ public class LibraryPoolController {
      */
     @RequestMapping("/admin/addLibrary")
     @ResponseBody
-    public ListenResult addLibrary(SysLibraryLibraryPool sysLibraryLibraryPool, @RequestParam(value = "libIds", defaultValue ="0") Integer[] libIds) {
+    public ListenResult addLibrary(SysLibraryLibraryPool sysLibraryLibraryPool, @RequestParam(value = "libIds", defaultValue = "0") Integer[] libIds) {
         if (null == libIds || libIds.length == 0 || null == sysLibraryLibraryPool.getLpId()) {
             return ListenResult.error("参数错误， 无法添加");
         }
@@ -94,7 +111,7 @@ public class LibraryPoolController {
      */
     @RequestMapping("/admin/deleteLibrary")
     @ResponseBody
-    public ListenResult deleteLibraryInPool(SysLibraryLibraryPool sysLibraryLibraryPool, @RequestParam(value = "libIds", defaultValue ="0") Integer[] libIds) {
+    public ListenResult deleteLibraryInPool(SysLibraryLibraryPool sysLibraryLibraryPool, @RequestParam(value = "libIds", defaultValue = "0") Integer[] libIds) {
         if (null == sysLibraryLibraryPool.getLpId() || null == libIds || libIds.length == 0) {
             return ListenResult.error("参数错误，无法删除");
         }

@@ -24,15 +24,6 @@ public class LibraryController {
     @Autowired
     private LibraryService libraryService;
 
-    @RequestMapping("/queryList")
-    @ResponseBody
-    public ListenResult queryList(Integer lpId, Integer pageNum, Integer pageSize) {
-        if (null == lpId) {
-            return ListenResult.error("获取题目列表错误");
-        }
-        return libraryService.queryLibraryListByPool(lpId, pageNum, pageSize);
-    }
-
     /**
      * 单题详情查看
      *

@@ -52,4 +52,13 @@ public interface LibraryPoolService {
      */
     ListenResult deleteLibraryInPool(SysLibraryLibraryPool sysLibraryLibraryPool, Integer[] libIds);
 
+    /**
+     * 根据题库池id 获取题目列表
+     *
+     * @param lpId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    ListenResult queryLibraryListByPool(Integer lpId, Integer pageNum, Integer pageSize);
 }

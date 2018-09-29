@@ -1,5 +1,7 @@
 package com.listen.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.listen.common.utils.ListenResult;
 import com.listen.common.utils.MakeSubject;
 import com.listen.common.vo.LibraryVo;
@@ -109,6 +111,24 @@ public class LibraryPoolServiceImpl implements LibraryPoolService {
             sysLibraryLibraryPoolMapper.delete(sysLibraryLibraryPool);
         }
         return ListenResult.success(null);
+    }
+
+    @Override
+    public ListenResult queryLibraryListByPool(Integer lpId, Integer pageNum, Integer pageSize) {
+        Example example = new Example(SysLibraryLibraryPool.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("lpId", lpId);
+        PageHelper.startPage(pageNum == null ? 1 : pageNum, pageSize == null ? 8 : pageSize);
+        List<SysLibraryLibraryPool> list = sysLibraryLibraryPoolMapper.selectByExample(example);
+        PageInfo pageInfo = new PageInfo(list);
+        List<Library> libraries = new ArrayList<>();
+        for (SysLibraryLibraryPool sysLibraryLibraryPool : list) {
+            Library library = libraryMapper.selectByPrimaryKey(sysLibraryLibraryPool.getLibId());
+            libraries.add(library);
+        }
+        // 替换list显示题目详情
+        pageInfo.setList(libraries);
+        return ListenResult.success(pageInfo);
     }
 
     private void test(LibraryPool lp, List<SysLibraryLibraryPoolVo> vosList) {
