@@ -21,12 +21,13 @@
     <mvc:resources location="/css/" mapping="/css/**"/>
     <mvc:resources location="/js/" mapping="/js/**"/>
     <mvc:resources location="/images/" mapping="/images/**"/>
+    <mvc:resources location="/file/" mapping="/file/**"/>
     <!-- 拦截器 -->
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <mvc:exclude-mapping path="/sso/**"/>
-            <mvc:exclude-mapping path="/index"/>
+            <mvc:exclude-mapping path="/user/index"/>
             <mvc:exclude-mapping path="/js/**"/>
             <mvc:exclude-mapping path="/css/**"/>
             <mvc:exclude-mapping path="/images/**"/>

@@ -3,6 +3,7 @@ package com.listen.controller;
 import com.listen.common.utils.ListenResult;
 import com.listen.pojo.Library;
 import com.listen.pojo.User;
+import com.listen.pojo.vo.QueryLibraryVo;
 import com.listen.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -102,14 +103,14 @@ public class LibraryController {
         return libraryService.deleteLibrary(library);
     }
 
-//    /**
-//     * 修改题目(未完成)
-//     *
-//     * @return
-//     */
-//    public String execute() {
-//        String libraryId = ServletActionContext.getRequest().getParameter("libraryId");
-//
-//        return super.execute();
-//    }
+    /**
+     * 修改题目
+     *
+     * @return
+     */
+    @RequestMapping("/editLibrary")
+    @ResponseBody
+    public ListenResult editLibrary(QueryLibraryVo vo) {
+        return libraryService.updateLibrary(vo);
+    }
 }

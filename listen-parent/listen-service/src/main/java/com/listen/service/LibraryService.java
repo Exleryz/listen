@@ -2,6 +2,7 @@ package com.listen.service;
 
 import com.listen.common.utils.ListenResult;
 import com.listen.pojo.Library;
+import com.listen.pojo.vo.QueryLibraryVo;
 
 /**
  * @author Exler
@@ -32,4 +33,12 @@ public interface LibraryService {
      * @return
      */
     ListenResult deleteLibrary(Library library);
+
+    /**
+     * 更新题目
+     *
+     * @param vo
+     * @return
+     */
+    ListenResult updateLibrary(QueryLibraryVo vo);
 }

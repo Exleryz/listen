@@ -9,6 +9,7 @@ import com.listen.service.VocabularyService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -27,10 +28,16 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private VocabularyService vocabularyService;
-    @Autowired
-    private LibraryPoolService libraryPoolService;
+
+    @RequestMapping("/index")
+    public String index() {
+        return "login";
+    }
+
+    @RequestMapping("/{role}/home")
+    public String index(@PathVariable String role) {
+        return role + "/home";
+    }
 
     /**
      * ajax 检查账号是否存在

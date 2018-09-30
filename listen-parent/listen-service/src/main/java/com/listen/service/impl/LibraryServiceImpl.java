@@ -52,4 +52,15 @@ public class LibraryServiceImpl implements LibraryService {
         libraryMapper.delete(library);
         return ListenResult.success(null);
     }
+
+    @Override
+    public ListenResult updateLibrary(QueryLibraryVo vo) {
+        libraryMapper.updateByPrimaryKeySelective(vo);
+        if (null != vo.getSubjects()) {
+            for (Subject subject : vo.getSubjects()) {
+                subjectMapper.updateByPrimaryKeySelective(subject);
+            }
+        }
+        return ListenResult.success(null);
+    }
 }

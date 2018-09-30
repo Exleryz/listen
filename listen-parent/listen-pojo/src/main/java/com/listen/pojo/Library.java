@@ -92,6 +92,14 @@ public class Library {
         this.subjectCount = subjectCount;
     }
 
+    public Integer getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(Integer difficulty) {
+        this.difficulty = difficulty;
+    }
+
     @Override
     public String toString() {
         return "Library{" +
