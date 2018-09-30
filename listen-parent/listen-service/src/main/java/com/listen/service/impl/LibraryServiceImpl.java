@@ -31,8 +31,7 @@ public class LibraryServiceImpl implements LibraryService {
     public ListenResult getLibrary(Integer libId) {
         // todo mapper 文件中设置QuerylibraryVoMap 里面包含list 题目
         QueryLibraryVo vo = libraryMapper.selectLibrary(libId);
-        System.out.println(vo);
-        return null;
+        return ListenResult.success(vo);
     }
 
     @Override
