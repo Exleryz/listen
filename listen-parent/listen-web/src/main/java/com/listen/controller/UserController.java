@@ -23,7 +23,6 @@ import javax.servlet.http.HttpServletRequest;
  * Description:
  */
 @Controller
-@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -45,7 +44,7 @@ public class UserController {
      * @return
      * @throws Exception
      */
-    @RequestMapping("/check")
+    @RequestMapping("/user/check")
     @ResponseBody
     public ListenResult checkAccount(User user) {
         // 参数检查
@@ -65,7 +64,7 @@ public class UserController {
      * @return
      * @throws Exception
      */
-    @RequestMapping("/submitGrade")
+    @RequestMapping("/user/submitGrade")
     @ResponseBody
     public ListenResult submitGrade(Float score, HttpServletRequest request) {
         User user = (User) request.getAttribute("user");
@@ -83,7 +82,7 @@ public class UserController {
      * @return
      * @throws Exception
      */
-    @RequestMapping("/submitScore")
+    @RequestMapping("/user/submitScore")
     @ResponseBody
     public ListenResult submitScore(SysUserLibraryPool sysUserLibraryPool, Integer checkPoint, HttpServletRequest request) {
         if (null == sysUserLibraryPool.getScore() || null == checkPoint) {
@@ -99,7 +98,7 @@ public class UserController {
      * @return
      * @throws Exception
      */
-    @RequestMapping("/history")
+    @RequestMapping("/user/history")
     @ResponseBody
     public ListenResult getCurrentHistoryList(Integer checkPoint, Integer pageNum, Integer pageSize, HttpServletRequest request) {
         if (null == checkPoint) {
