@@ -25,7 +25,7 @@
         </collection>
     </resultMap>
 
-    <select id="selectLibrary" resultMap="QueryLibraryVoMap">
+    <select id="selectLibraryVo" resultMap="QueryLibraryVoMap">
         select *
         from Library
         where id = #{libId}

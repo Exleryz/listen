@@ -18,6 +18,6 @@ public interface LibraryMapper extends Mapper<Library> {
      * @param libId
      * @return
      */
-    QueryLibraryVo selectLibrary(@Param("libId") Integer libId);
+    QueryLibraryVo selectLibraryVo(@Param("libId") Integer libId);
 
 }

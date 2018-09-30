@@ -6,6 +6,7 @@ import com.listen.pojo.Library;
 import com.listen.pojo.Subject;
 import com.listen.pojo.Vocabulary;
 import com.listen.common.vo.LibraryVo;
+import com.listen.pojo.vo.QueryLibraryVo;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
 import java.util.ArrayList;
@@ -67,21 +68,19 @@ public class MakeSubject {
     /**
      * 题目
      *
-     * @param libraries
-     * @param subjectsMap
+     * @param vos
      * @return
      */
-    public static List<LibraryVo> initSubject(List<Library> libraries, Map<Integer, List<Subject>> subjectsMap) {
+    public static List<LibraryVo> initSubject(List<QueryLibraryVo> vos) {
         ScheduledExecutorService es = new ScheduledThreadPoolExecutor(10, new BasicThreadFactory.Builder().namingPattern("Subject-pool-%d").daemon(true).build());
-        final CountDownLatch latch = new CountDownLatch(libraries.size());
-        final List<LibraryVo> voList = new ArrayList<>(libraries.size());
-        for (final Library library : libraries) {
-            final List<Subject> subjects = subjectsMap.get(library.getId());
+        final CountDownLatch latch = new CountDownLatch(vos.size());
+        final List<LibraryVo> libraryVosList = new ArrayList<>(vos.size());
+        for (final QueryLibraryVo vo : vos) {
             es.execute(new Runnable() {
                 @Override
                 public void run() {
                     try {
-                        execSubject(library, subjects, voList);
+                        execSubject(vo, libraryVosList);
                     } catch (Exception e) {
                     } finally {
                         latch.countDown();
@@ -95,7 +94,7 @@ public class MakeSubject {
         } catch (InterruptedException e) {
             return null;
         }
-        return voList;
+        return libraryVosList;
     }
 
     private static void execVocabulary(List<Vocabulary> vocList, List<GradeSubject> subjectList) {
@@ -123,15 +122,15 @@ public class MakeSubject {
         }
     }
 
-    private static void execSubject(Library library, List<Subject> subjects, List<LibraryVo> voList) {
+    private static void execSubject(QueryLibraryVo queryVo, List<LibraryVo> voList) {
         // 大题Vo
         LibraryVo vo = new LibraryVo();
         // 题目list
         List<GradeSubject> newSubjects = new ArrayList<>();
-        vo.setSrc(library.getSrc());
-        vo.setSubjectCount(library.getSubjectCount());
+        vo.setSrc(queryVo.getSrc());
+        vo.setSubjectCount(queryVo.getSubjectCount());
 
-        for (Subject subject : subjects) {
+        for (Subject subject : queryVo.getSubjects()) {
             // 获取正确答案
             int tempSort = subject.getAnswer() - 'A';
             List<GradeOption> options = new ArrayList<>(4);

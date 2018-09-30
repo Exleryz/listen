@@ -13,6 +13,7 @@ import com.listen.pojo.Library;
 import com.listen.pojo.LibraryPool;
 import com.listen.pojo.Subject;
 import com.listen.pojo.SysLibraryLibraryPool;
+import com.listen.pojo.vo.QueryLibraryVo;
 import com.listen.pojo.vo.SysLibraryLibraryPoolVo;
 import com.listen.service.LibraryPoolService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,23 +60,16 @@ public class LibraryPoolServiceImpl implements LibraryPoolService {
         long chooseTime = System.currentTimeMillis();
         System.out.println("chooseTime:\t" + (chooseTime - startTime));
         // 使用题库id 获得Library
-        List<Library> libraries = new ArrayList<>();
+        List<QueryLibraryVo> voList = new ArrayList<>();
         Map<Integer, List<Subject>> subjectsMap = new HashMap<>();
         for (Integer libId : libsList) {
-            Library library = libraryMapper.selectByPrimaryKey(libId);
-            libraries.add(library);
-            // 根据大题id 获取所有小题
-            Example example = new Example(Subject.class);
-            Example.Criteria criteria = example.createCriteria();
-            criteria.andEqualTo("libId", libId);
-            example.orderBy("sort");
-            List<Subject> subjects = subjectMapper.selectByExample(example);
-            subjectsMap.put(libId, subjects);
+            QueryLibraryVo vo = libraryMapper.selectLibraryVo(libId);
+            voList.add(vo);
         }
         // 获取题目计算时间
         long getTime = System.currentTimeMillis();
         System.out.println("getTime:\t" + (getTime - chooseTime));
-        List<LibraryVo> libraryVos = MakeSubject.initSubject(libraries, subjectsMap);
+        List<LibraryVo> libraryVos = MakeSubject.initSubject(voList);
         // 试卷生成时间
         long endTime = System.currentTimeMillis();
         System.out.println("endTime:\t" + (endTime - getTime) + "\n");
