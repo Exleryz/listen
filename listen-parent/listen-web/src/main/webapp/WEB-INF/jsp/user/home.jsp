@@ -1,4 +1,3 @@
-<%@ taglib prefix="s" uri="/struts-tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: Exler
@@ -18,13 +17,6 @@
     <script type="text/javascript" src="../../js/jquery-1.12.4.js"></script>
 </head>
 <script type="text/javascript">
-    $(document).ready(function () {
-        if (${sessionScope.get("student") == null})
-        {
-            window.location.href = "../../login.jsp";
-        }
-
-    });
 </script>
 <body>
 <header class="clearfix"><!-- 头部 -->
@@ -45,7 +37,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="${pageContext.request.contextPath}/jsp/Student/userinfo.jsp"><span
                             class="glyphicon glyphicon-user"></span>Personal Center</a></li>
-                    <li><a href="${pageContext.request.contextPath}/StudentAction_loginOut.action"><span
+                    <li><a href="${pageContext.request.contextPath}/sso/logout"><span
                             class="glyphicon glyphicon-log-in"></span>Sign out</a></li>
                 </ul>
             </div>
@@ -81,7 +73,7 @@
                     <h6>First You Should Do This
                         <small>(hang in the air)</small>
                     </h6>
-                    <button onclick="javascript:window.location.href='initGrade.jsp'"
+                    <button onclick="javascript:window.location.href='initGrade'"
                             class="btn btn-block btn-success startbtn">Now Start
                     </button>
                 </div>
@@ -131,7 +123,6 @@
         </div>
     </div>
 </footer>
-<script type="text/javascript" src="../../js/jquery-1.12.4.js"></script>
 <script type="text/javascript" src="../../js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../../js/main.js"></script>
 </body>

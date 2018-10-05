@@ -13,45 +13,78 @@
     <link href="${pageContext.request.contextPath }/css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/css/main.css">
 </head>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/main.js"></script>
 <script type="text/javascript">
-    function submitRegister() {
-        var balabala = document.getElementById("balabala").innerText;
-        if (balabala=="账号格式不正确") {
-            alert("填写内容格式不正确");
+    function register(){
+        if($("#balabala").html()!=''){
+            return ;
         }
-        if (balabala=="该账号已存在") {
-            alert("该账号已存在");
-        }
-        alert("register success!");
-        $("#reg").submit();
+
+        $.ajax({
+            async: false,
+            type: "POST",
+            url:'${pageContext.request.contextPath}/sso/register',
+            contentType : "application/x-www-form-urlencoded",
+            data:$("#registerForm").serialize(),
+            dataType: "json",
+            success: function (data) {
+                if (data['code']==200){
+                    window.location.href='${pageContext.request.contextPath}/index';
+                }else {
+                    alert(data['msg']);
+                }
+            },
+            error: function (data) {
+                alert(data['msg']);
+            }
+    })
     }
 
-    function submitCheckAccount() {
-        var xmlHttp;
-        if (window.XMLHttpRequest) {    // code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlHttp = new XMLHttpRequest();
-        } else {    // code for IE6, IE5
-            xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        var rAccount = document.getElementById("rAccount");
-        if (rAccount.value.length == 11) {
-            // alert(rAccount.value);
-            // xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xmlHttp.open("POST", "${pageContext.request.contextPath}/StudentAction_checkAccount?account=" + rAccount.value, true);
-            xmlHttp.send();
-            xmlHttp.onreadystatechange = function () {
-                if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-                    var text = xmlHttp.responseText;
-                    if (text == "该账号已存在")
-                        document.getElementById("balabala").innerHTML = "<h6><font color='red' >" + text + "</font></h6>";
-                    else
-                        document.getElementById("balabala").innerHTML = "<h6><font color='green' >" + text + "</font></h6>";
+    function login(){
+        $.ajax({
+            async: false,
+            type: "POST",
+            url:'${pageContext.request.contextPath}/sso/login',
+            contentType : "application/x-www-form-urlencoded",
+            data:$("#loginForm").serialize(),
+            dataType: "json",
+            success: function (data) {
+                if (data['code']==200){
+                    window.location.href='${pageContext.request.contextPath}/'+data['data']['redirect']+'/home';
+                }else {
+                    alert(data['msg']);
                 }
-            };
-        } else {
-            document.getElementById("balabala").innerHTML = "<h6><font color='red' >" + "账号格式不正确" + "</font></h6>";
-        }
+            },
+            error: function (data) {
+                alert(data['msg']);
+            }
+        })
     }
+
+    function checkRegister(){
+        $.ajax({
+            async: false,
+            type: "POST",
+            url:'${pageContext.request.contextPath}/user/check',
+            contentType : "application/x-www-form-urlencoded",
+            data:$("#registerForm").serialize(),
+            dataType: "json",
+            success: function (data) {
+                if (data['code']!=200) {
+                  $("#balabala").html(data['msg']);
+                }else {
+                    $("#balabala").html('');
+                }
+            },
+            error: function (data) {
+                $("#balabala").html(data['msg']);
+            }
+        })
+    }
+
+
 </script>
 <body>
 <!-- 整个登录界面 -->
@@ -69,7 +102,7 @@
     <div id="myTabContent" class="tab-content">
         <div class="tab-pane fade in active" id="login">
             <h4 class="title">登 录</h4>
-            <form action="${pageContext.request.contextPath}/StudentAction_login" method="post">
+            <form id="loginForm">
                 <%-- 使得studentaction中student的name='' --%>
                 <input type="hidden" name="name"/>
                 <div class="item">
@@ -91,24 +124,24 @@
                 <div class="item">
                     <!-- 下面这个按钮为登录按钮 -->
                     <label>&nbsp;</label>
-                    <button class="btn btn-success" id="loginbtn">登录</button>
+                    <button type="button" class="btn btn-success" onclick="login()" id="loginbtn">登录</button>
                 </div>
             </form>
         </div>
         <!-- 下面为注册界面 -->
         <div class="tab-pane fade" id="register">
             <h4 class="title">注册</h4>
-            <form id="reg" action="${pageContext.request.contextPath}/StudentAction_register" method="post">
+            <form id="registerForm"  method="post">
                 <div class="item">
                     <!-- 下面这个输入框为用户的姓名 -->
-                    <input id="name" class="input" name="name" type="text" placeholder="请输入您的姓名"/>
+                    <input id="username" class="input" name="username" type="text" placeholder="请输入您的姓名"/>
                 </div>
                 <div class="item">
                     <div class="row">
                         <div class="col-lg-3"></div>
                         <div class="col-lg-6">
                             <!-- 下面这个输入框为用户设置的帐号 -->
-                            <input id="rAccount" class="input" onblur="submitCheckAccount()" name="account" type="text"
+                            <input id="rAccount" class="input" onblur="checkRegister()" name="account" type="text"
                                    placeholder="请输入您的学号"/>
                         </div>
                         <div class="col-lg-2" style="margin-left: -50px;" id="balabala">
@@ -126,7 +159,7 @@
                 <!-- 下面这个按钮为注册按钮-->
                 <div class="item">
                     <label>&nbsp;</label>
-                    <button type="button" class="btn btn-success" id="registerbtn" onclick="submitRegister()">注册</button>
+                    <button type="button" class="btn btn-success" id="registerbtn" onclick="register()">注册</button>
                 </div>
             </form>
         </div>
@@ -134,7 +167,5 @@
     </div>
 </div>
 
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.12.4.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/main.js"></script>
+
 </body>

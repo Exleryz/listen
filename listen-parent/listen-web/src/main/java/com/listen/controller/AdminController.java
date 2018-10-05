@@ -20,7 +20,6 @@ public class AdminController {
     }
 
 
-
 //    /**
 //     * 显示关卡的详情信息
 //     *
@@ -34,7 +33,6 @@ public class AdminController {
 //        ActionContext.getContext().put("lp", libraryPool);
 //        return "toDetails";
 //    }
-
 
 
 //    /**
