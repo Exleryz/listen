@@ -33,7 +33,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         String token = CookieUtils.getCookieValue(request, TOKEN_KEY);
         // 2. 如果没有token 未登录状态 跳转到登录页面 登录成功后 跳转到当前请求的url
         if (StringUtils.isBlank(token)) {
-            response.sendRedirect(request.getContextPath() + "/index?redirect=" + request.getRequestURL());
+            response.sendRedirect(request.getContextPath() + "/page/login.html?redirect=" + request.getRequestURL());
             // 拦截
             return false;
         }
@@ -41,7 +41,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         ListenResult result = userService.getUserByToken(token);
         if (result.getCode() != 200) {
             // 4. 没有取到用户信息 登录过期 重新登录
-            response.sendRedirect(request.getContextPath() + "/index?redirect=" + request.getRequestURL());
+            response.sendRedirect(request.getContextPath() + "/page/login.html?redirect=" + request.getRequestURL());
             return false;
         }
         // 5. 取到用户信息 登录状态

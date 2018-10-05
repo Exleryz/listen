@@ -18,7 +18,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/main.js"></script>
 <script type="text/javascript">
     function register() {
-        if ($("#balabala").html() != '') {
+        if ($("#checkAccount").html() != '') {
             return;
         }
 
@@ -54,7 +54,7 @@
                 if (data['code'] == 200) {
                     window.location.href = '${pageContext.request.contextPath}/page/' + data['data']['redirect'] + '/home.html';
                 } else {
-                    alert(data['msg']);
+                    $("#login_error_msg").html(data['msg']);
                 }
             },
             error: function (data) {
@@ -73,13 +73,13 @@
             dataType: "json",
             success: function (data) {
                 if (data['code'] != 200) {
-                    $("#balabala").html(data['msg']);
+                    $("#checkAccount").html(data['msg']);
                 } else {
-                    $("#balabala").html('');
+                    $("#checkAccount").html('');
                 }
             },
             error: function (data) {
-                $("#balabala").html(data['msg']);
+                $("#checkAccount").html(data['msg']);
             }
         })
     }
@@ -144,7 +144,7 @@
                             <input id="rAccount" class="input" onblur="checkRegister()" name="account" type="text"
                                    placeholder="请输入您的学号"/>
                         </div>
-                        <div class="col-lg-2" style="margin-left: -50px;" id="balabala">
+                        <div class="col-lg-2" style="margin-left: -50px;color:red" id="checkAccount">
                         </div>
                     </div>
                 </div>
