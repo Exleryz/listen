@@ -28,23 +28,19 @@
 <script type="text/javascript">
     var answer = new Array();
 
-    $(document).ready(function () {
-        if (${sessionScope.get("student") == null})
-        {
-            window.location.href = "../../login.jsp";
-        }
+    <%--$(document).ready(function () {--%>
+    <%--if (${sessionScope.get("student") == null})--%>
+    <%--{--%>
+    <%--window.location.href = "../../login.jsp";--%>
+    <%--}--%>
 
-    });
+    <%--});--%>
 
     $(document).ready(function () {
         $.ajax({
             type: "POST",
-            url: "${pageContext.request.contextPath}/StudentAction_initGrade",
-            data: "",
-            contentType: "json",
-            dataType: "json",
+            url: "${pageContext.request.contextPath}/vocabulary/initGrade",
             success: function (data) {
-
                 $.each(data, function (index, val) {
                     var $div = '<div id="' + (index + 1) + '" style="display: none"><div class="testbox-title" style="margin-left: 20px">题号:<span>' + (index + 1) + '</span></div><div class="testfile" style="font-size: 2em;margin-left: 15px" >' + val["question"] + '</div><div class="container" ><div class="row">';
                     $.each(val["options"], function (indexs, vals) {

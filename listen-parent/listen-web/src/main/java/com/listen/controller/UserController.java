@@ -28,14 +28,17 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/index")
-    public String index() {
+    @RequestMapping("/page/login")
+    public String login() {
         return "login";
     }
 
-    @RequestMapping("/{role}/home")
-    public String index(@PathVariable String role) {
-        return role + "/home";
+    @RequestMapping("/page/{folderName}/{pageName}")
+    public String page(@PathVariable String folderName, @PathVariable String pageName) {
+        if (null == pageName || "".equals(pageName)) {
+            return folderName;
+        }
+        return folderName + "/" + pageName;
     }
 
     /**

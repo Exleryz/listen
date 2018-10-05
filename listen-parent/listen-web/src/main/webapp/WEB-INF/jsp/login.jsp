@@ -17,68 +17,68 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/main.js"></script>
 <script type="text/javascript">
-    function register(){
-        if($("#balabala").html()!=''){
-            return ;
+    function register() {
+        if ($("#balabala").html() != '') {
+            return;
         }
 
         $.ajax({
-            async: false,
-            type: "POST",
-            url:'${pageContext.request.contextPath}/sso/register',
-            contentType : "application/x-www-form-urlencoded",
-            data:$("#registerForm").serialize(),
-            dataType: "json",
-            success: function (data) {
-                if (data['code']==200){
-                    window.location.href='${pageContext.request.contextPath}/index';
-                }else {
+            async: false,
+            type: "POST",
+            url: '${pageContext.request.contextPath}/sso/register',
+            contentType: "application/x-www-form-urlencoded",
+            data: $("#registerForm").serialize(),
+            dataType: "json",
+            success: function (data) {
+                if (data['code'] == 200) {
+                    window.location.href = '${pageContext.request.contextPath}/index';
+                } else {
                     alert(data['msg']);
                 }
             },
-            error: function (data) {
-                alert(data['msg']);
-            }
-    })
-    }
-
-    function login(){
-        $.ajax({
-            async: false,
-            type: "POST",
-            url:'${pageContext.request.contextPath}/sso/login',
-            contentType : "application/x-www-form-urlencoded",
-            data:$("#loginForm").serialize(),
-            dataType: "json",
-            success: function (data) {
-                if (data['code']==200){
-                    window.location.href='${pageContext.request.contextPath}/'+data['data']['redirect']+'/home';
-                }else {
-                    alert(data['msg']);
-                }
-            },
-            error: function (data) {
+            error: function (data) {
                 alert(data['msg']);
             }
         })
     }
 
-    function checkRegister(){
+    function login() {
         $.ajax({
-            async: false,
-            type: "POST",
-            url:'${pageContext.request.contextPath}/user/check',
-            contentType : "application/x-www-form-urlencoded",
-            data:$("#registerForm").serialize(),
-            dataType: "json",
-            success: function (data) {
-                if (data['code']!=200) {
-                  $("#balabala").html(data['msg']);
-                }else {
+            async: false,
+            type: "POST",
+            url: '${pageContext.request.contextPath}/sso/login',
+            contentType: "application/x-www-form-urlencoded",
+            data: $("#loginForm").serialize(),
+            dataType: "json",
+            success: function (data) {
+                if (data['code'] == 200) {
+                    window.location.href = '${pageContext.request.contextPath}/page/' + data['data']['redirect'] + '/home.html';
+                } else {
+                    alert(data['msg']);
+                }
+            },
+            error: function (data) {
+                alert(data['msg']);
+            }
+        })
+    }
+
+    function checkRegister() {
+        $.ajax({
+            async: false,
+            type: "POST",
+            url: '${pageContext.request.contextPath}/user/check',
+            contentType: "application/x-www-form-urlencoded",
+            data: $("#registerForm").serialize(),
+            dataType: "json",
+            success: function (data) {
+                if (data['code'] != 200) {
+                    $("#balabala").html(data['msg']);
+                } else {
                     $("#balabala").html('');
                 }
             },
-            error: function (data) {
+            error: function (data) {
                 $("#balabala").html(data['msg']);
             }
         })
@@ -131,7 +131,7 @@
         <!-- 下面为注册界面 -->
         <div class="tab-pane fade" id="register">
             <h4 class="title">注册</h4>
-            <form id="registerForm"  method="post">
+            <form id="registerForm" method="post">
                 <div class="item">
                     <!-- 下面这个输入框为用户的姓名 -->
                     <input id="username" class="input" name="username" type="text" placeholder="请输入您的姓名"/>

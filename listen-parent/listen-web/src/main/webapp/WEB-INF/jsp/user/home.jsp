@@ -73,7 +73,7 @@
                     <h6>First You Should Do This
                         <small>(hang in the air)</small>
                     </h6>
-                    <button onclick="javascript:window.location.href='initGrade'"
+                    <button onclick="javascript:window.location.href='/page/user/initGrade.html'"
                             class="btn btn-block btn-success startbtn">Now Start
                     </button>
                 </div>
