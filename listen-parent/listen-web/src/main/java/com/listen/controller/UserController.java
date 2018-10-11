@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
@@ -94,12 +95,16 @@ public class UserController {
      */
     @RequestMapping("/user/submitScore")
     @ResponseBody
-    public ListenResult submitScore(SysUserLibraryPool sysUserLibraryPool, Integer checkPoint, HttpServletRequest request) {
-        if (null == sysUserLibraryPool.getScore() || null == checkPoint) {
+    public ListenResult submitScore(@RequestParam(value = "answers", defaultValue = "0") char[] answers, Integer checkPoint, HttpServletRequest request) {
+        if (null == checkPoint) {
             return ListenResult.error("试卷提交失败");
         }
+        for (char answer : answers) {
+            System.out.println(answer);
+        }
         User user = (User) request.getAttribute("user");
-        return userService.saveScore(user, sysUserLibraryPool, checkPoint);
+//        return userService.saveScore(user, sysUserLibraryPool, checkPoint);
+        return null;
     }
 
     /**
