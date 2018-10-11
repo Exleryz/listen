@@ -144,9 +144,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ListenResult saveScore(User user, SysUserLibraryPool sysUserLibraryPool, Integer checkPoint) {
-        if (null == sysUserLibraryPool.getClassify()) {
-            sysUserLibraryPool.setClassify(0);
-        }
         Integer lpId = libraryPoolMapper.selectLpByGradeAndCheck(user.getGrade(), checkPoint).getId();
         sysUserLibraryPool.setLpId(lpId);
         sysUserLibraryPool.setUserId(user.getId());
@@ -156,7 +153,6 @@ public class UserServiceImpl implements UserService {
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("userId", user.getId());
         criteria.andEqualTo("lpId", lpId);
-        criteria.andEqualTo("classify", sysUserLibraryPool.getClassify());
         sysUserLibraryPool.setCount(sysUserLibraryPoolMapper.selectCountByExample(example) + 1);
 //        int insert = sysUserLibraryPoolMapper.insert(sysUserLibraryPool);
 //        return insert == 0 ? ListenResult.error("提交试卷保存失败") : ListenResult.success(null);
@@ -173,8 +169,6 @@ public class UserServiceImpl implements UserService {
             Integer lpId = libraryPoolMapper.selectLpByGradeAndCheck(user.getGrade(), checkPoint).getId();
             criteria.andEqualTo("lpId", lpId);
         }
-        // todo 只支持查询考试
-        criteria.andEqualTo("classify", 1);
         example.orderBy("time").desc();
         PageHelper.startPage(pageNum == null ? 1 : pageNum, pageSize == null ? 8 : pageSize);
         List<SysUserLibraryPool> sysUserLibraryPools = sysUserLibraryPoolMapper.selectByExample(example);

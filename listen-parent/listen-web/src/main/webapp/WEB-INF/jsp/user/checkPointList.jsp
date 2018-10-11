@@ -68,12 +68,7 @@
                     totalPage = data["pages"];
                     var $tr = '';
                     $.each(data["list"], function (index, val) {
-                        if (val["classify"] == 1) {
-                            var type = "练习";
-                        } else {
-                            var type = "测试";
-                        }
-                        $tr += '<tr><td>' + (index + 1 + (currentPage - 1) * 5) + '</td><td>' + val["count"] + '</td><td>' + val["score"] + '</td><td>' + type + '</td><td>' + id + '</td></tr>';
+                        $tr += '<tr><td>' + (index + 1 + (currentPage - 1) * 5) + '</td><td>' + val["count"] + '</td><td>' + val["score"] + '</td><td>' + id + '</td></tr>';
                     });
                     $("#pageList").html($tr);
                     console.log(data["list"]);
@@ -175,7 +170,6 @@
                 <th>编号</th>
                 <th>次数</th>
                 <th>成绩</th>
-                <th>类别</th>
                 <th>关数</th>
             </tr>
             </thead>

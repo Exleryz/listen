@@ -49,13 +49,6 @@ public class SysUserLibraryPool {
     private Integer count;
 
     /**
-     * 试卷类别
-     * 考试 练习
-     */
-    @Column(name = "classify")
-    private Integer classify;
-
-    /**
      * 做题用户
      * 用户id
      */
@@ -102,14 +95,6 @@ public class SysUserLibraryPool {
         this.count = count;
     }
 
-    public Integer getClassify() {
-        return classify;
-    }
-
-    public void setClassify(Integer classify) {
-        this.classify = classify;
-    }
-
     public Integer getUserId() {
         return userId;
     }
@@ -126,7 +111,6 @@ public class SysUserLibraryPool {
                 ", score=" + score +
                 ", time='" + time + '\'' +
                 ", count=" + count +
-                ", classify=" + classify +
                 ", userId=" + userId +
                 '}';
     }
