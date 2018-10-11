@@ -64,6 +64,7 @@ public class UserServiceImpl implements UserService {
         Map<String, String> data = new HashMap<>(2);
         data.put("token", token);
         data.put("redirect", selectUser.getClassify() == 0 ? "user" : "admin");
+        data.put("user", selectUser.toString());
         return ListenResult.success(data);
     }
 
