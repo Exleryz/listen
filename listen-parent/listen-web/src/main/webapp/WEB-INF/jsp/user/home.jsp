@@ -98,7 +98,7 @@
                 <img src="../../images/oneplus_1.jpg" class=" taskimg conter-block">
                 <h2 class="text-muted">闯关</h2>
                 <%--加载 历史记录--%>
-                <button class="btn btn-block btn-success startbtn" onclick="javascript:window.location.href='checkPointList.jsp'">开始</button>
+                <button class="btn btn-block btn-success startbtn" onclick="javascript:window.location.href='checkPointList.html'">开始</button>
             </div>
 
             <div class="col-md-6">

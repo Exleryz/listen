@@ -41,9 +41,10 @@
             type: "POST",
             url: "${pageContext.request.contextPath}/vocabulary/initGrade",
             success: function (data) {
-                $.each(data, function (index, val) {
+                $.each(data["data"], function (index, val) {
                     var $div = '<div id="' + (index + 1) + '" style="display: none"><div class="testbox-title" style="margin-left: 20px">题号:<span>' + (index + 1) + '</span></div><div class="testfile" style="font-size: 2em;margin-left: 15px" >' + val["question"] + '</div><div class="container" ><div class="row">';
                     $.each(val["options"], function (indexs, vals) {
+                        console.log(vals);
                         if (vals["answer"] == true) {
                             if (indexs == 0)
                                 answer[index] = "A";
@@ -139,6 +140,7 @@
                     score += 3;
                 }
         }
+        alert(score);
         window.location.href = '${pageContext.request.contextPath}/StudentAction_submitGrade?score=' + score;
         if (mi == 0 && se == 0) {
             alert("做题超时，已自动提交");
@@ -177,8 +179,5 @@
     <span class="glyphicon glyphicon-chevron-left"></span>
 </a>
 
-<script type="text/javascript" src="../../js/jquery-1.12.4.js"></script>
-<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../../js/main.js"></script>
 </body>
 </html>
