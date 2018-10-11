@@ -56,15 +56,16 @@
 
     function showHistroy() {
         //if (id <= <s:property value="%{#session.student == null ? -1: #session.student.currentCheck + 1}"/>) {
-        if (id <= ${student==null?-1:student.currentCheck+1}) {
+        if (id <= ${user==null?-1:user.currentCheck+1}) {
+            console.log(id);
             $.ajax({
                 type: "GET",
-                url: "${pageContext.request.contextPath}/StudentAction_getCurrentHistoryList",
-                data: "currentCheck=" + id + "&currentPage=" + currentPage,
+                url: "${pageContext.request.contextPath}/user/history",
+                data: "checkPoint=" + id + "&pageNum=" + currentPage,
                 dataType: "json",
                 success: function (data) {
-                    console.log(data);
-                    totalPage = data["totalPage"];
+                    data=data["data"];
+                    totalPage = data["pages"];
                     var $tr = '';
                     $.each(data["list"], function (index, val) {
                         if (val["classify"] == 1) {
@@ -89,9 +90,9 @@
     function submitIdToSubject() {
         var checkId = $(".selected").attr("id"); //获取id
         //var currentId = <s:property value='%{#session.student.currentCheck + 1}'/>;
-        var currentId = ${student.currentCheck+1};
+        var currentId = ${user.currentCheck+1};
         if (currentId >= checkId) {
-            window.location.href = "${pageContext.request.contextPath}/Examination.jsp?checkId=" + checkId;
+            window.location.href = "${pageContext.request.contextPath}/page/user/Examination.html?checkId=" + checkId;
         } else {
             alert("请先通过之前的关卡！");
         }
@@ -121,7 +122,7 @@
 <div class="change">
     <div class="changebox">
         <%--<s:iterator begin="1" end="25" step="5" status="i">--%>
-        <c:forEach begin="0" end="25" step="5" var="i">
+        <c:forEach begin="0" end="5" step="1" var="i">
             <%-- #{} 保证{}内的是ognl表达式--%>
             <%-- 当前关卡 == index red  < yellow > blue  --%>
             <ul class="row">
@@ -141,19 +142,19 @@
                         color="<s:property value='%{#session.student.currentCheck< #i.index*5+4 ?"blue":#session.student.currentCheck == (#i.index*5+4)? "red":"yellow"}'/>"><S:property
                         value="#i.index*5+5"/></font></li>--%>
                 <li onclick="chbgcol(this)" class="item" id="${i*5+1}"><font
-                        color="${student.currentCheck< (i*5+1)?"blue":student.currentCheck==(i*5+1)?"red":"yellow"}">${i*5+1}</font></li>
+                        color="${user.currentCheck + 1< (i*5+1)?"blue":user.currentCheck + 1==(i*5+1)?"red":"yellow"}">${i*5+1}</font></li>
 
                 <li onclick="chbgcol(this)" class="item" id="${i*5+2}"><font
-                        color="${student.currentCheck< (i*5+2)?"blue":student.currentCheck==(i*5+2)?"red":"yellow"}">${i*5+2}</font></li>
+                        color="${user.currentCheck + 1< (i*5+2)?"blue":user.currentCheck + 1==(i*5+2)?"red":"yellow"}">${i*5+2}</font></li>
 
                 <li onclick="chbgcol(this)" class="item" id="${i*5+3}"><font
-                        color="${student.currentCheck< (i*5+3)?"blue":student.currentCheck==(i*5+3)?"red":"yellow"}">${i*5+3}</font></li>
+                        color="${user.currentCheck + 1< (i*5+3)?"blue":user.currentCheck + 1==(i*5+3)?"red":"yellow"}">${i*5+3}</font></li>
 
                 <li onclick="chbgcol(this)" class="item" id="${i*5+4}"><font
-                        color="${student.currentCheck< (i*5+4)?"blue":student.currentCheck==(i*5+4)?"red":"yellow"}">${i*5+4}</font></li>
+                        color="${user.currentCheck + 1< (i*5+4)?"blue":user.currentCheck + 1==(i*5+4)?"red":"yellow"}">${i*5+4}</font></li>
 
                 <li onclick="chbgcol(this)" class="item" id="${i*5+5}"><font
-                        color="${student.currentCheck< (i*5+5)?"blue":student.currentCheck==(i*5+5)?"red":"yellow"}">${i*5+5}</font></li>
+                        color="${user.currentCheck + 1< (i*5+5)?"blue":user.currentCheck + 1==(i*5+5)?"red":"yellow"}">${i*5+5}</font></li>
 
             </ul>
         <%--</s:iterator>--%>
