@@ -50,6 +50,7 @@ public class SsoController {
             String token = session.get("token");
             // 如果登录成功把token写入cookie
             CookieUtils.setCookie(request, response, TOKEN_KEY, token);
+            CookieUtils.setCookie(request, response, "user", session.get("user"));
         }
         return result;
     }
