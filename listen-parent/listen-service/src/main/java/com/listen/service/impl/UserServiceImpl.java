@@ -61,10 +61,10 @@ public class UserServiceImpl implements UserService {
         jedisClient.set(JEDIS_KEY + token, JsonUtils.objectToJson(selectUser));
         // 设置Session的过期时间
         jedisClient.expire(JEDIS_KEY + token, SESSION_EXPIRE);
-        Map<String, String> data = new HashMap<>(2);
+        Map<String, Object> data = new HashMap<>(3);
         data.put("token", token);
         data.put("redirect", selectUser.getClassify() == 0 ? "user" : "admin");
-        data.put("user", selectUser.toString());
+        data.put("user", selectUser);
         return ListenResult.success(data);
     }
 

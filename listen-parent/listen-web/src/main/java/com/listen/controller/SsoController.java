@@ -1,6 +1,7 @@
 package com.listen.controller;
 
 import com.listen.common.utils.CookieUtils;
+import com.listen.common.utils.JsonUtils;
 import com.listen.common.utils.ListenResult;
 import com.listen.pojo.User;
 import com.listen.service.UserService;
@@ -46,11 +47,11 @@ public class SsoController {
         ListenResult result = userService.login(user);
         if (result.getCode() == 200) {
             // 用户登录成功
-            Map<String, String> session = (Map<String, String>) result.getData();
-            String token = session.get("token");
+            Map<String, Object> session = (Map<String, Object>) result.getData();
+            String token = (String) session.get("token");
             // 如果登录成功把token写入cookie
             CookieUtils.setCookie(request, response, TOKEN_KEY, token);
-            CookieUtils.setCookie(request, response, "user", session.get("user"));
+            CookieUtils.setCookie(request, response, "user", JsonUtils.objectToJson(session.get("user")));
         }
         return result;
     }
