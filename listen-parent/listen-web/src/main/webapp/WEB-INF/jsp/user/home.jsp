@@ -53,8 +53,8 @@
             </div>
             <div class="col-md-8">
                 <h4>
-                    <p id="userid">Welcome: ${student.name}</p>
-                    <span>Num: <span>${student.account}</span></span>
+                    <p id="userid">Welcome: ${user.username}</p>
+                    <span>Num: <span>${user.account}</span></span>
                 </h4>
             </div>
         </div>

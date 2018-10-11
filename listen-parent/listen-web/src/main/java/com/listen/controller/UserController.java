@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -34,11 +36,16 @@ public class UserController {
     }
 
     @RequestMapping("/page/{folderName}/{pageName}")
-    public String page(@PathVariable String folderName, @PathVariable String pageName) {
+    public ModelAndView page(@PathVariable String folderName, @PathVariable String pageName, ModelAndView modelAndView, HttpServletRequest request) {
+        String path;
         if (null == pageName || "".equals(pageName)) {
-            return folderName;
+            path = folderName;
+        } else {
+            path = folderName + "/" + pageName;
         }
-        return folderName + "/" + pageName;
+        modelAndView.addObject("user", request.getAttribute("user"));
+        modelAndView.setViewName(path);
+        return modelAndView;
     }
 
     /**
