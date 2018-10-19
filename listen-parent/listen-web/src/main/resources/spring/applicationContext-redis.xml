@@ -3,7 +3,6 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
-    <!-- 使用哪个时 只要注释掉另外一个就好了-->
     <!-- 连接redis单机版 -->
     <bean id="jedisClientPool" class="com.listen.common.jedis.JedisClientPool">
         <property name="jedisPool" ref="jedisPool"/>
@@ -13,4 +12,7 @@
         <constructor-arg name="host" value="47.106.10.108"/>
         <constructor-arg name="port" value="6379"/>
     </bean>
+    <!--https://www.cnblogs.com/red-code/p/6657517.html-->
+    <!--https://www.cnblogs.com/zeussbook/p/9033222.html-->
+    <!--https://blog.csdn.net/weixin_39040059/article/details/79054509-->
 </beans>
