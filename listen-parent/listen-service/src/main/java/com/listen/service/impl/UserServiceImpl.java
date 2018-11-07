@@ -2,7 +2,7 @@ package com.listen.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.listen.common.jedis.JedisClient;
+import com.listen.common.redis.RedisHelper;
 import com.listen.common.utils.JsonUtils;
 import com.listen.common.utils.ListenResult;
 import com.listen.mapper.LibraryPoolMapper;
@@ -34,8 +34,7 @@ public class UserServiceImpl implements UserService {
     private SysUserLibraryPoolMapper sysUserLibraryPoolMapper;
     @Autowired
     private LibraryPoolMapper libraryPoolMapper;
-    @Autowired
-    private JedisClient jedisClient;
+
     @Value("${JEDIS_KEY}")
     private String JEDIS_KEY;
     @Value("${SESSION_EXPIRE}")
@@ -58,9 +57,7 @@ public class UserServiceImpl implements UserService {
         // 把用户信息写入redis key:token value:用户信息
         selectUser.setPassword(null);
         selectUser.setSalt(null);
-        jedisClient.set(JEDIS_KEY + token, JsonUtils.objectToJson(selectUser));
-        // 设置Session的过期时间
-        jedisClient.expire(JEDIS_KEY + token, SESSION_EXPIRE);
+        RedisHelper.set(JEDIS_KEY + token, JsonUtils.objectToJson(selectUser), SESSION_EXPIRE, 2);
         Map<String, Object> data = new HashMap<>(2);
         data.put("token", token);
         data.put("redirect", selectUser.getClassify() == 0 ? "user" : "admin");
@@ -92,12 +89,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void logout(String token) {
-        Long l = jedisClient.del(JEDIS_KEY + token);
-        if (l > 0) {
-            System.out.println("success");
-        } else {
-            System.out.println("no");
-        }
+        RedisHelper.del(JEDIS_KEY + token, 2);
+        System.out.println("success");
     }
 
     @Override
@@ -112,7 +105,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public ListenResult getUserByToken(String token) {
         // 根据token到redis中取用户信息
-        String json = jedisClient.get(JEDIS_KEY + token);
+        String json = RedisHelper.get(JEDIS_KEY + token, 2);
         // 取不到用户信息 登录已经过期 返回登录过期
         if (StringUtils.isBlank(json)) {
             return new ListenResult("用户登录已经过期", 201, null);
@@ -120,7 +113,7 @@ public class UserServiceImpl implements UserService {
         // 取到用户信息 更新token的过期时间
         User user = JsonUtils.jsonToPojo(json, User.class);
         // 更新token的过期时间
-        jedisClient.expire(JEDIS_KEY + token, SESSION_EXPIRE);
+        RedisHelper.expire(JEDIS_KEY + token, SESSION_EXPIRE, 2);
         return ListenResult.success(user);
     }
 
