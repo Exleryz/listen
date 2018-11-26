@@ -1,4 +1,3 @@
-<%@ taglib prefix="s" uri="/struts-tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -7,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,14 +25,22 @@
 
 <div class="testbox">
     <br/>
-    <s:iterator value="#librariesList" var="item" status="state">
+    <%--<s:iterator value="#librariesList" var="item" status="state">
         <div id="<s:property value="#item.id"/>">
             题目名:<s:property value="#item.title"/>
             上传管理员:<s:property value="#item.teacher.name"/>
             <button>查看</button>
             <button>删除</button>
         </div>
-    </s:iterator>
+    </s:iterator>--%>
+    <c:forEach items="${librariesList}" var="item" varStatus="state">
+        <div id="${item.id}">
+            题目名:${item.title}/>
+            上传管理员:${item.teacher.name}/>
+            <button>查看</button>
+            <button>删除</button>
+        </div>
+    </c:forEach>
 </div>
 <div id="">
     <button>提交</button>

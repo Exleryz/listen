@@ -87,6 +87,6 @@ public class SsoController {
         userService.logout(token);
         // 删除cookie
         CookieUtils.deleteCookie(request, response, TOKEN_KEY);
-        return "index";
+        return "login";
     }
 }

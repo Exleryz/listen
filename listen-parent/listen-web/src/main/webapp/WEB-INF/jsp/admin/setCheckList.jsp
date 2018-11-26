@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +31,7 @@
 
     function submitIdToSettting() {
         var checkId = $(".selected").attr("id"); //获取id
-        window.location.href = "${pageContext.request.contextPath}/AdminAction_seeDetails?currentCheck=" + checkId + "&currentGrade=1";
+        window.location.href = "${pageContext.request.contextPath}/page/Library/chooseLibraries.html?currentCheck=" + checkId + "&currentGrade=1";
     }
 
     function showDetails() {
@@ -68,71 +69,27 @@
 </header>
 <div class="change">
     <div class="changebox">
+        <c:forEach begin="0" end="4" step="1" var="i">
         <ul class="row">
-            <li class="item" onclick="chbgcol(this)" id="1">1</li>
-            <li class="item" onclick="chbgcol(this)" id="2">2</li>
-            <li class="item" onclick="chbgcol(this)" id="3">3</li>
-            <li class="item" onclick="chbgcol(this)" id="4">4</li>
-            <li class="item" onclick="chbgcol(this)" id="5">5</li>
-        </ul>
-        <ul class="row">
-            <li class="item" onclick="chbgcol(this)" id="6">6</li>
-            <li class="item" onclick="chbgcol(this)" id="7">7</li>
-            <li class="item" onclick="chbgcol(this)" id="8">8</li>
-            <li class="item" onclick="chbgcol(this)" id="9">9</li>
-            <li class="item" onclick="chbgcol(this)" id="10">10</li>
-        </ul>
-        <ul class="row">
-            <li class="item" onclick="chbgcol(this)" id="11">11</li>
-            <li class="item" onclick="chbgcol(this)" id="12">12</li>
-            <li class="item" onclick="chbgcol(this)" id="13">13</li>
-            <li class="item" onclick="chbgcol(this)" id="14">14</li>
-            <li class="item" onclick="chbgcol(this)" id="15">15</li>
-        </ul>
-        <ul class="row">
-            <li class="item" onclick="chbgcol(this)" id="16">16</li>
-            <li class="item" onclick="chbgcol(this)" id="17">17</li>
-            <li class="item" onclick="chbgcol(this)" id="18">18</li>
-            <li class="item" onclick="chbgcol(this)" id="19">19</li>
-            <li class="item" onclick="chbgcol(this)" id="20">20</li>
-        </ul>
-        <ul class="row">
-            <li class="item" onclick="chbgcol(this)" id="21">21</li>
-            <li class="item" onclick="chbgcol(this)" id="22">22</li>
-            <li class="item" onclick="chbgcol(this)" id="23">23</li>
-            <li class="item" onclick="chbgcol(this)" id="24">24</li>
-            <li class="item" onclick="chbgcol(this)" id="25">25</li>
-        </ul>
-    </div>
+            <li onclick="chbgcol(this)" class="item" id="${i*5+1}"><font
+                    color="${user.currentCheck + 1< (i*5+1)?"blue":user.currentCheck + 1==(i*5+1)?"red":"yellow"}">${i*5+1}</font></li>
 
-    <div class="historybox">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>编号</th>
-                <th>时间</th>
-                <th>成绩</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>001</td>
-                <td>Rammohan</td>
-                <td>Reddy</td>
-            </tr>
-            <tr>
-                <td>002</td>
-                <td>Smita</td>
-                <td>Pallod</td>
-            </tr>
-            <tr>
-                <td>003</td>
-                <td>Rabindranath</td>
-                <td>Sen</td>
-            </tr>
-            </tbody>
-        </table>
+            <li onclick="chbgcol(this)" class="item" id="${i*5+2}"><font
+                    color="${user.currentCheck + 1< (i*5+2)?"blue":user.currentCheck + 1==(i*5+2)?"red":"yellow"}">${i*5+2}</font></li>
+
+            <li onclick="chbgcol(this)" class="item" id="${i*5+3}"><font
+                    color="${user.currentCheck + 1< (i*5+3)?"blue":user.currentCheck + 1==(i*5+3)?"red":"yellow"}">${i*5+3}</font></li>
+
+            <li onclick="chbgcol(this)" class="item" id="${i*5+4}"><font
+                    color="${user.currentCheck + 1< (i*5+4)?"blue":user.currentCheck + 1==(i*5+4)?"red":"yellow"}">${i*5+4}</font></li>
+
+            <li onclick="chbgcol(this)" class="item" id="${i*5+5}"><font
+                    color="${user.currentCheck + 1< (i*5+5)?"blue":user.currentCheck + 1==(i*5+5)?"red":"yellow"}">${i*5+5}</font></li>
+
+        </ul>
+        </c:forEach>
     </div>
+    <br>
 
     <div class="starttest">
         <button class="btn btn-success" onclick="submitIdToSettting()">设置当前选中关卡</button>

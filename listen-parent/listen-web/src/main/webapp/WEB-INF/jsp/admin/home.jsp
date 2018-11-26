@@ -52,9 +52,9 @@
                 <h4>
                     <p> 管理员</p>
                     <%-- 待实现功能--%>
-                    <button class="btn btn-success startbtn">我也要闯关</button>
-                    <p id="userid">Welcome: ${admin.name}</p>
-                    <span>Num: <span>${admin.account}</span></span>
+                    <button class="btn btn-success startbtn" onclick="javascript:window.location.href='${pageContext.request.contextPath}/page/user/checkPointList.html'">我也要闯关</button>
+                    <p id="userid">Welcome: ${user.username}</p>
+                    <span>Num: <span>${user.account}</span></span>
                 </h4>
             </div>
         </div>
@@ -71,7 +71,7 @@
 
                 <%--查看每关题库池--%>
                 <button class="btn btn-success startbtn"
-                        onclick="javascript:window.location.href='setCheckList.jsp'">设置
+                        onclick="javascript:window.location.href='/page/admin/setCheckList.html'">设置
                 </button>
             </div>
 
@@ -84,7 +84,7 @@
                 <%--(第一版中不完成)--%>
                 <%--修改题目--%>
                 <%--查询题目--%>
-                <button class="btn btn-success startbtn" onclick="javascript:window.location.href='../Library/uploadtest.jsp'">设置</button>
+                <button class="btn btn-success startbtn" onclick="javascript:window.location.href='/page/Library/uploadtest.html'">设置</button>
             </div>
         </div>
     </div>
@@ -94,10 +94,10 @@
     <div class="container">
         <div class="row center-block">
             <div class="col-md-6">
-                <h2 class="text-muted" style="text-align: center;">数据统计</h2>
+                <h2 class="text-muted" style="text-align: center;">成绩查询</h2>
 
                 <button class="btn btn-success startbtn"
-                        onclick="javascript:window.location.href='/jsp/Admin/Query.jsp'">设置
+                        onclick="javascript:window.location.href='/page/admin/checkStudent.html'">设置
                 </button>
             </div>
 
@@ -110,7 +110,7 @@
                 <%--(第一版中不完成)--%>
                 <%--修改题目--%>
                 <%--查询题目--%>
-                <button class="btn btn-success startbtn" onclick="javascript:window.location.href='../Library/uploadtest.jsp'">设置</button>
+                <button class="btn btn-success startbtn" onclick="javascript:window.location.href='/page/Library/uploadtest.html'">设置</button>
             </div>
         </div>
     </div>

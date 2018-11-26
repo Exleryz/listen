@@ -1,4 +1,3 @@
-<%@ taglib prefix="s" uri="/struts-tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -57,18 +56,28 @@
         </tr>
         </thead>
         <tbody>
-        <s:iterator value="#pageBean.list" var="lib" status="status">
+        <%--<s:iterator value="#pageBean.list" var="lib" status="status">
             <tr>
                 <td><input type="checkbox" name="c" value="<s:property value="#lib.id"></s:property>"></td>
                 <td><s:property value="(#pageBean.currentPage -1) * #pageBean.pageSize + #status.index + 1"/></td>
-                <%--<td><input type="hidden" value="" name="id" /></td>--%>
+                &lt;%&ndash;<td><input type="hidden" value="" name="id" /></td>&ndash;%&gt;
                 <td><s:property value="#lib.title"></s:property></td>
                 <td><s:property value="#lib.sonCount"></s:property></td>
                 <td>
                     <button value="查看"/>
                 </td>
             </tr>
-        </s:iterator>
+        </s:iterator>--%>
+            <tr>
+                <td><input type="checkbox" name="c" value="1"></td>
+                <td>1</td>
+                <%--<td><input type="hidden" value="" name="id" /></td>--%>
+                <td>标题</td>
+                <td>子题目</td>
+                <td>
+                    <button value="查看"/>
+                </td>
+            </tr>
         </tbody>
     </table>
     <button value="上一页" onclick="forwardPage(<s:property value='#pageBean.currentPage'/>)"></button>

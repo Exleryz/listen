@@ -116,13 +116,15 @@
             data: {'score':score,'checkPoint':<%=request.getParameter("checkId")%>},
             dataType: "json",
             success: function (data) {
-                alert(data['msg'])
+                alert(data['msg']);
+                window.location.href = '${pageContext.request.contextPath}/page/user/checkPointList.html';
             },
             error: function (data) {
-                alert(data['msg']);
+                console.log(data);
+                alert('提交失败，请联系管理员');
             }
         })
-        window.location.href = '${pageContext.request.contextPath}/page/user/checkPointList.html';
+
 
     }
 </script>
@@ -156,8 +158,5 @@
     <span class="glyphicon glyphicon-chevron-left"></span>
 </a>
 
-<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>
