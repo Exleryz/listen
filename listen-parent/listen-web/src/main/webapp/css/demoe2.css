@@ -1,0 +1,67 @@
+.head {
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    background: #308F8B;
+    color: #fff;
+    font-size: 28px;
+}
+.row_item {
+    display: flex;
+    align-items: center;
+    height: 50px;
+}
+.laber {
+    font-size: 28px;
+    line-height: 30px;
+}
+.item_input {
+    height: 30px;
+}
+.item_select{
+    width: 100px;
+    height: 30px;
+}
+.box_row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px;
+    padding-bottom: 0;
+}
+.row_2 {
+    justify-content: flex-end;
+}
+.row2_input {
+    align-self: flex-end;
+    height: 30px;
+}
+
+.table {
+    margin-top: 50px;
+    font-size: 20px;
+}
+.table table{
+    width: 100%;
+    border:  1px solid #eee;
+}
+.content_row td,
+.title_row td {
+    width: 14.3%;
+    text-align: center;
+    line-height: 30px;
+    height: 60px;
+    border-bottom: 1px solid #eee;
+}
+.add {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: 50%;
+}
+.add div{
+    border:  1px solid #ddd;
+    width: 30px;
+    height: 30px;
+}
