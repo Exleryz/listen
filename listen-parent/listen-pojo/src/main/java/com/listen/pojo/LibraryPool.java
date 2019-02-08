@@ -35,7 +35,7 @@ public class LibraryPool {
     private Integer checkPoint;
 
     /**
-     * 题库池通过规定分数
+     * 题库池通过规定分数(正确比)
      */
     @Column(name = "score")
     private Double score;
