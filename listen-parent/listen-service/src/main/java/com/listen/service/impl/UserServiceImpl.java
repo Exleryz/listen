@@ -3,11 +3,13 @@ package com.listen.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.listen.common.redis.RedisHelper;
+import com.listen.common.utils.DateUtils;
 import com.listen.common.utils.JsonUtils;
 import com.listen.common.utils.ListenResult;
 import com.listen.mapper.LibraryPoolMapper;
 import com.listen.mapper.SysUserLibraryPoolMapper;
 import com.listen.mapper.UserMapper;
+import com.listen.pojo.LibraryPool;
 import com.listen.pojo.SysUserLibraryPool;
 import com.listen.pojo.User;
 import com.listen.service.UserService;
@@ -19,7 +21,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 import tk.mybatis.mapper.entity.Example;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -39,6 +40,29 @@ public class UserServiceImpl implements UserService {
     private String JEDIS_KEY;
     @Value("${SESSION_EXPIRE}")
     private Integer SESSION_EXPIRE;
+
+    @Override
+    public ListenResult register(User user) {
+        User existUser = selectUserByAccount(user.getAccount());
+        if (existUser != null) {
+            return new ListenResult("账号已存在", 9, null);
+        }
+        // 盐
+        String uuidSalt = UUID.randomUUID().toString().replace("-", "");
+        user.setSalt(uuidSalt);
+        // 密码加盐
+        String password = DigestUtils.md5DigestAsHex((user.getPassword() + uuidSalt).getBytes());
+        user.setPassword(password);
+        // 数据初始化
+        user.setGrade(0);
+        user.setClassify(0);
+        user.setCurrentCheck(null);
+        // 插入
+        User insertUser = new User();
+        BeanUtils.copyProperties(user, insertUser);
+        userMapper.insert(insertUser);
+        return ListenResult.success(insertUser.getAccount());
+    }
 
     @Override
     public ListenResult login(User user) {
@@ -64,29 +88,11 @@ public class UserServiceImpl implements UserService {
         return ListenResult.success(data);
     }
 
-    @Override
-    public ListenResult register(User user) {
-        User existUser = selectUserByAccount(user.getAccount());
-        if (existUser != null) {
-            return new ListenResult("账号已存在", 9, null);
-        }
-        // 盐
-        String uuidSalt = UUID.randomUUID().toString().replace("-", "");
-        user.setSalt(uuidSalt);
-        // 密码加盐
-        String password = DigestUtils.md5DigestAsHex((user.getPassword() + uuidSalt).getBytes());
-        user.setPassword(password);
-        // 数据初始化
-        user.setGrade(0);
-        user.setClassify(0);
-        user.setCurrentCheck(null);
-        // 插入
-        User insertUser = new User();
-        BeanUtils.copyProperties(user, insertUser);
-        userMapper.insert(insertUser);
-        return ListenResult.success(insertUser.getAccount());
-    }
-
+    /**
+     * 登出
+     *
+     * @param token
+     */
     @Override
     public void logout(String token) {
         RedisHelper.del(JEDIS_KEY + token, 2);
@@ -137,20 +143,24 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ListenResult saveScore(User user, SysUserLibraryPool sysUserLibraryPool, Integer checkPoint) {
-        Integer lpId = libraryPoolMapper.selectLpByGradeAndCheck(user.getGrade(), checkPoint).getId();
+        LibraryPool libraryPool = libraryPoolMapper.selectLpByGradeAndCheck(user.getGrade(), checkPoint);
+        Integer lpId = libraryPool.getId();
+        // 通关记录
         sysUserLibraryPool.setLpId(lpId);
-        sysUserLibraryPool.setUserId(user.getId());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        sysUserLibraryPool.setTime(simpleDateFormat.format(new Date()));
+        sysUserLibraryPool.setTime(DateUtils.DateToString(new Date(), DateUtils.YYYYMMDDHHMMSS));
         Example example = new Example(SysUserLibraryPool.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("userId", user.getId());
         criteria.andEqualTo("lpId", lpId);
         sysUserLibraryPool.setCount(sysUserLibraryPoolMapper.selectCountByExample(example) + 1);
-//        int insert = sysUserLibraryPoolMapper.insert(sysUserLibraryPool);
-//        return insert == 0 ? ListenResult.error("提交试卷保存失败") : ListenResult.success(null);
-        sysUserLibraryPoolMapper.insert(sysUserLibraryPool);
-        return ListenResult.success(null);
+        int insert = sysUserLibraryPoolMapper.insert(sysUserLibraryPool);
+        // 更新当前关卡
+        // fixme 此处可能空指针异常 关我屁事
+        if (user.getCurrentCheck() + 1 == checkPoint) {
+            user.setCurrentCheck(checkPoint);
+            userMapper.updateByPrimaryKey(user);
+        }
+        return insert == 0 ? ListenResult.error("提交试卷保存失败") : ListenResult.success("成绩上传成功");
     }
 
     @Override
@@ -168,5 +178,4 @@ public class UserServiceImpl implements UserService {
         PageInfo pageInfo = new PageInfo(sysUserLibraryPools);
         return ListenResult.success(pageInfo);
     }
-
 }

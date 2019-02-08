@@ -1,20 +1,19 @@
 package com.listen.controller;
 
+import com.listen.common.redis.RedisHelper;
 import com.listen.common.utils.ListenResult;
 import com.listen.pojo.SysUserLibraryPool;
 import com.listen.pojo.User;
-import com.listen.service.LibraryPoolService;
 import com.listen.service.UserService;
-import com.listen.service.VocabularyService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -30,6 +29,10 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Value("${ANSWER_KEY}")
+    private String ANSWER_KEY;
+    @Value("${ANSWER_TIMEOUT}")
+    private Integer ANSWER_TIMEOUT;
 
     @RequestMapping("/page/login")
     public String login() {
@@ -95,16 +98,39 @@ public class UserController {
      */
     @RequestMapping("/user/submitScore")
     @ResponseBody
-    public ListenResult submitScore(@RequestParam(value = "answers", defaultValue = "0") char[] answers, Integer checkPoint, HttpServletRequest request) {
+    public ListenResult submitScore(@RequestParam(value = "answers", defaultValue = "0") Character[] answers,
+                                    Integer checkPoint, HttpServletRequest request) {
+        RedisHelper.set(1 + "ANSWER_KEY:" + 1, "A:1;B:1;C:2;A:2;D:2;A:2;C:3", 1200, 1);
         if (null == checkPoint) {
             return ListenResult.error("试卷提交失败");
         }
-        for (char answer : answers) {
-            System.out.println(answer);
-        }
         User user = (User) request.getAttribute("user");
-//        return userService.saveScore(user, sysUserLibraryPool, checkPoint);
-        return null;
+
+        String answerStr = RedisHelper.get(user.getId() + ANSWER_KEY + ":" + checkPoint, 1);
+        if (StringUtils.isEmpty(answerStr)) {
+            return ListenResult.error("此试卷已过期");
+        }
+        System.out.println(answerStr);
+        String[] kv = answerStr.split(";");
+        if (answers.length != kv.length) {
+            return ListenResult.error("试卷提交失败");
+        }
+
+        // 根据题目的权重算出正确率
+        Double sumScore = 0d;
+        Double rightScore = 0d;
+        for (int i = 0; i < answers.length; i++) {
+            String[] score = kv[i].split(":");
+            if (score[0].equals(answers[i])) {
+                sumScore += Integer.parseInt(score[1]);
+            }
+            rightScore += Integer.parseInt(score[1]);
+        }
+        Double score = Math.ceil(sumScore / rightScore);
+        SysUserLibraryPool sysUserLibraryPool = new SysUserLibraryPool();
+        sysUserLibraryPool.setScore(score);
+        sysUserLibraryPool.setUserId(user.getId());
+        return userService.saveScore(user, sysUserLibraryPool, checkPoint);
     }
 
     /**
@@ -121,6 +147,16 @@ public class UserController {
         }
         User user = (User) request.getAttribute("user");
         return userService.getHistoryPage(user, checkPoint, pageNum, pageSize);
+    }
+
+    /**
+     * 测试专用
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
+//        添加redis中试卷答案
+
     }
 
 }
