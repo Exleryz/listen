@@ -52,7 +52,7 @@ public class RedisHelper {
      * 设置数据
      * @param key     //key
      * @param value   //值
-     * @param timeOut //过期时间
+     * @param timeOut //过期时间 秒
      * @param db      //数据库序号
      */
     public static void set(String key, String value, Integer timeOut, Integer db) {
