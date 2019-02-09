@@ -100,13 +100,13 @@ public class UserController {
     @ResponseBody
     public ListenResult submitScore(@RequestParam(value = "answers", defaultValue = "0") Character[] answers,
                                     Integer checkPoint, HttpServletRequest request) {
-        RedisHelper.set(1 + "ANSWER_KEY:" + 1, "A:1;B:1;C:2;A:2;D:2;A:2;C:3", 1200, 1);
         if (null == checkPoint) {
             return ListenResult.error("试卷提交失败");
         }
         User user = (User) request.getAttribute("user");
 
         String answerStr = RedisHelper.get(user.getId() + ANSWER_KEY + ":" + checkPoint, 1);
+        RedisHelper.del(user.getId() + ANSWER_KEY + ":" + checkPoint, 1);
         if (StringUtils.isEmpty(answerStr)) {
             return ListenResult.error("此试卷已过期");
         }

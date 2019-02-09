@@ -11,7 +11,6 @@ import com.listen.mapper.SubjectMapper;
 import com.listen.mapper.SysLibraryLibraryPoolMapper;
 import com.listen.pojo.Library;
 import com.listen.pojo.LibraryPool;
-import com.listen.pojo.Subject;
 import com.listen.pojo.SysLibraryLibraryPool;
 import com.listen.pojo.vo.QueryLibraryVo;
 import com.listen.pojo.vo.SysLibraryLibraryPoolVo;
@@ -20,7 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 /**
  * @author Exler
@@ -38,13 +39,14 @@ public class LibraryPoolServiceImpl implements LibraryPoolService {
     private SubjectMapper subjectMapper;
 
     @Override
-    public ListenResult getCurrentGradeSubjects(Integer grade, Integer checkPoint) {
+    public ListenResult getCurrentGradeSubjects(Integer grade, Integer userId, Integer checkPoint) {
         // get LibraryPool currentCheck id
         LibraryPool lp = libraryPoolMapper.selectLpByGradeAndCheck(grade, checkPoint);
         // 根据获取题库池中的题目
         List<SysLibraryLibraryPoolVo> vosList = sysLibraryLibraryPoolMapper.selectLibIdsByLpId(lp.getId());
         //获取开始时间
-        long startTime = System.currentTimeMillis();
+//        long startTime = System.currentTimeMillis();
+        // 用于存放生成试卷的题目id
         List<Integer> libsList = new ArrayList<>(5);
         if (vosList.size() < 5) {
             return ListenResult.error("管理员未指定该等级的题库");
@@ -56,22 +58,21 @@ public class LibraryPoolServiceImpl implements LibraryPoolService {
             // 取得5题
         }
         //获取选择题目计算时间
-        long chooseTime = System.currentTimeMillis();
-        System.out.println("chooseTime:\t" + (chooseTime - startTime));
+//        long chooseTime = System.currentTimeMillis();
+//        System.out.println("chooseTime:\t" + (chooseTime - startTime));
         // 使用题库id 获得Library
         List<QueryLibraryVo> voList = new ArrayList<>();
-        Map<Integer, List<Subject>> subjectsMap = new HashMap<>();
         for (Integer libId : libsList) {
             QueryLibraryVo vo = libraryMapper.selectLibraryVo(libId);
             voList.add(vo);
         }
         // 获取题目计算时间
-        long getTime = System.currentTimeMillis();
-        System.out.println("getTime:\t" + (getTime - chooseTime));
-        List<LibraryVo> libraryVos = MakeSubject.initSubject(voList);
+//        long getTime = System.currentTimeMillis();
+//        System.out.println("getTime:\t" + (getTime - chooseTime));
+        List<LibraryVo> libraryVos = MakeSubject.initSubject(voList, userId, checkPoint);
         // 试卷生成时间
-        long endTime = System.currentTimeMillis();
-        System.out.println("endTime:\t" + (endTime - getTime) + "\n");
+//        long endTime = System.currentTimeMillis();
+//        System.out.println("endTime:\t" + (endTime - getTime) + "\n");
 
         return null != libraryVos ? ListenResult.success(libraryVos) : ListenResult.error("服务器错误");
     }

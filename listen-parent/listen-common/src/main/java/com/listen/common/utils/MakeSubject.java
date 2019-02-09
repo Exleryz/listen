@@ -1,17 +1,16 @@
 package com.listen.common.utils;
 
+import com.listen.common.redis.RedisHelper;
 import com.listen.common.vo.GradeOption;
 import com.listen.common.vo.GradeSubject;
-import com.listen.pojo.Library;
+import com.listen.common.vo.LibraryVo;
 import com.listen.pojo.Subject;
 import com.listen.pojo.Vocabulary;
-import com.listen.common.vo.LibraryVo;
 import com.listen.pojo.vo.QueryLibraryVo;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ScheduledExecutorService;
@@ -65,38 +64,6 @@ public class MakeSubject {
         return subjectList;
     }
 
-    /**
-     * 题目
-     *
-     * @param vos
-     * @return
-     */
-    public static List<LibraryVo> initSubject(List<QueryLibraryVo> vos) {
-        ScheduledExecutorService es = new ScheduledThreadPoolExecutor(10, new BasicThreadFactory.Builder().namingPattern("Subject-pool-%d").daemon(true).build());
-        final CountDownLatch latch = new CountDownLatch(vos.size());
-        final List<LibraryVo> libraryVosList = new ArrayList<>(vos.size());
-        for (final QueryLibraryVo vo : vos) {
-            es.execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        execSubject(vo, libraryVosList);
-                    } catch (Exception e) {
-                    } finally {
-                        latch.countDown();
-                    }
-                }
-            });
-        }
-        es.shutdown();
-        try {
-            latch.await();
-        } catch (InterruptedException e) {
-            return null;
-        }
-        return libraryVosList;
-    }
-
     private static void execVocabulary(List<Vocabulary> vocList, List<GradeSubject> subjectList) {
         for (int i = 0; i < vocList.size(); i++) {
             GradeSubject s = new GradeSubject();
@@ -114,7 +81,7 @@ public class MakeSubject {
             }
             // exchange answer
             // add
-            s.setOptions(change(options, 0));
+            s.setOptions(changeVocabulary(options, 0));
             s.setGrade(vocList.get(i).getGrade());
             synchronized (subjectList) {
                 subjectList.add(s);
@@ -122,21 +89,49 @@ public class MakeSubject {
         }
     }
 
-    private static void execSubject(QueryLibraryVo queryVo, List<LibraryVo> voList) {
+    private static List<GradeOption> changeVocabulary(List<GradeOption> options, int index) {
+        // 交换选项
+        Random r = new Random();
+        int randomOption = r.nextInt(4);
+        GradeOption tempOption = options.get(index);
+        options.set(index, options.get(randomOption));
+        options.set(randomOption, tempOption);
+        return options;
+    }
+
+    /**
+     * 题目
+     *
+     * @param vos
+     * @return
+     */
+    public static List<LibraryVo> initSubject(List<QueryLibraryVo> vos, Integer userId, Integer currentPoint) {
+        final List<LibraryVo> libraryVosList = new ArrayList<>(vos.size());
+        StringBuilder sb = new StringBuilder();
+        for (final QueryLibraryVo vo : vos) {
+            sb.append(execSubject(vo, libraryVosList));
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        RedisHelper.set(userId + "ANSWER_KEY:" + currentPoint, sb.toString(), 1200, 1);
+
+//        System.out.println(sb);
+        return libraryVosList;
+    }
+
+    private static String execSubject(QueryLibraryVo queryVo, List<LibraryVo> voList) {
         // 大题Vo
         LibraryVo vo = new LibraryVo();
         // 题目list
         List<GradeSubject> newSubjects = new ArrayList<>();
         vo.setSrc(queryVo.getSrc());
         vo.setSubjectCount(queryVo.getSubjectCount());
-
+        StringBuilder sb = new StringBuilder();
         for (Subject subject : queryVo.getSubjects()) {
             // 获取正确答案
             int tempSort = subject.getAnswer() - 'A';
             List<GradeOption> options = new ArrayList<>(4);
             for (int i = 0; i < 4; i++) {
                 GradeOption option = new GradeOption();
-                option.setAnswer(i == tempSort);
                 option.setContent(i == 0 ? subject.getOptionA() : i == 1 ? subject.getOptionB() : i == 2 ?
                         subject.getOptionC() : subject.getOptionD());
                 options.add(option);
@@ -146,18 +141,24 @@ public class MakeSubject {
             GradeSubject newSubject = new GradeSubject();
             newSubject.setOptions(options);
             newSubjects.add(newSubject);
+            // 例如: A:1;
+            sb.append(change(options, tempSort));
+            sb.append(":");
+            sb.append(queryVo.getDifficulty());
+            sb.append(";");
         }
         vo.setSubjects(newSubjects);
         voList.add(vo);
+        return sb.toString();
     }
 
-    private static List<GradeOption> change(List<GradeOption> options, int index) {
+    private static Character change(List<GradeOption> options, int index) {
         // 交换选项
         Random r = new Random();
         int randomOption = r.nextInt(4);
         GradeOption tempOption = options.get(index);
         options.set(index, options.get(randomOption));
         options.set(randomOption, tempOption);
-        return options;
+        return (char) ('A' + randomOption);
     }
 }

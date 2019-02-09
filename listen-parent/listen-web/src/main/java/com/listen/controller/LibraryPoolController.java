@@ -37,7 +37,7 @@ public class LibraryPoolController {
         if (null == user.getGrade() || null == checkPoint) {
             return ListenResult.error("试卷加载异常");
         }
-        ListenResult result = libraryPoolService.getCurrentGradeSubjects(user.getGrade(), checkPoint);
+        ListenResult result = libraryPoolService.getCurrentGradeSubjects(user.getGrade(), user.getId(), checkPoint);
         return result;
     }
 

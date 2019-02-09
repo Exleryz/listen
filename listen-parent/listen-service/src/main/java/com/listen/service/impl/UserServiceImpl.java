@@ -156,7 +156,7 @@ public class UserServiceImpl implements UserService {
         int insert = sysUserLibraryPoolMapper.insert(sysUserLibraryPool);
         // 更新当前关卡
         // fixme 此处可能空指针异常 关我屁事
-        if (user.getCurrentCheck() + 1 == checkPoint) {
+        if (user.getCurrentCheck() + 1 == checkPoint && libraryPool.getScore() <= sysUserLibraryPool.getScore()) {
             user.setCurrentCheck(checkPoint);
             userMapper.updateByPrimaryKey(user);
         }

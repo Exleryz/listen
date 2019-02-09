@@ -13,10 +13,11 @@ public interface LibraryPoolService {
      * 获取当前关卡 的题目(直接生成试卷)
      *
      * @param grade
+     * @param userId
      * @param checkPoint
      * @return
      */
-    ListenResult getCurrentGradeSubjects(Integer grade, Integer checkPoint);
+    ListenResult getCurrentGradeSubjects(Integer grade, Integer userId, Integer checkPoint);
 
     /**
      * 根据等级关卡 查询 题库池 设置信息(分页)
