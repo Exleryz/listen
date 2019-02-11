@@ -126,7 +126,7 @@ public class UserController {
             }
             rightScore += Integer.parseInt(score[1]);
         }
-        Double score = Math.ceil(sumScore / rightScore);
+        Double score = Math.ceil(sumScore / rightScore * 100);
         SysUserLibraryPool sysUserLibraryPool = new SysUserLibraryPool();
         sysUserLibraryPool.setScore(score);
         sysUserLibraryPool.setUserId(user.getId());
