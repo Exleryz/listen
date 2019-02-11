@@ -121,7 +121,7 @@ public class UserController {
         Double rightScore = 0d;
         for (int i = 0; i < answers.length; i++) {
             String[] score = kv[i].split(":");
-            if (score[0].equals(answers[i])) {
+            if (score[0].equals(answers[i] + "")) {
                 sumScore += Integer.parseInt(score[1]);
             }
             rightScore += Integer.parseInt(score[1]);
@@ -147,16 +147,6 @@ public class UserController {
         }
         User user = (User) request.getAttribute("user");
         return userService.getHistoryPage(user, checkPoint, pageNum, pageSize);
-    }
-
-    /**
-     * 测试专用
-     *
-     * @param args
-     */
-    public static void main(String[] args) {
-//        添加redis中试卷答案
-
     }
 
 }
