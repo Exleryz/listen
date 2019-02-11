@@ -174,7 +174,7 @@
     <button type="button" class="btn btn-default" onclick="sub()">交卷</button>
 </div>
 <!-- 返回上一层 -->
-<a href="javascript:history.go(-1)" class="header-back">
+<a href="/page/user/checkPointList.html" class="header-back">
     <span class="glyphicon glyphicon-chevron-left"></span>
 </a>
 

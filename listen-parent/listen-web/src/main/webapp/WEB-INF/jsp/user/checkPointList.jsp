@@ -195,7 +195,7 @@
 
 </div>
 <!-- 返回上一层 -->
-<a href="javascript:history.go(-1)" class="header-back">
+<a href="/page/user/home.html" class="header-back">
     <span class="glyphicon glyphicon-chevron-left"></span>
 </a>
 
