@@ -15,6 +15,9 @@ public class ListenResult {
      * 200 OK
      */
     private Integer code;
+
+    private boolean flag;
+
     private Object data;
 
     public ListenResult() {
@@ -22,27 +25,28 @@ public class ListenResult {
     }
 
     public ListenResult(String msg, Integer code, Object data) {
-        if (code != null) {
-            this.setCode(code);
-        }
-        if (data != null) {
-            this.setData(data);
-        }
-        if (msg != null) {
-            this.setMsg(msg);
-        }
+        this.setCode(code);
+        this.setData(data);
+        this.setMsg(msg);
+    }
+
+    public ListenResult(String msg, Integer code, boolean flag, Object data) {
+        this.msg = msg;
+        this.code = code;
+        this.flag = flag;
+        this.data = data;
     }
 
     public static ListenResult success(Object data) {
-        return new ListenResult("success", 200, data);
+        return new ListenResult("success", 200, true, data);
     }
 
     public static ListenResult error(String msg) {
-        return new ListenResult(msg, 1, null);
+        return new ListenResult(msg, 1, false, null);
     }
 
     public ListenResult makeInternalErrorResult() {
-        return new ListenResult("内部错误", 11, null);
+        return new ListenResult("内部错误", 11, false, null);
     }
 
     public String getMsg() {
@@ -59,6 +63,14 @@ public class ListenResult {
 
     public void setCode(Integer code) {
         this.code = code;
+    }
+
+    public boolean getFlag() {
+        return flag;
+    }
+
+    public void setFlag(boolean flag) {
+        this.flag = flag;
     }
 
     public Object getData() {
