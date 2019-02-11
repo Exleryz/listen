@@ -1,12 +1,6 @@
 package com.listen.interceptor;
 
-import com.listen.common.utils.CookieUtils;
-import com.listen.common.utils.ListenResult;
 import com.listen.pojo.User;
-import com.listen.service.UserService;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 

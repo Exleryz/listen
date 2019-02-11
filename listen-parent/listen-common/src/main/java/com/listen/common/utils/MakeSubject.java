@@ -113,8 +113,6 @@ public class MakeSubject {
         }
         sb.deleteCharAt(sb.length() - 1);
         RedisHelper.set(userId + "ANSWER_KEY:" + currentPoint, sb.toString(), 1200, 1);
-
-//        System.out.println(sb);
         return libraryVosList;
     }
 

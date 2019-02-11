@@ -1,7 +1,6 @@
 package com.listen.controller;
 
 import com.listen.common.utils.CookieUtils;
-import com.listen.common.utils.JsonUtils;
 import com.listen.common.utils.ListenResult;
 import com.listen.pojo.User;
 import com.listen.service.UserService;
