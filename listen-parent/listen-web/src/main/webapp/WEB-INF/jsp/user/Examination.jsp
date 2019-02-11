@@ -103,7 +103,7 @@
             $("#" + (eval(id) + 1)).show();
             $("#" + id+" audio")[0].pause();
         }
-        
+
         if ($("#nextBut").is(':hidden')) {
             $("#nextBut").show();
         }
@@ -115,7 +115,7 @@
             $("#subTest").show();
             $("#nextBut").hide();
         }
-        
+
     }
     function sub() {
         var score = "";
@@ -140,8 +140,7 @@
                 window.location.href = '${pageContext.request.contextPath}/page/user/checkPointList.html';
             },
             error: function (data) {
-                console.log(data);
-                alert('提交失败，请联系管理员');
+                alert(data["msg"]);
             }
         })
         }
