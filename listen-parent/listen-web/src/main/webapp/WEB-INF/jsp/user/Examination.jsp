@@ -63,7 +63,7 @@
                             if (indexso == 2)
                                 $div += '<div class="col-md-3"><label for="c">C.<input onclick="checkMe(this)" type="radio" value="C" name="' + count + '" >' + valso["content"] + '</label></div>';
                             if (indexso == 3)
-                                $div += '<div class="col-md-3"><label for="d">D.<input onclick="checkMe(this)" type="radio" value="D" name="' + count + '" >' + valso["content"] + '</label></div>';
+                                $div += '<div class="col-md-3"><label for="d">D.<input onclick="checkMe(this)" type="radio" value="D" name="' + count + '" >' + valso["content"] + '</label></div><br/>';
                         });
                     });
                     $div += '</div></div></div>';
