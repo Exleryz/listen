@@ -58,7 +58,7 @@
                 }
             },
             error: function (data) {
-                alert(data['msg']);
+                alert('服务器出现问题，请联系管理员');
             }
         })
     }

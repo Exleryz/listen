@@ -23,13 +23,13 @@
 </style>
 <script type="text/javascript">
     var answer = new Array();
-    var analysis = new Array();
     $(document).ready(function () {
         if (${user == null})
         {
             window.location.href = "${pageContext.request.contextPath}/page/login.html";
         }
     });
+    var count = 0;
     $(document).ready(function () {
         $.ajax({
             type: "POST",
@@ -43,6 +43,8 @@
                     $.each(val["subjects"], function (indexs, vals) {
                         //analysis[index] = vals["analysis"];
                         $div += (indexs + 1) + ".<br/>"
+                        console.log(vals);
+                        count+=1;
                         $.each(vals["options"], function (indexso, valso) {
                             if (valso["answer"] == true) {
                                 if (indexso == 0)
@@ -55,13 +57,13 @@
                                     answer[(index * 4 + indexs)] = "D";
                             }
                             if (indexso == 0)
-                                $div += '<div class="col-md-3"><label for="a">A.<input onclick="checkMe(this)" type="radio" value="A" name="' + (index * 4 + indexs + 1) + '" >' + valso["content"] + '</label></div>';
+                                $div += '<div class="col-md-3"><label for="a">A.<input onclick="checkMe(this)" type="radio" value="A" name="' + count + '" >' + valso["content"] + '</label></div>';
                             if (indexso == 1)
-                                $div += '<div class="col-md-3"><label for="b">B.<input onclick="checkMe(this)" type="radio" value="B" name="' + (index * 4 + indexs + 1) + '" >' + valso["content"] + '</label></div>';
+                                $div += '<div class="col-md-3"><label for="b">B.<input onclick="checkMe(this)" type="radio" value="B" name="' + count + '" >' + valso["content"] + '</label></div>';
                             if (indexso == 2)
-                                $div += '<div class="col-md-3"><label for="c">C.<input onclick="checkMe(this)" type="radio" value="C" name="' + (index * 4 + indexs + 1) + '" >' + valso["content"] + '</label></div>';
+                                $div += '<div class="col-md-3"><label for="c">C.<input onclick="checkMe(this)" type="radio" value="C" name="' + count + '" >' + valso["content"] + '</label></div>';
                             if (indexso == 3)
-                                $div += '<div class="col-md-3"><label for="d">D.<input onclick="checkMe(this)" type="radio" value="D" name="' + (index * 4 + indexs + 1) + '" >' + valso["content"] + '</label></div>';
+                                $div += '<div class="col-md-3"><label for="d">D.<input onclick="checkMe(this)" type="radio" value="D" name="' + count + '" >' + valso["content"] + '</label></div>';
                         });
                     });
                     $div += '</div></div></div>';
@@ -87,6 +89,12 @@
             $("#" + (eval(id) - 1)).show();
             $("#" + id+" audio")[0].pause();
         }
+        if (id==2){
+            $("#preBut").hide();
+        }
+        if ($("#nextBut").is(':hidden')) {
+            $("#nextBut").show();
+        }
     }
     function next() {
         var id = $("#question >div:visible").attr("id");
@@ -95,28 +103,40 @@
             $("#" + (eval(id) + 1)).show();
             $("#" + id+" audio")[0].pause();
         }
+        
+        if ($("#nextBut").is(':hidden')) {
+            $("#nextBut").show();
+        }
+        if ($("#preBut").is(':hidden')) {
+            $("#preBut").show();
+        }
+
         if (id == 4) {
             $("#subTest").show();
+            $("#nextBut").hide();
         }
+        
     }
     function sub() {
-        var score = 0;
-        console.log(answer);
-        for (var index in answer) {
+        var score = "";
+        var size = $("#question input:last");
+        var all = size.attr('name');
+        for ( var index=0;index<all;index++) {
             var temp = $("input[type='radio'][name='" + (eval(index) + 1) + "'][checked='checked']").val();
-            if (temp == answer[index])
-                score += 1;
+            score += temp;
+            score +=",";
         }
-        alert("您的成绩是：" + score);
+        score = score.substr(0,score.length-1);
+        if(confirm("你确定要提交吗")){
         $.ajax({
             async: false,
             type: "POST",
             url: '${pageContext.request.contextPath}/user/submitScore',
             contentType: "application/x-www-form-urlencoded",
-            data: {'score':score,'checkPoint':<%=request.getParameter("checkId")%>},
+            data: {'answers':score,'checkPoint':<%=request.getParameter("checkId")%>},
             dataType: "json",
             success: function (data) {
-                alert(data['msg']);
+                alert(data['data']);
                 window.location.href = '${pageContext.request.contextPath}/page/user/checkPointList.html';
             },
             error: function (data) {
@@ -124,6 +144,7 @@
                 alert('提交失败，请联系管理员');
             }
         })
+        }
 
 
     }
@@ -142,10 +163,10 @@
 
     </div>
     <div class="testbox-btn" style="margin: 5px;margin-top: 10px">
-        <button class="btn btn-default" onclick="pre()">
+        <button id="preBut" style="display: none" class="btn btn-default" onclick="pre()">
             上一题
         </button>
-        <button class="btn btn-default" onclick="next()">
+        <button id="nextBut" class="btn btn-default" onclick="next()">
             下一题
         </button>
     </div>
