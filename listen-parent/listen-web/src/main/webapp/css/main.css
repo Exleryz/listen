@@ -454,6 +454,7 @@ a:active{
 .headbox p span{
     color: #009688;
 }
+
 /*子题目设置样式*/
 .testbox{
     width: 100%;
@@ -463,6 +464,7 @@ a:active{
     margin-top: 20px;
     position: relative;
 }
+
 /*A\B\C\D之间的距离*/
 .testbox li{
     margin-top: 20px;
@@ -506,4 +508,47 @@ a:active{
 }
 .addbox .layui-icon:hover{
     color: #009688;
+}
+
+.width95{
+    width: 95%;
+    margin-top: 0px;
+}
+/*去除顶部和底部边距*/
+.noMargin{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.fontStyle1{
+    font-size: 1.2em;
+    padding: 0px 5px
+}
+.fontStyle2{
+    font-size: 2em;
+    padding-left: 3%;
+}
+
+.tableButton{
+    padding: 0px 5px;
+    margin-bottom: 0px;
+    margin-left: -6px;
+}
+/*内部表格样式*/
+.innerTable{
+    width: 100%;
+    max-width: 100%;
+}
+.bottomDiv{
+    padding: 7px 0px;
+    margin: 0px;
+}
+.hrStyle{
+    margin: 0px 0px;
+    border-top: 1px solid #000;
+}
+.textLength{
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
