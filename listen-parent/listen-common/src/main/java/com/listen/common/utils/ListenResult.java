@@ -9,12 +9,6 @@ package com.listen.common.utils;
 public class ListenResult {
 
     private String msg;
-    /**
-     * 1 error
-     * 10 账号密码错误
-     * 200 OK
-     */
-    private Integer code;
 
     private boolean flag;
 
@@ -24,15 +18,14 @@ public class ListenResult {
 
     }
 
-    public ListenResult(String msg, Integer code, Object data) {
-        this.setCode(code);
+    public ListenResult(String msg, boolean flag, Object data) {
+        this.setFlag(flag);
         this.setData(data);
         this.setMsg(msg);
     }
 
     public ListenResult(String msg, Integer code, boolean flag, Object data) {
         this.msg = msg;
-        this.code = code;
         this.flag = flag;
         this.data = data;
     }
@@ -55,14 +48,6 @@ public class ListenResult {
 
     public void setMsg(String msg) {
         this.msg = msg;
-    }
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public void setCode(Integer code) {
-        this.code = code;
     }
 
     public boolean getFlag() {

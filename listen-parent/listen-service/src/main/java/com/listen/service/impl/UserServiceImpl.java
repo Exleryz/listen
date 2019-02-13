@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
     public ListenResult register(User user) {
         User existUser = selectUserByAccount(user.getAccount());
         if (existUser != null) {
-            return new ListenResult("账号已存在", 9, null);
+            return new ListenResult("账号已存在", false, null);
         }
         // 盐
         String uuidSalt = UUID.randomUUID().toString().replace("-", "");
@@ -114,7 +114,7 @@ public class UserServiceImpl implements UserService {
         String json = RedisHelper.get(JEDIS_KEY + token, 2);
         // 取不到用户信息 登录已经过期 返回登录过期
         if (StringUtils.isBlank(json)) {
-            return new ListenResult("用户登录已经过期", 201, null);
+            return new ListenResult("用户登录已经过期", false, null);
         }
         // 取到用户信息 更新token的过期时间
         User user = JsonUtils.jsonToPojo(json, User.class);

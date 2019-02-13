@@ -44,7 +44,7 @@ public class SsoController {
             return ListenResult.error("账号/密码不可为空");
         }
         ListenResult result = userService.login(user);
-        if (result.getCode() == 200) {
+        if (result.getFlag()) {
             // 用户登录成功
             Map<String, Object> session = (Map<String, Object>) result.getData();
             String token = (String) session.get("token");
