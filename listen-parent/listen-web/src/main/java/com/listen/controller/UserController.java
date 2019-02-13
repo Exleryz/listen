@@ -9,11 +9,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -33,24 +31,6 @@ public class UserController {
     private String ANSWER_KEY;
     @Value("${ANSWER_TIMEOUT}")
     private Integer ANSWER_TIMEOUT;
-
-    @RequestMapping("/page/login")
-    public String login() {
-        return "login";
-    }
-
-    @RequestMapping("/page/{folderName}/{pageName}")
-    public ModelAndView page(@PathVariable String folderName, @PathVariable String pageName, ModelAndView modelAndView, HttpServletRequest request) {
-        String path;
-        if (null == pageName || "".equals(pageName)) {
-            path = folderName;
-        } else {
-            path = folderName + "/" + pageName;
-        }
-        modelAndView.addObject("user", request.getAttribute("user"));
-        modelAndView.setViewName(path);
-        return modelAndView;
-    }
 
     /**
      * ajax 检查账号是否存在

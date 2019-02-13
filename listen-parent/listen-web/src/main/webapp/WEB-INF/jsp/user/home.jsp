@@ -35,7 +35,7 @@
             </div>
             <div class="collapse navbar-collapse" id="example-navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="${pageContext.request.contextPath}/jsp/Student/userinfo.jsp"><span
+                    <li><a href="${pageContext.request.contextPath}/page/user/userinfo.jsp"><span
                             class="glyphicon glyphicon-user"></span>Personal Center</a></li>
                     <li><a href="${pageContext.request.contextPath}/sso/logout"><span
                             class="glyphicon glyphicon-log-in"></span>Sign out</a></li>

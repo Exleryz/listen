@@ -25,10 +25,10 @@ public class Integral {
     private Integer userId;
 
     /**
-     * 获取的积分数量
+     * 获取的积分数量 + -
      */
     @Column(name = "num")
-    private Integer num;
+    private Double num;
 
     /**
      * 获取积分的时间
@@ -58,11 +58,11 @@ public class Integral {
         this.userId = userId;
     }
 
-    public Integer getNum() {
+    public Double getNum() {
         return num;
     }
 
-    public void setNum(Integer num) {
+    public void setNum(Double num) {
         this.num = num;
     }
 
