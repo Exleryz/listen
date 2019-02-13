@@ -30,7 +30,7 @@
             data: $("#registerForm").serialize(),
             dataType: "json",
             success: function (data) {
-                if (data['code'] == 200) {
+                if (data['flag']) {
                     window.location.href = '${pageContext.request.contextPath}/index';
                 } else {
                     alert(data['msg']);
@@ -51,7 +51,7 @@
             data: $("#loginForm").serialize(),
             dataType: "json",
             success: function (data) {
-                if (data['code'] == 200) {
+                if (data['flag']) {
                     window.location.href = '${pageContext.request.contextPath}/page/' + data['data']['redirect'] + '/home.html';
                 } else {
                     $("#login_error_msg").html(data['msg']);
@@ -72,7 +72,7 @@
             data: $("#registerForm").serialize(),
             dataType: "json",
             success: function (data) {
-                if (data['code'] != 200) {
+                if (!data['flag']) {
                     $("#checkAccount").html(data['msg']);
                 } else {
                     $("#checkAccount").html('');
