@@ -1,7 +1,8 @@
 package com.listen.service;
 
 import com.listen.pojo.Integral;
-import com.listen.pojo.User;
+
+import java.util.List;
 
 /**
  * @author Exler
@@ -9,16 +10,31 @@ import com.listen.pojo.User;
 public interface IntegralService {
 
     /**
-     * 获取积分 + -
-     * num getWay 由调用方提前填写
+     * 修改积分 + -
+     * num getWay 由调用方提前填写(自动调用及手动扣除)
      *
-     * @param user
      * @param integral
      */
-    void operateIntegral(User user, Integral integral);
+    Boolean operateIntegral(Integral integral);
+
+    /**
+     * 获取用户总积分
+     *
+     * @param userId 用户id
+     */
+    Integer getUserSumIntegral(Integer userId);
 
     /**
      * 用户查看所有的 积分记录
+     */
+    List<Integral> getIntegralHistory(Integer userId);
+
+    /**
+     * 上传对应积分的兑换物品
+     */
+
+    /**
+     * 下架对应积分的兑换物品
      */
 
 }
