@@ -39,7 +39,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         }
         // 3. 取到token 根据token取用户信息
         ListenResult result = userService.getUserByToken(token);
-        if (result.getFlag()) {
+        if (!result.getFlag()) {
             // 4. 没有取到用户信息 登录过期 重新登录
             response.sendRedirect(request.getContextPath() + "/page/login.html?redirect=" + request.getRequestURL());
             return false;

@@ -1,6 +1,6 @@
 package com.listen.mapper;
 
-import jdk.internal.dynalink.linker.ConversionComparator;
+import com.listen.pojo.ConvertedCommodities;
 import tk.mybatis.mapper.common.Mapper;
 
 /**
@@ -20,5 +20,7 @@ import tk.mybatis.mapper.common.Mapper;
  *  * **************************************************************
  *  
  */
-public interface ConvertedCommoditiesMapper extends Mapper<ConversionComparator> {
+
+public interface ConvertedCommoditiesMapper extends Mapper<ConvertedCommodities> {
+
 }
