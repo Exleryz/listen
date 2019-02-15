@@ -2,7 +2,6 @@ package com.listen.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.listen.mapper.UserMapper;
-import com.listen.pojo.SysLibraryLibraryPool;
 import com.listen.pojo.vo.QuerySULP;
 import com.listen.pojo.vo.QuerySysStudentLibraryPoolVo;
 import com.listen.service.AdminService;
@@ -38,6 +37,14 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     UserMapper userMapper;
 
+    /**
+     * 管理员界面 成绩查询
+     *
+     * @param vo
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @Override
     public List<QuerySULP> queryHistory(QuerySysStudentLibraryPoolVo vo, Integer pageNum, Integer pageSize) {
         Map<String, Object> query = new HashMap<>(3);

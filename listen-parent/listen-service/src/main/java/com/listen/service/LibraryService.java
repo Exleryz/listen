@@ -4,6 +4,8 @@ import com.listen.common.utils.ListenResult;
 import com.listen.pojo.Library;
 import com.listen.pojo.vo.QueryLibraryVo;
 
+import java.util.List;
+
 /**
  * @author Exler
  */
@@ -41,4 +43,12 @@ public interface LibraryService {
      * @return
      */
     ListenResult updateLibrary(QueryLibraryVo vo);
+
+    /**
+     * 根据条件查询 题目s
+     *
+     * @param library
+     * @return
+     */
+    List<Library> getList(Library library);
 }

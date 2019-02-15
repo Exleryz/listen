@@ -38,7 +38,8 @@ public class IntegralServiceImpl implements IntegralService {
 
     @Override
     public List<Integral> getIntegralHistory(Integer userId) {
-        return null;
+        List<Integral> integrals = integralMapper.select(new Integral(userId));
+        return integrals;
     }
 
 }

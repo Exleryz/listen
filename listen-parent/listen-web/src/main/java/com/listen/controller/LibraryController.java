@@ -4,6 +4,7 @@ import com.listen.common.utils.ListenResult;
 import com.listen.pojo.Library;
 import com.listen.pojo.User;
 import com.listen.pojo.vo.QueryLibraryVo;
+import com.listen.service.ClassDicService;
 import com.listen.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author Exler
@@ -24,6 +26,9 @@ public class LibraryController {
 
     @Autowired
     private LibraryService libraryService;
+
+    @Autowired
+    private ClassDicService classDicService;
 
     /**
      * 单题详情查看
@@ -38,6 +43,16 @@ public class LibraryController {
             return ListenResult.error("查询失败");
         }
         return libraryService.getLibrary(libId);
+    }
+
+    /**
+     * 查询 符合条件 的题目
+     */
+    @RequestMapping("/query")
+    @ResponseBody
+    public ListenResult query(Library library) {
+        List<Library> libraries = libraryService.getList(library);
+        return null;
     }
 
 
@@ -112,5 +127,14 @@ public class LibraryController {
     @ResponseBody
     public ListenResult editLibrary(QueryLibraryVo vo) {
         return libraryService.updateLibrary(vo);
+    }
+
+    /**
+     * 获取题目分类
+     */
+    @RequestMapping("/getClassDic")
+    @ResponseBody
+    public ListenResult getClassDic() {
+        return ListenResult.success(classDicService.getAll());
     }
 }
