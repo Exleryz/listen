@@ -85,6 +85,7 @@
                 <%--修改题目--%>
                 <%--查询题目--%>
                 <button class="btn btn-success startbtn" onclick="javascript:window.location.href='/page/admin/upload.html'">上传</button>
+                <button class="btn btn-success startbtn" onclick="javascript:window.location.href='/page/admin/upload.html'">查看</button>
             </div>
         </div>
     </div>
@@ -104,7 +105,7 @@
             </div>
 
             <div class="col-md-6">
-                <h2 class="text-muted" style="text-align: center">听力题目</h2>
+                <h2 class="text-muted" style="text-align: center">商城</h2>
                 <%--查看题目列表--%>
                 <%--查看题目详情--%>
                 <%--上传题目--%>
@@ -113,6 +114,7 @@
                 <%--修改题目--%>
                 <%--查询题目--%>
                 <button class="btn btn-success startbtn" onclick="javascript:window.location.href='/page/admin/upload.html'">上传</button>
+                <button class="btn btn-success startbtn" onclick="javascript:window.location.href='/page/admin/upload.html'">查看</button>
             </div>
         </div>
     </div>
