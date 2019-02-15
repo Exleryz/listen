@@ -14,6 +14,25 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link href="../../../css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../../../css/main.css">
+    <script type="text/javascript" src="../../../js/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="../../../js/all.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+            var currentCheck = getParam("currentCheck");
+            var currentGrade = getParam("currentGrade");
+            $("#checkInput").html(currentCheck);
+            if (currentGrade==1){
+                $("#grandInput").html("初级");
+            }
+            if (currentGrade==2){
+                $("#grandInput").html("中级");
+            }
+            if (currentGrade==3){
+                $("#grandInput").html("高级");
+            }
+        });
+    </script>
 </head>
 <body>
 <header>
@@ -64,7 +83,26 @@
     </div>
 </div>
 <br>
-
+<div class="width95" style="margin: 0px auto;font-size: 1.2em">
+    <div class="row">
+        <div class="form-group col-md-4">
+            <label for="InputId">当前关卡：</label>
+            <label for="InputId" id="checkInput"></label>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="InputId">关卡难度</label>
+            <label for="InputId" id="grandInput"></label>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="InputId">通关分数</label>
+            <select class="form-control">
+                <option>60%</option>
+                <option>70%</option>
+                <option>80%</option>
+            </select>
+        </div>
+    </div>
+</div>
 <div class="width95 fontStyle2">已选题目</div>
 <div class="width95 testbox" style="font-size: 1.2em;" >
     <div class="row bottomDiv" style="border-bottom-width: 1px">
@@ -388,11 +426,11 @@
     <span class="glyphicon glyphicon-chevron-left"></span>
 </a>
 
-<script type="text/javascript" src="../../js/jquery-1.12.4.js"></script>
-<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../../js/main.js"></script>
-<script type="text/javascript" src="../../js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-<script type="text/javascript" src="../../js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+
+<script type="text/javascript" src="../../../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../js/main.js"></script>
+<script type="text/javascript" src="../../../js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="../../../js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 <script type="text/javascript">
     $('.form_date').datetimepicker({
         language:  'zh-CN',

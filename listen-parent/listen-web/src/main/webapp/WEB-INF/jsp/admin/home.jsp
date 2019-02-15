@@ -89,6 +89,34 @@
         </div>
     </div>
 </div>
+<div class="contentuser center-block">
+    <div class="container">
+        <div class="row center-block">
+            <div class="col-md-6">
+                <h2 class="text-muted" style="text-align: center;">分类编辑</h2>
+                <%--设置每关标准--%>
+                <%--设置每关题库池--%>
+
+                <%--查看每关题库池--%>
+                <button class="btn btn-success startbtn"
+                        onclick="javascript:window.location.href='/page/admin/subjectClassify.html'">设置
+                </button>
+            </div>
+
+            <div class="col-md-6">
+                <h2 class="text-muted" style="text-align: center">听力题目</h2>
+                <%--查看题目列表--%>
+                <%--查看题目详情--%>
+                <%--上传题目--%>
+                <%--删除题目--%>
+                <%--(第一版中不完成)--%>
+                <%--修改题目--%>
+                <%--查询题目--%>
+                <button class="btn btn-success startbtn" onclick="javascript:window.location.href='/page/admin/upload.html'">上传</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="contentuser center-block">
     <div class="container">

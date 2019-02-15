@@ -31,7 +31,13 @@
 
     function submitIdToSettting() {
         var checkId = $(".selected").attr("id"); //获取id
-        window.location.href = "${pageContext.request.contextPath}/page/admin/subjectEdit.html?currentCheck=" + checkId + "&currentGrade=1";
+        var grand = $("#grand").val(); //获取难度
+        if (grand==0||typeof(checkId)=="undefined"){
+            alert("请先选择关卡或等级");
+        }
+        else {
+        window.location.href = "${pageContext.request.contextPath}/page/admin/subjectEdit.html?currentCheck=" + checkId + "&currentGrade="+grand;
+        }
     }
 
     function showDetails() {
@@ -88,6 +94,15 @@
 
         </ul>
         </c:forEach>
+        <div class="col-md-11"></div>
+        <div class="col-md-1" style="text-align: right">
+            <select id="grand" class="form-control">
+                <option value="0">等级</option>
+                <option value="1">初级</option>
+                <option value="2">中级</option>
+                <option value="3">高级</option>
+            </select>
+        </div>
     </div>
     <br>
 
