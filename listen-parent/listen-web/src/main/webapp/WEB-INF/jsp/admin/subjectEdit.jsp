@@ -65,90 +65,6 @@
 </div>
 <br>
 
-<div class="width95 testbox" style="font-size: 1.2em;" >
-    <div class="row bottomDiv" style="border-bottom-width: 1px">
-        <div class="col-md-2">选择题目</div>
-        <div class="col-md-4">标题</div>
-        <div class="col-md-3">子题目数</div>
-        <div class="col-md-3">等级</div>
-    </div>
-    <hr class="hrStyle" />
-        <div class="row bottomDiv">
-            <div class="col-md-2">
-                <input type="checkbox">
-            </div>
-            <div class="col-md-4">
-                <div class="textLength">
-                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                </div>
-            </div>
-            <div class="col-md-3">3</div>
-            <div class="col-md-3">中级</div>
-        </div>
-        <hr class="hrStyle" />
-        <div class="row bottomDiv">
-            <div class="col-md-2">
-                <input type="checkbox">
-            </div>
-            <div class="col-md-4">
-                <div class="textLength">
-                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                </div>
-            </div>
-            <div class="col-md-3">3</div>
-            <div class="col-md-3">中级</div>
-        </div>
-        <hr class="hrStyle" />
-        <div class="row bottomDiv">
-            <div class="col-md-2">
-                <input type="checkbox">
-            </div>
-            <div class="col-md-4">
-                <div class="textLength">
-                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                </div>
-            </div>
-            <div class="col-md-3">3</div>
-            <div class="col-md-3">中级</div>
-        </div>
-        <hr class="hrStyle" />
-        <div class="row bottomDiv">
-            <div class="col-md-2">
-                <input type="checkbox">
-            </div>
-            <div class="col-md-4">
-                <div class="textLength">
-                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                </div>
-            </div>
-            <div class="col-md-3">3</div>
-            <div class="col-md-3">中级</div>
-        </div>
-        <hr class="hrStyle" />
-        <div class="row bottomDiv">
-            <div class="col-md-2">
-                <input type="checkbox">
-            </div>
-            <div class="col-md-4">
-                <div class="textLength">
-                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                </div>
-            </div>
-            <div class="col-md-3">3</div>
-            <div class="col-md-3">中级</div>
-    </div>
-    <div class="" style="text-align: right ;padding: 0px 12px">
-        <input class="btn btn-default twoButton"  type="button" value="添加">
-    </div>
-</div>
-<div class="col-md-12" style="text-align: center">
-    <input class="twoButton btn btn-default"   type="button" value="上一页">
-    <font class="fontStyle1">1</font>
-    <input class="twoButton btn btn-default"   type="button" value="下一页">
-
-</div>
-<br>
-<hr>
 <div class="width95 fontStyle2">已选题目</div>
 <div class="width95 testbox" style="font-size: 1.2em;" >
     <div class="row bottomDiv" style="border-bottom-width: 1px">
@@ -159,7 +75,7 @@
         <div class="col-md-2">移除</div>
     </div>
     <hr class="hrStyle" />
-    <div style="height: 200px;overflow: auto">
+    <div >
         <div class="row bottomDiv">
             <div class="col-md-2">1</div>
             <div class="col-md-4">
@@ -271,8 +187,202 @@
                 <input class="btn btn-default tableButton"  type="button" value="移除">
             </div>
         </div>
+        <div class="" style="text-align: right ;padding: 0px 12px">
+            <input class="btn btn-default twoButton" data-toggle="modal" data-target="#step1"  type="button" value="添加">
+        </div>
     </div>
 </div>
+<div class="col-md-12" style="text-align: center">
+    <input class="twoButton btn btn-default"   type="button" value="上一页">
+    <font class="fontStyle1">1</font>
+    <input class="twoButton btn btn-default"   type="button" value="下一页">
+
+</div>
+
+
+
+<div class="modal fade" id="step1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 70%">
+        <div class="modal-content">
+            <div class="width95 row testbox " style="width: 100%">
+                <br>
+                <div class="col-md-12">
+                    <div class="form-group col-md-3">
+                        <label for="InputId">标题</label>
+                        <input type="text" class="form-control" id="InputId2" placeholder="标题">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="InputName">主题</label>
+                        <input type="email" class="form-control" id="InputName2" placeholder="主题">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="InputLevel">等级</label>
+                        <select id="InputLevel2" class="form-control">
+                            <option></option>
+                            <option>初级</option>
+                            <option>中级</option>
+                            <option>高级</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="InputStage">小题数</label>
+                        <select id="InputStage2" class="form-control">
+                            <option></option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-12" style="text-align: right">
+                    <input class="btn btn-default twoButton"  type="button" value="查询">
+                </div>
+            </div>
+            <br>
+
+
+            <div class="width95 testbox" style="font-size: 1.2em;" >
+                <div class="row bottomDiv" style="border-bottom-width: 1px">
+                    <div class="col-md-2">编号</div>
+                    <div class="col-md-4">标题</div>
+                    <div class="col-md-2">子题目数</div>
+                    <div class="col-md-2">等级</div>
+                    <div class="col-md-2">添加</div>
+                </div>
+                <hr class="hrStyle" />
+                <div >
+                    <div class="row bottomDiv">
+                        <div class="col-md-2">1</div>
+                        <div class="col-md-4">
+                            <div class="textLength">
+                                xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                            </div>
+                        </div>
+                        <div class="col-md-2">3</div>
+                        <div class="col-md-2">中级</div>
+                        <div class="col-md-2">
+                            <input class="btn btn-default tableButton"  type="button" value="添加">
+                        </div>
+                    </div>
+                    <hr class="hrStyle" />
+                    <div class="row bottomDiv">
+                        <div class="col-md-2">1</div>
+                        <div class="col-md-4">
+                            <div class="textLength">
+                                xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                            </div>
+                        </div>
+                        <div class="col-md-2">3</div>
+                        <div class="col-md-2">中级</div>
+                        <div class="col-md-2">
+                            <input class="btn btn-default tableButton"  type="button" value="添加">
+                        </div>
+                    </div>
+                    <hr class="hrStyle" />
+                    <div class="row bottomDiv">
+                        <div class="col-md-2">1</div>
+                        <div class="col-md-4">
+                            <div class="textLength">
+                                xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                            </div>
+                        </div>
+                        <div class="col-md-2">3</div>
+                        <div class="col-md-2">中级</div>
+                        <div class="col-md-2">
+                            <input class="btn btn-default tableButton"  type="button" value="添加">
+                        </div>
+                    </div>
+                    <hr class="hrStyle" />
+                    <div class="row bottomDiv">
+                        <div class="col-md-2">1</div>
+                        <div class="col-md-4">
+                            <div class="textLength">
+                                xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                            </div>
+                        </div>
+                        <div class="col-md-2">3</div>
+                        <div class="col-md-2">中级</div>
+                        <div class="col-md-2">
+                            <input class="btn btn-default tableButton"  type="button" value="添加">
+                        </div>
+                    </div>
+                    <hr class="hrStyle" />
+                    <div class="row bottomDiv">
+                        <div class="col-md-2">1</div>
+                        <div class="col-md-4">
+                            <div class="textLength">
+                                xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                            </div>
+                        </div>
+                        <div class="col-md-2">3</div>
+                        <div class="col-md-2">中级</div>
+                        <div class="col-md-2">
+                            <input class="btn btn-default tableButton"  type="button" value="添加">
+                        </div>
+                    </div>
+                    <hr class="hrStyle" />
+                    <div class="row bottomDiv">
+                        <div class="col-md-2">1</div>
+                        <div class="col-md-4">
+                            <div class="textLength">
+                                xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                            </div>
+                        </div>
+                        <div class="col-md-2">3</div>
+                        <div class="col-md-2">中级</div>
+                        <div class="col-md-2">
+                            <input class="btn btn-default tableButton"  type="button" value="添加">
+                        </div>
+                    </div>
+                    <hr class="hrStyle" />
+                    <div class="row bottomDiv">
+                        <div class="col-md-2">1</div>
+                        <div class="col-md-4">
+                            <div class="textLength">
+                                xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                            </div>
+                        </div>
+                        <div class="col-md-2">3</div>
+                        <div class="col-md-2">中级</div>
+                        <div class="col-md-2">
+                            <input class="btn btn-default tableButton"  type="button" value="添加">
+                        </div>
+                    </div>
+                    <hr class="hrStyle" />
+                    <div class="row bottomDiv">
+                        <div class="col-md-2">1</div>
+                        <div class="col-md-4">
+                            <div class="textLength">
+                                xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                            </div>
+                        </div>
+                        <div class="col-md-2">3</div>
+                        <div class="col-md-2">中级</div>
+                        <div class="col-md-2">
+                            <input class="btn btn-default tableButton"  type="button" value="添加">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12" style="text-align: center">
+                <input class="twoButton btn btn-default"   type="button" value="上一页">
+                <font class="fontStyle1">1</font>
+                <input class="twoButton btn btn-default"   type="button" value="下一页">
+
+            </div>
+<br>
+<hr>
+        </div>
+    </div>
+</div>
+
 <!-- 返回上一层 -->
 <a href="javascript:history.go(-1)" class="header-back">
     <span class="glyphicon glyphicon-chevron-left"></span>
