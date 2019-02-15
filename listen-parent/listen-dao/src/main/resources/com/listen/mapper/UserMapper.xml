@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.listen.mapper.UserMapper">
+
+    <resultMap type="com.listen.pojo.User" id="UserMap">
+        <result property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="account" column="account"/>
+        <result property="password" column="password"/>
+        <result property="salt" column="salt"/>
+        <result property="grade" column="grade"/>
+        <result property="classify" column="classify"/>
+        <result property="currentCheck" column="currentCheck"/>
+    </resultMap>
+
+    <select id="queryHistory" parameterType="com.listen.pojo.vo.QuerySysStudentLibraryPoolVo"
+            resultType="com.listen.pojo.vo.QuerySULP">
+        select
+            u.username userName,
+            lp.grade grade,
+            lp.checkPoint point,
+            sulp.`time` `time`,
+            sulp.score score
+        from SysUserLibraryPool sulp,
+            `User` u,
+            LibraryPool lp
+        where 1 = 1
+        and sulp.userId = u.id
+        <if test="account != null">
+            and u.account = #{account}
+        </if>
+        <if test="userName != null">
+            and u.userName #{userName}
+        </if>
+        <if test="grade != null">
+            <if test="currentCheck != null">
+                and lp.grade = #{grade}
+                and lp.currentPoint = #{currentCheck}
+            </if>
+        </if>
+        <if test="startScore != null">
+            and score >= #{startScore}
+        </if>
+        <if test="endScore != null">
+            and score &lt;= #{endScore}
+        </if>
+        <if test="startTime !=null">
+            and time >= #{startTime}
+        </if>
+        <if test="endTime != null">
+            and time &lt;= #{endTime}
+        </if>
+    </select>
+
+</mapper>

@@ -18,7 +18,7 @@
 <body>
 <header>
     <nav class="top">
-        <p>管理员查询学生做题</p>
+        <p>查询用户做题信息</p>
     </nav>
 </header>
 <br/>
