@@ -63,4 +63,9 @@ public class LibraryServiceImpl implements LibraryService {
         }
         return ListenResult.success(null);
     }
+
+    @Override
+    public List<Library> getList(Library library) {
+        return libraryMapper.select(library);
+    }
 }

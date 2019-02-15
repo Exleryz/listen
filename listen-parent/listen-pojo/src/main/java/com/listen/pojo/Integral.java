@@ -42,6 +42,14 @@ public class Integral {
     @Column(name = "getWay")
     private String getWay;
 
+    public Integral() {
+
+    }
+
+    public Integral(Integer userId) {
+
+    }
+
     public Integer getId() {
         return id;
     }

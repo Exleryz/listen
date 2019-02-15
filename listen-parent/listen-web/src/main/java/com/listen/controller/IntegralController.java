@@ -32,15 +32,31 @@ public class IntegralController {
     @Autowired
     IntegralService integralService;
 
+    /**
+     * 积分操作
+     *
+     * @param integral
+     * @return
+     */
     @RequestMapping("/operate")
     public ListenResult operate(Integral integral) {
         return integralService.operateIntegral(integral) ? ListenResult.success(null)
                 : ListenResult.error("参数错误");
     }
 
-    @RequestMapping("/test")
-    public ListenResult test(Integer userId) {
-        return ListenResult.success(integralService.getUserSumIntegral(userId));
+    @RequestMapping("/getSumIntegral")
+    public ListenResult getSumIntegral(Integer userId) {
+        if (null == userId) {
+            return ListenResult.error("用户不存在");
+        }
+        Integer sum = integralService.getUserSumIntegral(userId);
+        return ListenResult.success(sum);
+    }
+
+    @RequestMapping("/getHistory")
+    public ListenResult getIntegralHistory(Integer userId) {
+        integralService.getIntegralHistory(userId);
+        return null;
     }
 
 }
