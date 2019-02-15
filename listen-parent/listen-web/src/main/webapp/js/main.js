@@ -1,7 +1,7 @@
 $(function () {
     getTestBoxNum();
     setNum();
-    var content = '<div class="testbox" value="">' +
+    var content = '<div class="testbox" style="width: 700px" value="">' +
         '<ul>' +
 
         '<li>' +
@@ -40,7 +40,7 @@ $(function () {
         '</li>' +
 
         '<li>' +
-        '<label class="layui-form-label">' + '正确答案：' + '</label>' +
+        '<label class="layui-form-label" style="width: 100px">' + '正确答案：' + '</label>' +
         '<div class="layui-input-block">' +
         '<select lay-ignore>' +
         '<option value="A">' + 'A' + '</option>' +
@@ -51,12 +51,12 @@ $(function () {
         '</div>' +
         '</li>' +
 
-        '<li>' +
+       /* '<li>' +
         '<label class="layui-form-label">' + '解析:' + '</label>' +
         '<div class="layui-input-block">' +
         '<input type="text" name="title" placeholder="请输入" class="layui-input">' +
         '</div>' +
-        '</li>' +
+        '</li>' +*/
 
         '</ul>' +
         '<div class="closebox" onclick="del(this)">' +

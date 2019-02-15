@@ -13,8 +13,8 @@
     <meta charset="UTF-8">
     <title>index</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link href="../../css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../../css/main.css">
+    <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../../css/main.css">
 </head>
 <script type="text/javascript">
     var id;
@@ -31,7 +31,7 @@
 
     function submitIdToSettting() {
         var checkId = $(".selected").attr("id"); //获取id
-        window.location.href = "${pageContext.request.contextPath}/page/Library/chooseLibraries.html?currentCheck=" + checkId + "&currentGrade=1";
+        window.location.href = "${pageContext.request.contextPath}/page/admin/subjectEdit.html?currentCheck=" + checkId + "&currentGrade=1";
     }
 
     function showDetails() {
@@ -100,8 +100,8 @@
     <span class="glyphicon glyphicon-chevron-left"></span>
 </a>
 
-<script type="text/javascript" src="../../js/jquery-1.12.4.js"></script>
-<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../../js/main.js"></script>
+<script type="text/javascript" src="../../../js/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="../../../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../js/main.js"></script>
 </body>
 </html>

@@ -12,8 +12,8 @@
     <meta charset="UTF-8">
     <title>index</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link href="../../css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../../css/main.css">
+    <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../../css/main.css">
 </head>
 <body>
 <header>

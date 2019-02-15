@@ -22,16 +22,16 @@
     </nav>
 </header>
 <br/>
-<div class="width95 row testbox ">
+<div class="width95 row testbox " style="width: 100%">
     <br>
     <div class="col-md-12">
         <div class="form-group col-md-3">
             <label for="InputId">标题</label>
-            <input type="text" class="form-control" id="InputId" placeholder="学生学号">
+            <input type="text" class="form-control" id="InputId" placeholder="标题">
         </div>
         <div class="form-group col-md-3">
             <label for="InputName">主题</label>
-            <input type="email" class="form-control" id="InputName" placeholder="学生姓名">
+            <input type="email" class="form-control" id="InputName" placeholder="主题">
         </div>
         <div class="col-md-3">
             <label for="InputLevel">等级</label>

@@ -32,9 +32,9 @@
             </div>
             <div class="collapse navbar-collapse" id="example-navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="${pageContext.request.contextPath}/page/Student/userinfo.jsp"><span
+                    <li><a href="${pageContext.request.contextPath}/page/user/userinfo.html"><span
                             class="glyphicon glyphicon-user"></span>Personal Center</a></li>
-                    <li><a href="${pageContext.request.contextPath}/StudentAction_loginOut.action"><span
+                    <li><a href="${pageContext.request.contextPath}/sso/logout"><span
                             class="glyphicon glyphicon-log-in"></span>Sign out</a></li>
                 </ul>
             </div>
@@ -84,7 +84,7 @@
                 <%--(第一版中不完成)--%>
                 <%--修改题目--%>
                 <%--查询题目--%>
-                <button class="btn btn-success startbtn" onclick="javascript:window.location.href='/page/Library/uploadtest.html'">设置</button>
+                <button class="btn btn-success startbtn" onclick="javascript:window.location.href='/page/admin/upload.html'">上传</button>
             </div>
         </div>
     </div>
@@ -110,7 +110,7 @@
                 <%--(第一版中不完成)--%>
                 <%--修改题目--%>
                 <%--查询题目--%>
-                <button class="btn btn-success startbtn" onclick="javascript:window.location.href='/page/Library/uploadtest.html'">设置</button>
+                <button class="btn btn-success startbtn" onclick="javascript:window.location.href='/page/admin/pointManage.html'">设置</button>
             </div>
         </div>
     </div>
