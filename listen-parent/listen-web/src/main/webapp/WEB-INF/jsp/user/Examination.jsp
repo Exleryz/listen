@@ -140,7 +140,7 @@
                 window.location.href = '${pageContext.request.contextPath}/page/user/checkPointList.html';
             },
             error: function (data) {
-                alert(data["msg"]);
+                alert("请先完成全部题目")
             }
         })
         }

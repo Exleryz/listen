@@ -64,11 +64,12 @@
                 data: "checkPoint=" + id + "&pageNum=" + currentPage,
                 dataType: "json",
                 success: function (data) {
+                    totalPage = data["lastPage"];
                     data=data["data"];
                     totalPage = data["pages"];
                     var $tr = '';
                     $.each(data["list"], function (index, val) {
-                        $tr += '<tr><td>' + (index + 1 + (currentPage - 1) * 5) + '</td><td>' + val["count"] + '</td><td>' + val["score"] + '</td><td>' + id + '</td></tr>';
+                        $tr += '<tr><td>' + (index + 1 + (currentPage - 1) * 8) + '</td><td>' + val["count"] + '</td><td>' + val["score"] + '</td><td>' + id + '</td></tr>';
                     });
                     $("#pageList").html($tr);
                     console.log(data["list"]);
@@ -154,6 +155,15 @@
             </ul>
         <%--</s:iterator>--%>
         </c:forEach>
+            <div class="col-md-11"></div>
+            <div class="col-md-1" style="text-align: right">
+                <select class="form-control">
+                    <option>等级</option>
+                    <option>初级</option>
+                    <option>中级</option>
+                    <option>高级</option>
+                </select>
+            </div>
     </div>
 
     <div class="starttest" style="margin-top: 15px">
