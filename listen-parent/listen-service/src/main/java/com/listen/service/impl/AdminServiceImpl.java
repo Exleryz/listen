@@ -1,6 +1,8 @@
 package com.listen.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.listen.common.utils.ListenResult;
 import com.listen.mapper.UserMapper;
 import com.listen.pojo.vo.QuerySULP;
 import com.listen.pojo.vo.QuerySysStudentLibraryPoolVo;
@@ -46,7 +48,7 @@ public class AdminServiceImpl implements AdminService {
      * @return
      */
     @Override
-    public List<QuerySULP> queryHistory(QuerySysStudentLibraryPoolVo vo, Integer pageNum, Integer pageSize) {
+    public ListenResult queryHistory(QuerySysStudentLibraryPoolVo vo, Integer pageNum, Integer pageSize) {
         Map<String, Object> query = new HashMap<>(3);
 
         query.put("account", vo.getAccount());
@@ -64,7 +66,8 @@ public class AdminServiceImpl implements AdminService {
             query.put("endTime", StringUtils.isEmpty(time[1]) ? null : time[1]);
         }
         PageHelper.startPage(pageNum, pageSize);
-        return userMapper.queryHistory(query);
-
+        List<QuerySULP> querySULPS = userMapper.queryHistory(query);
+        PageInfo pageInfo = new PageInfo(querySULPS);
+        return ListenResult.success(pageInfo);
     }
 }

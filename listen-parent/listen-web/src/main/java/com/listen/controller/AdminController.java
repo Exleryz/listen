@@ -1,17 +1,12 @@
 package com.listen.controller;
 
 import com.listen.common.utils.ListenResult;
-import com.listen.pojo.LibraryPool;
-import com.listen.pojo.SysLibraryLibraryPool;
-import com.listen.pojo.vo.QuerySULP;
 import com.listen.pojo.vo.QuerySysStudentLibraryPoolVo;
 import com.listen.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * @author Exler
@@ -38,8 +33,7 @@ public class AdminController {
     @RequestMapping("/queryHistory")
     public ListenResult queryHistory(QuerySysStudentLibraryPoolVo vo,
                                      @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize) {
-        List<QuerySULP> vos = adminService.queryHistory(vo, pageNum, pageSize);
-        return ListenResult.success(vos);
+        return adminService.queryHistory(vo, pageNum, pageSize);
     }
 
 }

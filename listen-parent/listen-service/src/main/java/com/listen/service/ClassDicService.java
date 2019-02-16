@@ -1,5 +1,6 @@
 package com.listen.service;
 
+import com.listen.common.utils.ListenResult;
 import com.listen.pojo.ClassDic;
 
 import java.util.List;
@@ -24,5 +25,7 @@ import java.util.List;
 public interface ClassDicService {
 
     List<ClassDic> getAll();
+
+    ListenResult addClassDic(ClassDic classDic);
 
 }

@@ -7,8 +7,9 @@
         <result property="src" column="src"/>
         <result property="title" column="title"/>
         <result property="userId" column="userId"/>
-        <result property="subjectCount" column="subjectCount"/>
+        <result property="sonCount" column="sonCount"/>
         <result property="difficulty" column="difficulty"/>
+        <result property="classDic" column="classDic"/>
     </resultMap>
     <resultMap id="QueryLibraryVoMap" type="com.listen.pojo.vo.QueryLibraryVo" extends="LibraryMap">
         <collection property="subjects" ofType="com.listen.pojo.Subject"

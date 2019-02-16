@@ -43,14 +43,17 @@ public class Library {
     /**
      * 大题的子题数
      */
-    @Column(name = "subjectCount")
-    private Integer subjectCount;
+    @Column(name = "sonCount")
+    private Integer sonCount;
 
     /**
      *  题目难度 1 2 3
      */
     @Column(name = "difficulty")
     private Integer difficulty;
+
+    @Column(name = "classDic")
+    private Integer classDic;
 
     public Integer getId() {
         return id;
@@ -85,11 +88,11 @@ public class Library {
     }
 
     public Integer getSubjectCount() {
-        return subjectCount;
+        return sonCount;
     }
 
-    public void setSubjectCount(Integer subjectCount) {
-        this.subjectCount = subjectCount;
+    public void setSubjectCount(Integer sonCount) {
+        this.sonCount = sonCount;
     }
 
     public Integer getDifficulty() {
@@ -100,6 +103,14 @@ public class Library {
         this.difficulty = difficulty;
     }
 
+    public Integer getClassDic() {
+        return classDic;
+    }
+
+    public void setClassDic(Integer classDic) {
+        this.classDic = classDic;
+    }
+
     @Override
     public String toString() {
         return "Library{" +
@@ -107,7 +118,7 @@ public class Library {
                 ", src='" + src + '\'' +
                 ", title='" + title + '\'' +
                 ", userId=" + userId +
-                ", subjectCount=" + subjectCount +
+                ", subjectCount=" + sonCount +
                 '}';
     }
 }

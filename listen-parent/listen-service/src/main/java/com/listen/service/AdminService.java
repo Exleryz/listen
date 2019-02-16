@@ -1,9 +1,7 @@
 package com.listen.service;
 
-import com.listen.pojo.vo.QuerySULP;
+import com.listen.common.utils.ListenResult;
 import com.listen.pojo.vo.QuerySysStudentLibraryPoolVo;
-
-import java.util.List;
 
 /**
  *  * **************************************************************
@@ -24,6 +22,6 @@ import java.util.List;
  */
 public interface AdminService {
 
-    List<QuerySULP> queryHistory(QuerySysStudentLibraryPoolVo vo, Integer pageNum, Integer pageSize);
+    ListenResult queryHistory(QuerySysStudentLibraryPoolVo vo, Integer pageNum, Integer pageSize);
 
 }

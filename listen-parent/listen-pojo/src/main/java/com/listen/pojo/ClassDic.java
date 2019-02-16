@@ -1,5 +1,6 @@
 package com.listen.pojo;
 
+import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -25,9 +26,32 @@ import javax.persistence.Table;
 public class ClassDic {
 
     @Id
+    @Column(name = "id")
     private Integer id;
 
+    /**
+     * 类别名称
+     */
+    @Column(name = "className")
     private String className;
+
+    /**
+     * 是否启用标志 0禁用 1启用
+     */
+    @Column(name = "flag")
+    private Integer flag;
+
+    /**
+     * 创建时间
+     */
+    @Column(name = "gmtCreate")
+    private String gmtCreate;
+
+    /**
+     * 修改时间
+     */
+    @Column(name = "gmtModified")
+    private String gmtModified;
 
     public Integer getId() {
         return id;
@@ -43,5 +67,34 @@ public class ClassDic {
 
     public void setClassName(String className) {
         this.className = className;
+    }
+
+    public Integer getFlag() {
+        return flag;
+    }
+
+    public void setFlag(Integer flag) {
+        this.flag = flag;
+    }
+
+    public String getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(String gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    public String getGmtModified() {
+        return gmtModified;
+    }
+
+    public void setGmtModified(String gmtModified) {
+        this.gmtModified = gmtModified;
+    }
+
+    public ClassDic appendFlag(Integer flag) {
+        this.flag = flag;
+        return this;
     }
 }

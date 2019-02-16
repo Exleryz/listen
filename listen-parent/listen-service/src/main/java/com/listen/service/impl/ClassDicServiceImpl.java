@@ -1,11 +1,14 @@
 package com.listen.service.impl;
 
+import com.listen.common.utils.DateUtils;
+import com.listen.common.utils.ListenResult;
 import com.listen.mapper.ClassDicMapper;
 import com.listen.pojo.ClassDic;
 import com.listen.service.ClassDicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,6 +38,14 @@ public class ClassDicServiceImpl implements ClassDicService {
 
     @Override
     public List<ClassDic> getAll() {
-        return classDicMapper.selectAll();
+        return classDicMapper.select(new ClassDic().appendFlag(1));
+    }
+
+    @Override
+    public ListenResult addClassDic(ClassDic classDic) {
+        classDic.setFlag(1);
+        classDic.setGmtCreate(DateUtils.DateToString(new Date(), DateUtils.YYYYMMDDHHMMSS));
+        int flag = classDicMapper.insert(classDic);
+        return flag == 1 ? ListenResult.success(null) : ListenResult.error("添加失败");
     }
 }

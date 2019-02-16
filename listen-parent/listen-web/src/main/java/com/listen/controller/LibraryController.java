@@ -1,6 +1,7 @@
 package com.listen.controller;
 
 import com.listen.common.utils.ListenResult;
+import com.listen.pojo.ClassDic;
 import com.listen.pojo.Library;
 import com.listen.pojo.User;
 import com.listen.pojo.vo.QueryLibraryVo;
@@ -89,10 +90,7 @@ public class LibraryController {
     @RequestMapping("/queryList")
     @ResponseBody
     public ListenResult queryLibraryList(Library library, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize) {
-        System.out.println(pageNum);
-        System.out.println(pageSize);
-//        return libraryService.queryLibraryList(library, pageNum, pageSize);
-        return null;
+        return libraryService.queryLibraryList(library, pageNum, pageSize);
     }
 
     /**
@@ -129,4 +127,17 @@ public class LibraryController {
     public ListenResult getClassDic() {
         return ListenResult.success(classDicService.getAll());
     }
+
+    /**
+     * 添加题目分类
+     */
+    @RequestMapping("/addClassDic")
+    @ResponseBody
+    public ListenResult addClassDic(ClassDic classDic) {
+        return classDicService.addClassDic(classDic);
+    }
+
+    /**
+     * 删除题目分类
+     */
 }
