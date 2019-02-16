@@ -112,7 +112,7 @@ public class LibraryPoolServiceImpl implements LibraryPoolService {
         Example example = new Example(SysLibraryLibraryPool.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("lpId", lpId);
-        PageHelper.startPage(pageNum == null ? 1 : pageNum, pageSize == null ? 8 : pageSize);
+        PageHelper.startPage(pageNum, pageSize);
         List<SysLibraryLibraryPool> list = sysLibraryLibraryPoolMapper.selectByExample(example);
         PageInfo pageInfo = new PageInfo(list);
         List<Library> libraries = new ArrayList<>();

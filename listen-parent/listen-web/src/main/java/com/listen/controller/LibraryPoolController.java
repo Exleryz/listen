@@ -66,7 +66,7 @@ public class LibraryPoolController {
      */
     @RequestMapping("/queryList")
     @ResponseBody
-    public ListenResult queryList(Integer lpId, Integer pageNum, Integer pageSize) {
+    public ListenResult queryList(Integer lpId,@RequestParam(defaultValue = "1") Integer pageNum,@RequestParam(defaultValue = "10") Integer pageSize) {
         if (null == lpId) {
             return ListenResult.error("获取题目列表错误");
         }

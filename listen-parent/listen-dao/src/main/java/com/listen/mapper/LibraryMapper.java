@@ -20,4 +20,11 @@ public interface LibraryMapper extends Mapper<Library> {
      */
     QueryLibraryVo selectLibraryVo(@Param("libId") Integer libId);
 
+    /**
+     * 查询符合条件的题目
+     *
+     * @param library
+     * @return
+     */
+    List<Library> selectLibraryList(Library library);
 }

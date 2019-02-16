@@ -34,9 +34,9 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
-    public ListenResult queryLibraryList(Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum == null ? 1 : pageNum, pageSize == null ? 8 : pageSize);
-        List<Library> libraries = libraryMapper.selectAll();
+    public ListenResult queryLibraryList(Library library, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Library> libraries = libraryMapper.selectLibraryList(library);
         PageInfo pageInfo = new PageInfo(libraries);
         return ListenResult.success(pageInfo);
     }
@@ -64,8 +64,4 @@ public class LibraryServiceImpl implements LibraryService {
         return ListenResult.success(null);
     }
 
-    @Override
-    public List<Library> getList(Library library) {
-        return libraryMapper.select(library);
-    }
 }

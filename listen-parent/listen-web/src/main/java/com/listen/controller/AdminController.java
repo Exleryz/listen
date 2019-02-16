@@ -37,7 +37,7 @@ public class AdminController {
      */
     @RequestMapping("/queryHistory")
     public ListenResult queryHistory(QuerySysStudentLibraryPoolVo vo,
-                                     @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+                                     @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize) {
         List<QuerySULP> vos = adminService.queryHistory(vo, pageNum, pageSize);
         return ListenResult.success(vos);
     }

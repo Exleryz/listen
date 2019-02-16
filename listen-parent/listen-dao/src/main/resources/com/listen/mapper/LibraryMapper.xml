@@ -31,4 +31,23 @@
         where id = #{libId}
     </select>
 
+    <select id="selectLibraryList" parameterType="com.listen.pojo.Library"
+            resultType="com.listen.pojo.Library">
+        select *
+        from Library
+        where 1 = 1
+        <if test="title != null">
+            and title = #{title}
+        </if>
+        <if test="classDic != null">
+            and classDic = #{classDic}
+        </if>
+        <if test="difficulty != null">
+            and difficulty = #{difficulty}
+        </if>
+        <if test="sonCount != null">
+            and sonCount = #{sonCount}
+        </if>
+    </select>
+
 </mapper>

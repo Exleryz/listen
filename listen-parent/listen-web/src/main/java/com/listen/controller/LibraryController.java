@@ -10,11 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 /**
  * @author Exler
@@ -44,17 +44,6 @@ public class LibraryController {
         }
         return libraryService.getLibrary(libId);
     }
-
-    /**
-     * 查询 符合条件 的题目
-     */
-    @RequestMapping("/query")
-    @ResponseBody
-    public ListenResult query(Library library) {
-        List<Library> libraries = libraryService.getList(library);
-        return null;
-    }
-
 
     /**
      * 管理员上传听力文件 及题目 子题s
@@ -92,15 +81,18 @@ public class LibraryController {
     }
 
     /**
-     * 获取所有题目列表 分页
+     * 获取所有题目列表(V2 添加条件查询) 分页
      *
      * @return
      * @throws Exception
      */
     @RequestMapping("/queryList")
     @ResponseBody
-    public ListenResult queryLibraryList(Integer pageNum, Integer pageSize) {
-        return libraryService.queryLibraryList(null == pageNum ? 1 : pageNum, null == pageSize ? 8 : pageSize);
+    public ListenResult queryLibraryList(Library library, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize) {
+        System.out.println(pageNum);
+        System.out.println(pageSize);
+//        return libraryService.queryLibraryList(library, pageNum, pageSize);
+        return null;
     }
 
     /**

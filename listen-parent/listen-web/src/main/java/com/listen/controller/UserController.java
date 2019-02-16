@@ -121,7 +121,9 @@ public class UserController {
      */
     @RequestMapping("/user/history")
     @ResponseBody
-    public ListenResult getCurrentHistoryList(Integer checkPoint, Integer pageNum, Integer pageSize, HttpServletRequest request) {
+    public ListenResult getCurrentHistoryList(Integer checkPoint,
+                                              @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize,
+                                              HttpServletRequest request) {
         if (null == checkPoint) {
             return ListenResult.error("查询历史记录错误");
         }

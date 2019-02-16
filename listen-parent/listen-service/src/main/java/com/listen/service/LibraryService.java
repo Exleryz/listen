@@ -26,7 +26,7 @@ public interface LibraryService {
      * @param pageSize
      * @return
      */
-    ListenResult queryLibraryList(Integer pageNum, Integer pageSize);
+    ListenResult queryLibraryList(Library library, Integer pageNum, Integer pageSize);
 
     /**
      * 删除题目
@@ -44,11 +44,4 @@ public interface LibraryService {
      */
     ListenResult updateLibrary(QueryLibraryVo vo);
 
-    /**
-     * 根据条件查询 题目s
-     *
-     * @param library
-     * @return
-     */
-    List<Library> getList(Library library);
 }

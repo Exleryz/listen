@@ -13,6 +13,7 @@ import com.listen.pojo.LibraryPool;
 import com.listen.pojo.SysUserLibraryPool;
 import com.listen.pojo.User;
 import com.listen.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ import java.util.*;
  * @author Exler
  */
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -173,7 +175,7 @@ public class UserServiceImpl implements UserService {
             criteria.andEqualTo("lpId", lpId);
         }
         example.orderBy("time").desc();
-        PageHelper.startPage(pageNum == null ? 1 : pageNum, pageSize == null ? 8 : pageSize);
+        PageHelper.startPage(pageNum, pageSize);
         List<SysUserLibraryPool> sysUserLibraryPools = sysUserLibraryPoolMapper.selectByExample(example);
         PageInfo pageInfo = new PageInfo(sysUserLibraryPools);
         return ListenResult.success(pageInfo);
