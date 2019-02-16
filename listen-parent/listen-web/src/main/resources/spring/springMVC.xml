@@ -25,16 +25,16 @@
     <mvc:resources location="/fonts/" mapping="/fonts/**"/>
     <mvc:resources location="/file/" mapping="/file/**"/>
     <!-- 拦截器 -->
-    <mvc:interceptors>
+    <!--<mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
-            <!-- sso -->
+            &lt;!&ndash; sso &ndash;&gt;
             <mvc:exclude-mapping path="/sso/**"/>
-            <!-- 登录页面 -->
+            &lt;!&ndash; 登录页面 &ndash;&gt;
             <mvc:exclude-mapping path="/page/login.html"/>
-            <!-- 注册账号检查 -->
+            &lt;!&ndash; 注册账号检查 &ndash;&gt;
             <mvc:exclude-mapping path="/user/check"/>
-            <!-- 静态资源 -->
+            &lt;!&ndash; 静态资源 &ndash;&gt;
             <mvc:exclude-mapping path="/js/**"/>
             <mvc:exclude-mapping path="/css/**"/>
             <mvc:exclude-mapping path="/images/**"/>
@@ -48,5 +48,5 @@
             <mvc:mapping path="/admin/**"/>
             <bean class="com.listen.interceptor.AdminInterceptor"/>
         </mvc:interceptor>
-    </mvc:interceptors>
+    </mvc:interceptors>-->
 </beans>
