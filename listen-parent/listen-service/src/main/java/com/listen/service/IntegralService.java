@@ -1,5 +1,6 @@
 package com.listen.service;
 
+import com.listen.common.utils.ListenResult;
 import com.listen.pojo.Integral;
 
 import java.util.List;
@@ -25,9 +26,9 @@ public interface IntegralService {
     Integer getUserSumIntegral(Integer userId);
 
     /**
-     * 用户查看所有的 积分记录
+     * 用户查看所有的 积分记录 分页
      */
-    List<Integral> getIntegralHistory(Integer userId);
+    ListenResult getIntegralHistory(Integer userId, Integer pageNum, Integer pageSize);
 
     /**
      * 上传对应积分的兑换物品

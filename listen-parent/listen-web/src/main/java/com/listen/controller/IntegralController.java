@@ -5,6 +5,7 @@ import com.listen.pojo.Integral;
 import com.listen.service.IntegralService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -54,9 +55,8 @@ public class IntegralController {
     }
 
     @RequestMapping("/getHistory")
-    public ListenResult getIntegralHistory(Integer userId) {
-        integralService.getIntegralHistory(userId);
-        return null;
+    public ListenResult getIntegralHistory(Integer userId, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize) {
+        return integralService.getIntegralHistory(userId, pageNum, pageSize);
     }
 
 }

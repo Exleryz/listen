@@ -1,6 +1,9 @@
 package com.listen.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.listen.common.utils.DateUtils;
+import com.listen.common.utils.ListenResult;
 import com.listen.mapper.IntegralMapper;
 import com.listen.pojo.Integral;
 import com.listen.service.IntegralService;
@@ -37,9 +40,11 @@ public class IntegralServiceImpl implements IntegralService {
     }
 
     @Override
-    public List<Integral> getIntegralHistory(Integer userId) {
+    public ListenResult getIntegralHistory(Integer userId, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize, "id");
         List<Integral> integrals = integralMapper.select(new Integral(userId));
-        return integrals;
+        PageInfo pageInfo = new PageInfo(integrals);
+        return ListenResult.success(pageInfo);
     }
 
 }
