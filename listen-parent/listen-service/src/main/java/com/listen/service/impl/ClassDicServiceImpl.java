@@ -48,4 +48,16 @@ public class ClassDicServiceImpl implements ClassDicService {
         int flag = classDicMapper.insert(classDic);
         return flag == 1 ? ListenResult.success(null) : ListenResult.error("添加失败");
     }
+
+    @Override
+    public ListenResult deleteClassDic(ClassDic classDic) {
+        if (null == classDic.getId()) {
+            return ListenResult.error("此分类不存在");
+        }
+        classDic.setGmtModified(DateUtils.DateToString(new Date(), DateUtils.YYYYMMDDHHMMSS));
+        classDic.setFlag(0);
+        classDicMapper.updateByPrimaryKey(classDic);
+        return ListenResult.success(null);
+    }
+
 }

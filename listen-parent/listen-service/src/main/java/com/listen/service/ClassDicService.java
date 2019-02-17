@@ -28,4 +28,5 @@ public interface ClassDicService {
 
     ListenResult addClassDic(ClassDic classDic);
 
+    ListenResult deleteClassDic(ClassDic classDic);
 }

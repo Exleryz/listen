@@ -140,4 +140,10 @@ public class LibraryController {
     /**
      * 删除题目分类
      */
+    @RequestMapping("/delectClassDic")
+    @ResponseBody
+    public ListenResult delectClassDic(ClassDic classDic) {
+        return classDicService.deleteClassDic(classDic);
+
+    }
 }
