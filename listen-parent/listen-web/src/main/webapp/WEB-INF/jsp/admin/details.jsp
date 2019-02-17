@@ -28,7 +28,7 @@
     关卡等级:<input type="" name="grade" value="${lp.grade}"/><br>
     当前关:<input type="text" name="grade" value="${lp.checkPoint}"/><br>
     通关分数:<input type="text" name="grade" value="${lp.score}"/><br>
-    每次闯关题目数:<input type="text" name="grade" value="${lp.subjectCount}"/><br>
+    每次闯关题目数:<input type="text" name="grade" value="${lp.sonCount}"/><br>
     <s:iterator value="#lp.librarieSet" var="lib" status="status">
         <s:property value="#status.index + 1"/>
         <input type="hidden" value="<s:property value="#lib.id"/>">

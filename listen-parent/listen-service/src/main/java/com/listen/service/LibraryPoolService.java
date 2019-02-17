@@ -1,6 +1,7 @@
 package com.listen.service;
 
 import com.listen.common.utils.ListenResult;
+import com.listen.pojo.Library;
 import com.listen.pojo.LibraryPool;
 import com.listen.pojo.SysLibraryLibraryPool;
 
@@ -62,4 +63,15 @@ public interface LibraryPoolService {
      * @return
      */
     ListenResult queryLibraryListByPool(Integer lpId, Integer pageNum, Integer pageSize);
+
+    /**
+     * 查询对应题库池中符合条件的题目
+     *
+     * @param library
+     * @param lpId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    ListenResult queryLibraryListByLibrary(Library library, Integer lpId, Integer pageNum, Integer pageSize);
 }

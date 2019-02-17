@@ -1,6 +1,7 @@
 package com.listen.controller;
 
 import com.listen.common.utils.ListenResult;
+import com.listen.pojo.Library;
 import com.listen.pojo.LibraryPool;
 import com.listen.pojo.SysLibraryLibraryPool;
 import com.listen.pojo.User;
@@ -66,11 +67,27 @@ public class LibraryPoolController {
      */
     @RequestMapping("/queryList")
     @ResponseBody
-    public ListenResult queryList(Integer lpId,@RequestParam(defaultValue = "1") Integer pageNum,@RequestParam(defaultValue = "10") Integer pageSize) {
+    public ListenResult queryList(Integer lpId, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize) {
         if (null == lpId) {
             return ListenResult.error("获取题目列表错误");
         }
         return libraryPoolService.queryLibraryListByPool(lpId, pageNum, pageSize);
+    }
+
+    /**
+     * 查询题库池中符合条件的题目
+     *
+     * @param library
+     * @param lpId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @RequestMapping("/queryLibraries")
+    @ResponseBody
+    public ListenResult queryLibraries(Library library, Integer lpId,
+                                       @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize) {
+        return libraryPoolService.queryLibraryListByLibrary(library, lpId, pageNum, pageSize);
     }
 
     /**

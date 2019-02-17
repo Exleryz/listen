@@ -19,9 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * @author Exler
@@ -124,6 +122,23 @@ public class LibraryPoolServiceImpl implements LibraryPoolService {
         pageInfo.setList(libraries);
         return ListenResult.success(pageInfo);
     }
+
+    @Override
+    public ListenResult queryLibraryListByLibrary(Library library, Integer lpId, Integer pageNum, Integer pageSize) {
+        if (null == lpId) {
+            return ListenResult.error("查询条件缺失");
+        }
+        Map<String, Object> query = new HashMap<>(3);
+        query.put("lpId", lpId);
+        query.put("classDic", library.getClassDic());
+        query.put("title", library.getTitle());
+        query.put("difficulty", library.getDifficulty());
+        query.put("sonCount", library.getSonCount());
+        List<Library> libraries = libraryPoolMapper.selectLPLibrary(query);
+        PageInfo pageInfo = new PageInfo(libraries);
+        return ListenResult.success(pageInfo);
+    }
+
 
     private void test(LibraryPool lp, List<SysLibraryLibraryPoolVo> vosList) {
         int[] count = new int[]{

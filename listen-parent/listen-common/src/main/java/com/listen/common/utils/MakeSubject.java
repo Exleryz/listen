@@ -122,7 +122,7 @@ public class MakeSubject {
         // 题目list
         List<GradeSubject> newSubjects = new ArrayList<>();
         vo.setSrc(queryVo.getSrc());
-        vo.setSubjectCount(queryVo.getSubjectCount());
+        vo.setSonCount(queryVo.getSonCount());
         StringBuilder sb = new StringBuilder();
         for (Subject subject : queryVo.getSubjects()) {
             // 获取正确答案

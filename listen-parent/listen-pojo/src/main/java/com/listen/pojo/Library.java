@@ -47,13 +47,21 @@ public class Library {
     private Integer sonCount;
 
     /**
-     *  题目难度 1 2 3
+     * 题目难度 1 2 3
      */
     @Column(name = "difficulty")
     private Integer difficulty;
 
     @Column(name = "classDic")
     private Integer classDic;
+
+    /**
+     * 逻辑删除标志 0 删除 1使用
+     *
+     * @return
+     */
+    @Column(name = "flag")
+    private Integer flag;
 
     public Integer getId() {
         return id;
@@ -87,11 +95,11 @@ public class Library {
         this.userId = userId;
     }
 
-    public Integer getSubjectCount() {
+    public Integer getSonCount() {
         return sonCount;
     }
 
-    public void setSubjectCount(Integer sonCount) {
+    public void setSonCount(Integer sonCount) {
         this.sonCount = sonCount;
     }
 
@@ -111,6 +119,14 @@ public class Library {
         this.classDic = classDic;
     }
 
+    public Integer getFlag() {
+        return flag;
+    }
+
+    public void setFlag(Integer flag) {
+        this.flag = flag;
+    }
+
     @Override
     public String toString() {
         return "Library{" +
@@ -118,7 +134,7 @@ public class Library {
                 ", src='" + src + '\'' +
                 ", title='" + title + '\'' +
                 ", userId=" + userId +
-                ", subjectCount=" + sonCount +
+                ", sonCount=" + sonCount +
                 '}';
     }
 }

@@ -15,4 +15,29 @@
         from LibraryPool
         where grade=#{grade} and checkPoint=#{checkPoint}
     </select>
+
+    <select id="selectLPLibrary" parameterType="map" resultType="com.listen.pojo.Library">
+        select *
+        from Library l
+        where l.id in (
+            select sllp.libId
+            SysLibraryLibraryPool sllp,
+            LibraryPool lp
+            where l.id = sllp.libId
+            and lp.id = sllp.lpId
+            and lp.id = #{lpId}
+            <if test="classDic != null">
+                and l.classDic = #{classDic}
+            </if>
+            <if test="title != null">
+                and l.title = #{title}
+            </if>
+            <if test="difficulty != null">
+                and l.difficulty = #{difficulty}
+            </if>
+            <if test="sonCount != null">
+                and l.sonCount = #{sonCount}
+            </if>
+        )
+    </select>
 </mapper>
