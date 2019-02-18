@@ -11,9 +11,44 @@
     <link href="../../../css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../../../css/main.css">
     <script type="text/javascript" src="../../../js/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="../../../js/all.js"></script>
     <title>分类编辑</title>
+    <script type="text/javascript">
+        function addClassName() {
+            var className = $("#className").val();
+            addClass(className);
+            var allClass = getClass();
+            showList(allClass);
+        }
+
+        function showList(allClass){
+            var text = "";
+            $.each(allClass, function (index, val) {
+                text+='<div class="row bottomDiv">\n' +
+                    '            <div class="col-md-2">'+(index+1)+'</div>\n' +
+                    '            <div class="col-md-4">\n' +
+                    '                <div class="textLength">\n' +
+                    val["className"] +
+                    '                </div>\n' +
+                    '            </div>\n' +
+                    '            <div class="col-md-2">'+(val["flag"]==1?"是":"否")+'</div>\n' +
+                    '            <div class="col-md-2">'+val["gmtModified"]+'</div>\n' +
+                    '            <div class="col-md-2">\n' +
+                    '                <input class="btn btn-default tableButton"  type="button" value="移除">\n' +
+                    '            </div>\n' +
+                    '        </div>\n' +
+                    '        <hr class="hrStyle" />';
+            })
+            $("#classList").html(text);
+        }
+        $(document).ready(function(){
+            var allClass = getClass();
+            showList(allClass);
+        });
+    </script>
 </head>
 <body>
+<input id="PageContext" type="hidden" value="${pageContext.request.contextPath}" />
 <header>
     <nav class="top">
         <p>分类编辑</p>
@@ -27,13 +62,13 @@
                     分类名称
             </div>
             <div class="form-group col-md-2">
-                <input type="text" class="form-control" placeholder="Text input">
+                <input id="className" type="text" class="form-control" placeholder="分类名称">
             </div>
             <div class="form-group col-md-3">
             </div>
 
             <div class="form-group col-md-6">
-                <button type="button" class="btn btn-primary">确定</button>
+                <button type="button" onclick="addClassName()" class="btn btn-primary">添加</button>
             </div>
         </div>
     </div>
@@ -44,10 +79,12 @@
     <div class="row bottomDiv" style="border-bottom-width: 1px">
         <div class="col-md-2">编号</div>
         <div class="col-md-4">分类名称</div>
+        <div class="col-md-2">是否启动</div>
+        <div class="col-md-2">修改时间</div>
         <div class="col-md-2">移除</div>
     </div>
     <hr class="hrStyle" />
-    <div >
+    <div id="classList">
         <div class="row bottomDiv">
             <div class="col-md-2">1</div>
             <div class="col-md-4">
@@ -55,6 +92,8 @@
                     xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                 </div>
             </div>
+            <div class="col-md-2">是</div>
+            <div class="col-md-2">2019-2-18 12：00</div>
             <div class="col-md-2">
                 <input class="btn btn-default tableButton"  type="button" value="移除">
             </div>
@@ -67,6 +106,8 @@
                     xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                 </div>
             </div>
+            <div class="col-md-2">是</div>
+            <div class="col-md-2">2019-2-18 12：00</div>
             <div class="col-md-2">
                 <input class="btn btn-default tableButton"  type="button" value="移除">
             </div>
@@ -79,6 +120,8 @@
                     xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                 </div>
             </div>
+            <div class="col-md-2">是</div>
+            <div class="col-md-2">2019-2-18 12：00</div>
             <div class="col-md-2">
                 <input class="btn btn-default tableButton"  type="button" value="移除">
             </div>
@@ -91,6 +134,8 @@
                     xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                 </div>
             </div>
+            <div class="col-md-2">是</div>
+            <div class="col-md-2">2019-2-18 12：00</div>
             <div class="col-md-2">
                 <input class="btn btn-default tableButton"  type="button" value="移除">
             </div>
@@ -103,6 +148,8 @@
                     xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                 </div>
             </div>
+            <div class="col-md-2">是</div>
+            <div class="col-md-2">2019-2-18 12：00</div>
             <div class="col-md-2">
                 <input class="btn btn-default tableButton"  type="button" value="移除">
             </div>
@@ -115,6 +162,8 @@
                     xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                 </div>
             </div>
+            <div class="col-md-2">是</div>
+            <div class="col-md-2">2019-2-18 12：00</div>
             <div class="col-md-2">
                 <input class="btn btn-default tableButton"  type="button" value="移除">
             </div>
@@ -127,25 +176,13 @@
                     xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                 </div>
             </div>
+            <div class="col-md-2">是</div>
+            <div class="col-md-2">2019-2-18 12：00</div>
             <div class="col-md-2">
                 <input class="btn btn-default tableButton"  type="button" value="移除">
             </div>
         </div>
-        <hr class="hrStyle" />
-        <div class="row bottomDiv">
-            <div class="col-md-2">1</div>
-            <div class="col-md-4">
-                <div class="textLength">
-                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                </div>
-            </div>
-            <div class="col-md-2">
-                <input class="btn btn-default tableButton"  type="button" value="移除">
-            </div>
-        </div>
-        <div class="" style="text-align: right ;padding: 0px 12px">
-            <input class="btn btn-default twoButton" data-toggle="modal" data-target="#step1"  type="button" value="添加">
-        </div>
+
     </div>
 </div>
 <br>
