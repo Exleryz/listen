@@ -137,7 +137,7 @@
                 type: "post",
                 url: '${pageContext.request.contextPath}/library/queryList',
                 contentType: "application/x-www-form-urlencoded",
-                data: {'pageNum':allPage,'pageSize':10,"title":hiddenName,"difficulty":hiddenGrade,"sonCount":hiddenCount},
+                data: {'pageNum':allPage,'pageSize':10,"title":hiddenName,"difficulty":hiddenGrade,"sonCount":hiddenCount,'classDic':hiddenClassName},
                 dataType: "json",
                 success: function (data) {
                     var text ="";
