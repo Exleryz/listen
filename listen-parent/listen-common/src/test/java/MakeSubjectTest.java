@@ -1,5 +1,3 @@
-import com.listen.common.vo.GradeOption;
-import com.listen.common.vo.GradeSubject;
 import com.listen.pojo.Library;
 import com.listen.pojo.Subject;
 import org.junit.Test;
@@ -49,7 +47,7 @@ public class MakeSubjectTest {
         Library l = new Library();
         l.setId(1);
         l.setSrc("/asdfas/sadfasdf");
-        l.setSubjectCount(2);
+        l.setSonCount(2);
         libraries.add(l);
     }
 }
