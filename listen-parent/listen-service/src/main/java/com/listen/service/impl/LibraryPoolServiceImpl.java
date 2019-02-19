@@ -15,6 +15,7 @@ import com.listen.pojo.SysLibraryLibraryPool;
 import com.listen.pojo.vo.QueryLibraryVo;
 import com.listen.pojo.vo.SysLibraryLibraryPoolVo;
 import com.listen.service.LibraryPoolService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
@@ -131,7 +132,9 @@ public class LibraryPoolServiceImpl implements LibraryPoolService {
         Map<String, Object> query = new HashMap<>(3);
         query.put("lpId", lpId);
         query.put("classDic", library.getClassDic());
-        query.put("title", library.getTitle());
+        if (!StringUtils.isEmpty(library.getTitle())) {
+            query.put("title", library.getTitle());
+        }
         query.put("difficulty", library.getDifficulty());
         query.put("sonCount", library.getSonCount());
         List<Library> libraries = libraryPoolMapper.selectLPLibrary(query);
