@@ -27,6 +27,7 @@ public class DateUtils {
 
     /**
      * 根据规则获取date的string
+     *
      * @param date
      * @param pattern
      * @return

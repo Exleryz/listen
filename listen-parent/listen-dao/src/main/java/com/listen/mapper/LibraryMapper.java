@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Exler
@@ -23,8 +24,8 @@ public interface LibraryMapper extends Mapper<Library> {
     /**
      * 查询符合条件的题目
      *
-     * @param library
+     * @param map
      * @return
      */
-    List<Library> selectLibraryList(Library library);
+    List<Library> selectLibraryList(Map map);
 }

@@ -32,7 +32,7 @@
         where id = #{libId}
     </select>
 
-    <select id="selectLibraryList" parameterType="com.listen.pojo.Library"
+    <select id="selectLibraryList" parameterType="map"
             resultType="com.listen.pojo.Library">
         select *
         from Library
