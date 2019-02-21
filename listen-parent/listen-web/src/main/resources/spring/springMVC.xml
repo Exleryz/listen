@@ -19,6 +19,7 @@
     <!-- 配置资源映射 如果拦截的是/，就需要配置 .action .do不需要配置 -->
     <!-- 配置资源映射 -->
     <mvc:resources location="/css/" mapping="/css/**"/>
+    <mvc:resources location="/ueditor/" mapping="/ueditor/**"/>
     <mvc:resources location="/layui/" mapping="/layui/**"/>
     <mvc:resources location="/js/" mapping="/js/**"/>
     <mvc:resources location="/images/" mapping="/images/**"/>

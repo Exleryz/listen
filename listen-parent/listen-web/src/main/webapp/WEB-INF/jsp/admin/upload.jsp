@@ -34,7 +34,7 @@
 <form class="layui-form" action="">
     <!-- 题目、上传文件 -->
     <div class="headbox layui-row ">
-        <h1>题目:    <input type="text" class="layui-col-xs6" name="" placeholder="请输入题目"></h1>
+        <p>题目:    <input type="text"  name="" placeholder="请输入题目"></p>
         <p>主题：<input type="text" name="" placeholder="请输入主题"></p>
         <button type="button" class="layui-btn" id="test6"><i class="layui-icon"></i>上传音频</button>
         <div><p>等级：

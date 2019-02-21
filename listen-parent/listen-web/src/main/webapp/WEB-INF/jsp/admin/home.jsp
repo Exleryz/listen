@@ -85,7 +85,7 @@
                 <%--修改题目--%>
                 <%--查询题目--%>
                 <button class="btn btn-success startbtn" onclick="javascript:window.location.href='/page/admin/upload.html'">上传</button>
-                <button class="btn btn-success startbtn" onclick="javascript:window.location.href='/page/admin/upload.html'">查看</button>
+                <button class="btn btn-success startbtn" onclick="javascript:window.location.href='/page/admin/subjects.html'">查看</button>
             </div>
         </div>
     </div>
@@ -113,8 +113,9 @@
                 <%--(第一版中不完成)--%>
                 <%--修改题目--%>
                 <%--查询题目--%>
-                <button class="btn btn-success startbtn" onclick="javascript:window.location.href='/page/admin/upload.html'">上传</button>
-                <button class="btn btn-success startbtn" onclick="javascript:window.location.href='/page/admin/upload.html'">查看</button>
+                <button class="btn btn-success startbtn" onclick="javascript:window.location.href='/page/admin/shopUpload.html'">上传</button>
+                <button class="btn btn-success startbtn" onclick="javascript:window.location.href='/page/admin/shopItem.html'">查看</button>
+                <button class="btn btn-success startbtn" onclick="javascript:window.location.href='/page/admin/shopClassify.html'">分类</button>
             </div>
         </div>
     </div>

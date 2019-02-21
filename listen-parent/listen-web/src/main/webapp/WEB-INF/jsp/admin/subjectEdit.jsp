@@ -52,19 +52,23 @@
                 text+= '<option value="'+val["className"]+'">'+val["className"]+'</option>';
             })
             $("#"+divName).html(text);
+            $("#hiddenClassName").html(text);
         }
 
         //加载当前关卡题目列表
         function loadStageSubject() {
             var inputName = $("#inputName").val();
-            var className = $("#className").val();
+            var className = $("#className  option:selected").text();
             var InputLevel = $("#InputLevel").val();
             var InputStage = $("#InputStage").val();
-
+            console.log(inputName);
+            console.log(className);
+            console.log(InputLevel);
+            console.log(InputStage);
             $.ajax({
                 async: false,
                 type: "post",
-                url: '${pageContext.request.contextPath}/libraryPool/queryList',
+                url: '${pageContext.request.contextPath}/libraryPool/queryLibraries',
                 contentType: "application/x-www-form-urlencoded",
                 data: {'lpId':id,'pageNum':stagePage,'pageSize':10,'title':inputName,'sonCount':InputStage,'difficulty':InputLevel,'classDic':className},
                 dataType: "json",
@@ -104,7 +108,7 @@
 
         function addSubject() {
             //加载掩藏分类列表
-            showClass("hiddenClassName");
+            //showClass("hiddenClassName");
             //加载题目
             loadAllSubject();
         }
