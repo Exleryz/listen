@@ -21,7 +21,7 @@
         from Library l
         where l.id in (
             select sllp.libId
-            SysLibraryLibraryPool sllp,
+            from SysLibraryLibraryPool sllp,
             LibraryPool lp
             where l.id = sllp.libId
             and lp.id = sllp.lpId
@@ -40,4 +40,6 @@
             </if>
         )
     </select>
+
+
 </mapper>

@@ -9,11 +9,14 @@ import com.listen.pojo.Library;
 import com.listen.pojo.Subject;
 import com.listen.pojo.vo.QueryLibraryVo;
 import com.listen.service.LibraryService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Exler
@@ -36,7 +39,20 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     public ListenResult queryLibraryList(Library library, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Library> libraries = libraryMapper.selectLibraryList(library);
+        Map<String, Object> query = new HashMap<>(3);
+        if (!StringUtils.isEmpty(library.getTitle())) {
+            query.put("title", library.getTitle());
+        }
+        if (null != library.getClassDic()) {
+            query.put("classDic", library.getClassDic());
+        }
+        if (null != library.getDifficulty()) {
+            query.put("difficulty", library.getDifficulty());
+        }
+        if (null != library.getSonCount()) {
+            query.put("sonCount", library.getSonCount());
+        }
+        List<Library> libraries = libraryMapper.selectLibraryList(query);
         PageInfo pageInfo = new PageInfo(libraries);
         return ListenResult.success(pageInfo);
     }
