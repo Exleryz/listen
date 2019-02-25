@@ -11,10 +11,18 @@
     <context:property-placeholder location="classpath:conf/resource.properties"/>
     <context:component-scan base-package="com.listen.controller"/>
     <mvc:annotation-driven/>
-    <bean
-            class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
+    </bean>
+    <!-- 文件传输 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--请求编码格式-->
+        <property name="defaultEncoding" value="utf-8"/>
+        <!--上传文件大小(单位:字节)-->
+        <property name="maxUploadSize" value="50000000"/>
+        <!--缓冲区大小(单位:KB)-->
+        <property name="maxInMemorySize" value="1024"/>
     </bean>
     <!-- 配置资源映射 如果拦截的是/，就需要配置 .action .do不需要配置 -->
     <!-- 配置资源映射 -->
