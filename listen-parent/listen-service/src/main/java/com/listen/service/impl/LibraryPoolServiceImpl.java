@@ -131,12 +131,18 @@ public class LibraryPoolServiceImpl implements LibraryPoolService {
         }
         Map<String, Object> query = new HashMap<>(3);
         query.put("lpId", lpId);
-        query.put("classDic", library.getClassDic());
+        if (library.getClassDic()!=null) {
+            query.put("classDic", library.getClassDic());
+        }
         if (!StringUtils.isEmpty(library.getTitle())) {
             query.put("title", library.getTitle());
         }
-        query.put("difficulty", library.getDifficulty());
-        query.put("sonCount", library.getSonCount());
+        if (library.getDifficulty()!=null) {
+            query.put("difficulty", library.getDifficulty());
+        }
+        if (library.getSonCount()!=null) {
+            query.put("sonCount", library.getSonCount());
+        }
         List<Library> libraries = libraryPoolMapper.selectLPLibrary(query);
         PageInfo pageInfo = new PageInfo(libraries);
         return ListenResult.success(pageInfo);

@@ -51,7 +51,10 @@
             <label for="InputId">积分</label>
             <input type="text" class="form-control" id="point" placeholder="积分">
         </div>
-
+    </div>
+    <div class="form-group col-md-12" style="padding-left: 30px">
+        <label for="InputId">封面</label>
+        <input type="file"  >
     </div>
     <div style="width: 92%;margin: 0 auto">
         <h1>内容</h1>

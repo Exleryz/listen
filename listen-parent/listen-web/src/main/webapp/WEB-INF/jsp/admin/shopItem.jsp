@@ -65,7 +65,7 @@
                             '            <div class="col-md-2">'+(index+1)+'</div>\n' +
                             '            <div class="col-md-4">\n' +
                             '                <div class="textLength">\n' +
-                            '<a href="${pageContext.request.contextPath}/page/admin/subjectCheck.html?id='+val["id"]+'">'+val["title"] +'</a>'+
+                            '<a href="${pageContext.request.contextPath}/page/admin/subjectCheck.html?id='+val["id"]+'" target="_Blank">'+val["title"] +'</a>'+
                             '                </div>\n' +
                             '            </div>\n' +
                             '            <div class="col-md-2">图书</div>\n' +

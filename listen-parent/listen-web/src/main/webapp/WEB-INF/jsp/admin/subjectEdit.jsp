@@ -49,22 +49,29 @@
             console.log(allClass);
             var text = "<option value=''></option>";
             $.each(allClass, function (index, val) {
-                text+= '<option value="'+val["className"]+'">'+val["className"]+'</option>';
+                text+= '<option value="'+val["id"]+'">'+val["className"]+'</option>';
             })
             $("#"+divName).html(text);
             $("#hiddenClassName").html(text);
         }
 
+        function checkNull(t) {
+            if (t.length==0){
+                t="1";
+            }
+        }
+
         //加载当前关卡题目列表
         function loadStageSubject() {
             var inputName = $("#inputName").val();
-            var className = $("#className  option:selected").text();
+            var className = $("#className  option:selected").val();
             var InputLevel = $("#InputLevel").val();
             var InputStage = $("#InputStage").val();
-            console.log(inputName);
+            checkNull(inputName);
+            checkNull(className);
+            checkNull(InputLevel);
+            checkNull(InputStage);
             console.log(className);
-            console.log(InputLevel);
-            console.log(InputStage);
             $.ajax({
                 async: false,
                 type: "post",
@@ -136,6 +143,10 @@
             var hiddenClassName = $("#hiddenClassName").val();
             var hiddenGrade = $("#hiddenGrade").val();
             var hiddenCount = $("#hiddenCount").val();
+            checkNull(hiddenName);
+            checkNull(hiddenClassName);
+            checkNull(hiddenGrade);
+            checkNull(hiddenCount);
             $.ajax({
                 async: false,
                 type: "post",
@@ -288,7 +299,7 @@
     </div>
 
     <div class="col-md-12" style="text-align: right">
-        <input class="btn btn-default twoButton"  type="button" value="查询">
+        <input class="btn btn-default twoButton" onclick="loadStageSubject()"  type="button" value="查询">
     </div>
 </div>
 <br>
@@ -386,7 +397,7 @@
                 </div>
 
                 <div class="col-md-12" style="text-align: right">
-                    <input class="btn btn-default twoButton"  type="button" value="查询">
+                    <input class="btn btn-default twoButton" onclick="loadAllSubject()" type="button" value="查询">
                 </div>
             </div>
             <br>
