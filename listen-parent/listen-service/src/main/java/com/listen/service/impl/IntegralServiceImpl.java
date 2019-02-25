@@ -47,4 +47,12 @@ public class IntegralServiceImpl implements IntegralService {
         return ListenResult.success(pageInfo);
     }
 
+    @Override
+    public ListenResult queryAll(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize, "getTime desc");
+        List<Integral> integrals = integralMapper.select(new Integral());
+        PageInfo pageInfo = new PageInfo(integrals);
+        return ListenResult.success(pageInfo);
+    }
+
 }

@@ -54,6 +54,11 @@ public class IntegralController {
         return ListenResult.success(sum);
     }
 
+    @RequestMapping("/queryAll")
+    public ListenResult queryAll(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize) {
+        return integralService.queryAll(pageNum, pageSize);
+    }
+
     @RequestMapping("/getHistory")
     public ListenResult getIntegralHistory(Integer userId, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize) {
         return integralService.getIntegralHistory(userId, pageNum, pageSize);

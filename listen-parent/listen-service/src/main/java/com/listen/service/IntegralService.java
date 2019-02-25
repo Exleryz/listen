@@ -3,8 +3,6 @@ package com.listen.service;
 import com.listen.common.utils.ListenResult;
 import com.listen.pojo.Integral;
 
-import java.util.List;
-
 /**
  * @author Exler
  */
@@ -29,6 +27,15 @@ public interface IntegralService {
      * 用户查看所有的 积分记录 分页
      */
     ListenResult getIntegralHistory(Integer userId, Integer pageNum, Integer pageSize);
+
+    /**
+     * 获取所有积分记录
+     *
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    ListenResult queryAll(Integer pageNum, Integer pageSize);
 
     /**
      * 上传对应积分的兑换物品

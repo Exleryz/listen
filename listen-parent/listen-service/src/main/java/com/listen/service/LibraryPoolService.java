@@ -62,6 +62,7 @@ public interface LibraryPoolService {
      * @param pageSize
      * @return
      */
+    @Deprecated
     ListenResult queryLibraryListByPool(Integer lpId, Integer pageNum, Integer pageSize);
 
     /**
