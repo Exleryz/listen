@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -56,14 +56,14 @@ public class LibraryController {
      */
     @RequestMapping(value = "/admin/upload", method = RequestMethod.POST)
     @ResponseBody
-    public ListenResult upload(Library library, MultipartFile audioFile, HttpServletRequest request) {
+    public ListenResult upload(Library library, @RequestParam CommonsMultipartFile audioFile, HttpServletRequest request) {
         User user = (User) request.getAttribute("user");
         library.setUserId(user.getId());
         if (audioFile != null) {
-//            if ("".equals(listenLibraryFileName) || listenLibraryFileName == null) {
-//                 生成名称 或使用title
-//                 查询数据库中题目名称是否存在
-//            }
+
+//            library.setSrc(String path = ServletActionContext.getServletContext().getRealPath("/file/test"););
+            String contextPath = request.getContextPath();
+            System.out.println(contextPath);
 //            String path = ServletActionContext.getServletContext().getRealPath("/file/test");
 //            int i = listenLibraryFileName.lastIndexOf(".");
 //            String name = listenLibraryFileName.substring(0, i);

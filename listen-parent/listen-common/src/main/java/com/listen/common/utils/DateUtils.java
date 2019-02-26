@@ -24,6 +24,7 @@ public class DateUtils {
 
     public final static String YYYYMMDDHHMMSS = "yyyy-MM-dd HH:mm:ss";
     public final static String YYYYMMDD = "yyyy-MM-dd";
+    public final static String YYYYMMDDFOLDER = "/yyyy/MM/dd/";
 
     /**
      * 根据规则获取date的string
