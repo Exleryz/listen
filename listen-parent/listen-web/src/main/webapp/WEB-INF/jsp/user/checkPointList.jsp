@@ -121,7 +121,7 @@
         <c:forEach begin="0" end="5" step="1" var="i">
             <%-- #{} 保证{}内的是ognl表达式--%>
             <%-- 当前关卡 == index red  < yellow > blue  --%>
-            <ul class="row">
+            <ul class="row" style="margin-left: -14px;" ${i==5?"style='margin-left: -14px;'":""}>
                 <%--<li onclick="chbgcol(this)" class="item" id="<S:property value="#i.index*5+1"/>"><font
                         color="<s:property value='%{#session.student.currentCheck< (#i.index*5) ?"blue":#session.student.currentCheck == (#i.index*5)? "red":"yellow"}'/>"><S:property
                         value="#i.index*5+1"/></font></li>
@@ -138,25 +138,24 @@
                         color="<s:property value='%{#session.student.currentCheck< #i.index*5+4 ?"blue":#session.student.currentCheck == (#i.index*5+4)? "red":"yellow"}'/>"><S:property
                         value="#i.index*5+5"/></font></li>--%>
                 <li onclick="chbgcol(this)" class="item" id="${i*5+1}"><font
-                        color="${user.currentCheck + 1< (i*5+1)?"blue":user.currentCheck + 1==(i*5+1)?"red":"yellow"}">${i*5+1}</font></li>
+                        color="${user.currentCheck + 1< (i*5+1)?"blue":user.currentCheck + 1==(i*5+1)?"blue":"yellow"}">${i*5+1}</font></li>
 
                 <li onclick="chbgcol(this)" class="item" id="${i*5+2}"><font
-                        color="${user.currentCheck + 1< (i*5+2)?"blue":user.currentCheck + 1==(i*5+2)?"red":"yellow"}">${i*5+2}</font></li>
+                        color="${user.currentCheck + 1< (i*5+2)?"blue":user.currentCheck + 1==(i*5+2)?"blue":"yellow"}">${i*5+2}</font></li>
 
                 <li onclick="chbgcol(this)" class="item" id="${i*5+3}"><font
-                        color="${user.currentCheck + 1< (i*5+3)?"blue":user.currentCheck + 1==(i*5+3)?"red":"yellow"}">${i*5+3}</font></li>
+                        color="${user.currentCheck + 1< (i*5+3)?"blue":user.currentCheck + 1==(i*5+3)?"blue":"yellow"}">${i*5+3}</font></li>
 
                 <li onclick="chbgcol(this)" class="item" id="${i*5+4}"><font
-                        color="${user.currentCheck + 1< (i*5+4)?"blue":user.currentCheck + 1==(i*5+4)?"red":"yellow"}">${i*5+4}</font></li>
+                        color="${user.currentCheck + 1< (i*5+4)?"blue":user.currentCheck + 1==(i*5+4)?"blue":"yellow"}">${i*5+4}</font></li>
 
                 <li onclick="chbgcol(this)" class="item" id="${i*5+5}"><font
-                        color="${user.currentCheck + 1< (i*5+5)?"blue":user.currentCheck + 1==(i*5+5)?"red":"yellow"}">${i*5+5}</font></li>
+                        color="${user.currentCheck + 1< (i*5+5)?"blue":user.currentCheck + 1==(i*5+5)?"blue":"yellow"}">${i*5+5}</font></li>
 
             </ul>
         <%--</s:iterator>--%>
         </c:forEach>
-            <div class="col-md-11"></div>
-            <div class="col-md-1" style="text-align: right">
+            <div class="col-md-12" style="text-align: center;">
                 <select class="form-control">
                     <option>等级</option>
                     <option>初级</option>
