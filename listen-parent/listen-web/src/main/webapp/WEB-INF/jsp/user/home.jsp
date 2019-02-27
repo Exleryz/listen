@@ -103,8 +103,8 @@
 
             <div class="col-md-6">
                 <img src="../../images/oneplus_2.jpg" class=" taskimg conter-block">
-                <h2 class="text-muted">资料</h2>
-                <button class="btn btn-block btn-success startbtn">开始</button>
+                <h2 class="text-muted">商城</h2>
+                <button class="btn btn-block btn-success startbtn" onclick="javascript:window.location.href='showShop.html'">开始</button>
             </div>
         </div>
     </div>

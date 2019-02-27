@@ -42,13 +42,13 @@
 </div>
 <br>
 
-            <div class="width95 testbox" style="font-size: 1.2em;width: 75%" >
+            <div class="width95 testbox" style="font-size: 1.2em;width: 83%;padding: 11px;" >
                 <%----------------%>
                     <p style="margin-top: 0px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">
                         <span class="bjh-p">根据《财经》杂志报道，网易和亚马逊正在推进一项有关中国电商业务的重大重组，网易考拉将会合并亚马逊中国海外购业务，该谈判由网易考拉发起并推进，双方或采取换股方式。</span>
                     </p>
                     <p>
-                        <img class="large" data-loadfunc="0" src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2746527850,475226651&fm=173&app=49&f=GIF?w=1181&h=886&s=31A78BBE634458EE82C8CC5903007073" data-loaded="0" style="border: 0px; width: 537px; display: block;"/>
+                        <img class="large" data-loadfunc="0" src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=2746527850,475226651&fm=173&app=49&f=GIF?w=1181&h=886&s=31A78BBE634458EE82C8CC5903007073" data-loaded="0" style="border: 0px;  display: block;"/>
                     </p>
                     <p style="margin-top: 26px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">
                         <span class="bjh-p">网易往年并不热衷于资本运作，不论是对外投资还是合纵连横，最近开始有所改变，比如去年10月网易云音乐引入了百度的投资。推动网易考拉与亚马逊中国合并，则表明早已战略押注电商的网易正在调整打法，加速布局。</span>
@@ -81,19 +81,19 @@
                         <span class="bjh-p">其次，电商是能够突破互联网大环境增长阻力的赛道。2018年三季度，阿里巴巴营收增长54%，当季度FAANG（Facebook、亚马逊、苹果、Netflix与谷歌）五大硅谷巨头的增速分别为33%、29%、20%、34%和21%。百度增速为27%，腾讯只有24%，即便剔除掉并表饿了么的影响，阿里主营电商业务营收增速也有36%。可见，电商本身在增长，因为中国消费在增长，京东、拼多多和美团财报也能体现出这一点。</span>
                     </p>
                     <p>
-                        <img class="large" data-loadfunc="0" src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=3696060999,4131651698&fm=173&app=49&f=JPEG?w=640&h=426&s=AE2BF104EC3B11941722CE980300509F" data-loaded="0" style="border: 0px; width: 537px; display: block;"/>
+                        <img class="large" data-loadfunc="0" src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=3696060999,4131651698&fm=173&app=49&f=JPEG?w=640&h=426&s=AE2BF104EC3B11941722CE980300509F" data-loaded="0" style="border: 0px;  display: block;"/>
                     </p>
                     <p style="margin-top: 26px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">
                         <span class="bjh-p">最后，网易在电商上折腾已有很多年，形成了一定的积累。网易做电商最初是做惠惠网，跟一淘等属于同一个时代，都是导购模式，后来又陆续推出考拉和严选，分别在跨境电商和精品电商赛道占据了核心位置，2018年6月6日，网易考拉海购更名为“网易考拉”，进一步拓展业务外延，从跨境电商转型到全品类电商；网易严选则通过工厂店等模式，来抓住中国中产小资阶层。现在电商营收占网易整体营收比例已经接近三成。</span>
                     </p>
                     <p>
-                        <img class="large" data-loadfunc="0" src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1894383631,2622229281&fm=173&app=49&f=JPEG?w=640&h=426&s=4FD70BD6C0EDE94F1C2797F10300101D" data-loaded="0" style="border: 0px; width: 537px; display: block;"/>
+                        <img class="large" data-loadfunc="0" src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=1894383631,2622229281&fm=173&app=49&f=JPEG?w=640&h=426&s=4FD70BD6C0EDE94F1C2797F10300101D" data-loaded="0" style="border: 0px;  display: block;"/>
                     </p>
                     <p style="margin-top: 26px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">
                         <span class="bjh-p">因此，网易只会越来越重视电商，丁磊丝毫不掩盖对电商市场的野心，他在2017年8月接受采访时表示希望通过网易考拉、网易严选等电商业务，花三到五年时间再造一个网易，网易从2017年第四季度开始单独列出电商业务的财报数据，对电商重视程度可见一斑。</span>
                     </p>
                     <p>
-                        <img class="large" data-loadfunc="0" src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=689043451,4053140727&fm=173&app=49&f=JPEG?w=640&h=426&s=F6265D6EE25A1FD6DFC4AC1F01008083" data-loaded="0" style="border: 0px; width: 537px; display: block;"/>
+                        <img class="large" data-loadfunc="0" src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=689043451,4053140727&fm=173&app=49&f=JPEG?w=640&h=426&s=F6265D6EE25A1FD6DFC4AC1F01008083" data-loaded="0" style="border: 0px;  display: block;"/>
                     </p>
                     <p style="margin-top: 26px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">
                         <span class="bjh-h3" style="font-size: 18px; font-weight: 700; color: rgb(0, 0, 0); position: relative; padding-left: 9px;">为何选择亚马逊中国？</span>
@@ -117,7 +117,7 @@
                         <span class="bjh-p">作为世界第一大电商平台，亚马逊拥有考拉所不具备的落地能力，其拥有强大的供应链和跨境物流能力，国际品牌资源优势明显，Prime模式全球领先且已在中国推广。</span>
                     </p>
                     <p>
-                        <img class="large" data-loadfunc="0" src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=1480961682,3281604950&fm=173&app=49&f=JPEG?w=640&h=432&s=0EB475846D810D490EB8B5120100E0C1" data-loaded="0" style="border: 0px; width: 537px; display: block;"/>
+                        <img class="large" data-loadfunc="0" src="https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=1480961682,3281604950&fm=173&app=49&f=JPEG?w=640&h=432&s=0EB475846D810D490EB8B5120100E0C1" data-loaded="0" style="border: 0px;  display: block;"/>
                     </p>
                     <p style="margin-top: 26px; margin-bottom: 0px; padding: 0px; line-height: 24px; color: rgb(51, 51, 51); text-align: justify; font-family: arial; white-space: normal; background-color: rgb(255, 255, 255);">
                         <span class="bjh-p">亚马逊中国海外购商店已对接了亚马逊美国、英国、日本与德国四大站点，有超过2000万件海外选品。亚马逊中国在2014年上线了“海外购”，用户可以通过亚马逊中国官网直接购买海外站点的商品，在物流方面，“海外购”的订单一小时就可以从亚马逊美国运营中心发货。商品到达中国后，仅需30分钟就可以发货到具体位置，亚马逊中国的布局，与网易考拉原先的海购定位很是契合，毕竟很多网易考拉用户都是奔着买进口货去用它的。</span>
@@ -197,7 +197,7 @@
 <hr>
 
 <!-- 返回上一层 -->
-<a href="/page/admin/home.html" class="header-back">
+<a href="javascript:history.go(-1)" class="header-back">
     <span class="glyphicon glyphicon-chevron-left"></span>
 </a>
 

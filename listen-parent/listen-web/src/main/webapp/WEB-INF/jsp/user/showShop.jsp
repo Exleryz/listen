@@ -47,7 +47,7 @@
             <div class="width95 testbox" style="font-size: 1em;width: 75%;padding: 0 auto" >
                 <%----------------%>
                <div class="row" style="margin: 2% auto">
-                   <div class="col-md-2 col-sm-3 col-xs-3 test"  >
+                   <div class="col-md-2 col-sm-3 col-xs-3 test" onclick="javascript:window.location.href='readItem.html'" >
                        <img src="../../../images/test1.jpg">
                        <p style="text-align: center">积分5</p>
                        <p style="text-align: center">java完全自学手册</p>
@@ -114,7 +114,7 @@
 <hr>
 
 <!-- 返回上一层 -->
-<a href="/page/admin/home.html" class="header-back">
+<a href="javascript:history.go(-1)" class="header-back">
     <span class="glyphicon glyphicon-chevron-left"></span>
 </a>
 
