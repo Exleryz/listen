@@ -51,4 +51,9 @@
         </if>
     </select>
 
+    <insert id="insertLibrary" parameterType="com.listen.pojo.Library" useGeneratedKeys="true" keyProperty="id">
+        insert into Library(src, title, userId, sonCount, difficulty, classDic)
+        values(#{src}, #{title}, #{userId}, #{sonCount}, #{difficulty}, #{classDic})
+    </insert>
+
 </mapper>

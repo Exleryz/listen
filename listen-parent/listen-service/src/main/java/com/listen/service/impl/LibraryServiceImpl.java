@@ -58,6 +58,16 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
+    public ListenResult saveLibrary(Library library, List<Subject> subjectList) {
+        libraryMapper.insert(library);
+        for (Subject subject : subjectList) {
+            subject.setLibId(library.getId());
+            subjectMapper.insert(subject);
+        }
+        return ListenResult.success(null);
+    }
+
+    @Override
     public ListenResult deleteLibrary(Library library) {
         // 删除小题
         Example example = new Example(Subject.class);

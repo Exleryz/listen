@@ -2,6 +2,7 @@ package com.listen.service;
 
 import com.listen.common.utils.ListenResult;
 import com.listen.pojo.Library;
+import com.listen.pojo.Subject;
 import com.listen.pojo.vo.QueryLibraryVo;
 
 import java.util.List;
@@ -27,6 +28,15 @@ public interface LibraryService {
      * @return
      */
     ListenResult queryLibraryList(Library library, Integer pageNum, Integer pageSize);
+
+    /**
+     * 保存题目及其子题
+     *
+     * @param library
+     * @param subjectList
+     * @return
+     */
+    ListenResult saveLibrary(Library library, List<Subject> subjectList);
 
     /**
      * 删除题目

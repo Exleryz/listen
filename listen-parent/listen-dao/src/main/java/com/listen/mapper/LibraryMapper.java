@@ -28,4 +28,13 @@ public interface LibraryMapper extends Mapper<Library> {
      * @return
      */
     List<Library> selectLibraryList(Map map);
+
+    /**
+     * 插入library setId
+     *
+     * @param library
+     * @return
+     */
+    Integer insertLibrary(Library library);
+
 }

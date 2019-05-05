@@ -3,12 +3,16 @@ package com.listen.controller;
 import com.listen.common.utils.ListenResult;
 import com.listen.pojo.ClassDic;
 import com.listen.pojo.Library;
+import com.listen.pojo.Subject;
 import com.listen.pojo.User;
 import com.listen.pojo.vo.QueryLibraryVo;
 import com.listen.service.ClassDicService;
 import com.listen.service.LibraryService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +20,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * @author Exler
@@ -23,6 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/library")
+@Slf4j
 public class LibraryController {
 
     @Autowired
@@ -30,6 +39,12 @@ public class LibraryController {
 
     @Autowired
     private ClassDicService classDicService;
+
+    @Value("${audio.file.postfix}")
+    private String POSTFIX;
+
+    @Value("${audio.file.savePath}")
+    private String SAVE_PATH;
 
     /**
      * 单题详情查看
@@ -56,29 +71,29 @@ public class LibraryController {
      */
     @RequestMapping(value = "/admin/upload", method = RequestMethod.POST)
     @ResponseBody
-    public ListenResult upload(Library library, @RequestParam CommonsMultipartFile audioFile, HttpServletRequest request) {
+    public ListenResult upload(Library library, List<Subject> subjectList, @RequestParam CommonsMultipartFile audioFile, HttpServletRequest request) throws IOException {
         User user = (User) request.getAttribute("user");
         library.setUserId(user.getId());
         if (audioFile != null) {
+            String postfix = audioFile.getOriginalFilename().substring(audioFile.getOriginalFilename().lastIndexOf("."));
+            if (!POSTFIX.contains(postfix)) {
+                return ListenResult.error("不支持的文件类型");
+            }
 
-//            library.setSrc(String path = ServletActionContext.getServletContext().getRealPath("/file/test"););
-            String contextPath = request.getContextPath();
-            System.out.println(contextPath);
-//            String path = ServletActionContext.getServletContext().getRealPath("/file/test");
-//            int i = listenLibraryFileName.lastIndexOf(".");
-//            String name = listenLibraryFileName.substring(0, i);
-//            String suffix = listenLibraryFileName.substring(i, listenLibraryFileName.length());
-//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
-//            name = name + sdf.format(new Date());
-//             保存文件
-//            File f = new File(path + "/" + name + suffix);
-//            listenLibrary.renameTo(f);
-//             设置文件路径
-//            library.setSrc("/file/test/" + name + suffix);
-//             保存题目信息及其子题
-//            libraryService.saveLibrary(library, subjectList);
+            if (StringUtils.isEmpty(library.getTitle())) {
+                library.setTitle(audioFile.getOriginalFilename());
+            }
+
+            UUID uuid = UUID.randomUUID();
+            String fileName = uuid.toString().replace("-", "");
+            // 设置文件路径
+            library.setSrc(SAVE_PATH + fileName + postfix);
+            audioFile.transferTo(new File(request.getSession().getServletContext().getRealPath(SAVE_PATH) + fileName + postfix));
+
+            // 保存题目信息及其子题
+            return libraryService.saveLibrary(library, subjectList);
         }
-        return null;
+        return ListenResult.error("文件保存出错");
     }
 
     /**
