@@ -15,6 +15,24 @@
     <link rel="stylesheet" type="text/css" href="../../../layui/css/layui.css">
     <link href="../../../css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../../../css/main.css">
+    <style type="text/css">
+      /*  #test6{
+            display: inline-block;
+            height: 38px;
+            line-height: 38px;
+            padding: 0 18px;
+            background-color: #009688;
+            color: #fff;
+            white-space: nowrap;
+            text-align: center;
+            font-size: 14px;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            outline: 0;
+            -webkit-appearance: none;
+        }*/
+    </style>
 </head>
 <body>
 <header style="background-color: #318E8B">
@@ -31,20 +49,22 @@
         <div class="col-md-1"></div>
     </div>
 </header>
-<form class="layui-form" action="">
+<form class="layui-form" method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath}/library/admin/upload">
     <!-- 题目、上传文件 -->
     <div class="headbox layui-row ">
-        <p>题目:    <input type="text"  name="" placeholder="请输入题目"></p>
-        <p>主题：<input type="text" name="" placeholder="请输入主题"></p>
-        <button type="button" class="layui-btn" id="test6"><i class="layui-icon"></i>上传音频</button>
+        <p>题目:    <input type="text"  name="title" placeholder="请输入题目"></p>
+        <p>主题：<input type="text" name="classDic" placeholder="请输入主题"></p>
+        <%--<button type="button" class="layui-btn" id="test6"><i class="layui-icon"></i>上传音频</button>
+        --%>
+        <input type="file" name="audioFile">
         <div><p>等级：
-            <select style="">
+            <select name="difficulty" style="">
                 <option>初级</option>
                 <option>中级</option>
                 <option>高级</option>
             </select>
         </p></div>
-        <p>子题数：<span id="testNum"></span></p>
+        <p>子题数：<span id="testNum" name="sonCount"></span></p>
     </div>
     <!-- 子题目设置部分 -->
     <div class="testbox" style="width: 700px" value="">
@@ -56,31 +76,31 @@
             <li>
                 <label class="layui-form-label">A：</label>
                 <div class="layui-input-block">
-                    <input type="text" name="title" placeholder="请输入" class="layui-input">
+                    <input type="text" name="subjectList[0].optionA" placeholder="请输入" class="layui-input">
                 </div>
             </li>
             <li>
                 <label class="layui-form-label">B：</label>
                 <div class="layui-input-block">
-                    <input type="text" name="title" placeholder="请输入" class="layui-input">
+                    <input type="text" name="subjectList[0].optionB" placeholder="请输入" class="layui-input">
                 </div>
             </li>
             <li>
                 <label class="layui-form-label">C：</label>
                 <div class="layui-input-block">
-                    <input type="text" name="title" placeholder="请输入" class="layui-input">
+                    <input type="text" name="subjectList[0].optionC" placeholder="请输入" class="layui-input">
                 </div>
             </li>
             <li>
                 <label class="layui-form-label">D：</label>
                 <div class="layui-input-block">
-                    <input type="text" name="title" placeholder="请输入" class="layui-input">
+                    <input type="text" name="subjectList[0].optionD" placeholder="请输入" class="layui-input">
                 </div>
             </li>
             <li>
                 <label class="layui-form-label" style="width: 100px">正确答案：</label>
                 <div class="layui-input-block">
-                    <select lay-ignore>
+                    <select lay-ignore name="subjectList[0].answer">
                         <option value="A">A</option>
                         <option value="B">B</option>
                         <option value="C">C</option>
@@ -100,7 +120,7 @@
         <i class="layui-icon">&#xe608;</i>
     </div>
 
-
+    <button type="submit" class="btn btn-primary">提交</button>
 </form>
 
 <!-- 返回上一层 -->
