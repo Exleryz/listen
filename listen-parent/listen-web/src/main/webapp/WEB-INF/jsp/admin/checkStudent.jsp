@@ -84,7 +84,7 @@
     </div>
     <div class="col-md-12" style="text-align: right">
         <input class="btn btn-default twoButton"  type="button" value="查询">
-        <input class="btn btn-default twoButton"  type="button" value="导出">
+       <%-- <input class="btn btn-default twoButton"  type="button" value="导出">--%>
     </div>
 </div>
 <br>
@@ -99,31 +99,31 @@
         </tr>
         <tr>
             <td>1</td>
-            <td>xxxxxx</td>
+            <td>fupeng</td>
             <td>1</td>
             <td>2018-09-11</td>
-            <td>60</td>
+            <td>99</td>
         </tr>
         <tr>
             <td>2</td>
-            <td>xxxxxx</td>
+            <td>exler</td>
             <td>1</td>
             <td>2018-09-11</td>
-            <td>60</td>
+            <td>80</td>
         </tr>
         <tr>
             <td>3</td>
-            <td>xxxxxx</td>
+            <td>test1</td>
             <td>1</td>
             <td>2018-09-11</td>
-            <td>60</td>
+            <td>40</td>
         </tr>
         <tr>
             <td>4</td>
-            <td>xxxxxx</td>
+            <td>hahaha</td>
             <td>1</td>
             <td>2018-09-11</td>
-            <td>60</td>
+            <td>62</td>
         </tr>
     </table>
 </div>
