@@ -12,8 +12,10 @@
     </bean>
     <bean class="redis.clients.jedis.JedisPool" id="jedisPool">
         <!-- 给构造方法 指定参数 -->
-        <constructor-arg name="host" value="47.106.10.108"/>
+        <constructor-arg name="host" value="116.62.100.76"/>
         <constructor-arg name="port" value="6379"/>
+        <!--<constructor-arg name="password" value="1z2y3#4$"/>-->
+        <!--<constructor-arg name="timeout" value="10000"/>-->
         <constructor-arg name="poolConfig" ref="jedisPoolConfig"/>
     </bean>
     <!--https://www.cnblogs.com/red-code/p/6657517.html-->
