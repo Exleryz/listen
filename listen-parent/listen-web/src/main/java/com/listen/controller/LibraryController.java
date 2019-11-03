@@ -79,21 +79,21 @@ public class LibraryController {
         String[] optionB = (String[]) parameterMap.get("optionB");
         String[] optionC = (String[]) parameterMap.get("optionC");
         String[] optionD = (String[]) parameterMap.get("optionD");
-        Character[] answer = (Character[]) parameterMap.get("answer");
-        Integer[] sort = (Integer[]) parameterMap.get("sort");
+        String[] answer = (String[]) parameterMap.get("answer");
+        String[] sort = (String[]) parameterMap.get("sort");
 
-        String title = (String) parameterMap.get("title");
-        Integer difficulty = (Integer) parameterMap.get("difficulty");
-        Integer classDic = (Integer) parameterMap.get("classDic");
+        String title = ((String[]) parameterMap.get("title"))[0];
+        Integer difficulty = Integer.parseInt(((String[]) parameterMap.get("difficulty"))[0]);
+//        Integer classDic = Integer.parseInt(((String[]) parameterMap.get("classDic"))[0]);
 
-        for (int i = 0; i < count; count++) {
+        for (int i = 0; i < count; i++) {
             Subject subject = new Subject();
             subject.setOptionA(optionA[i]);
             subject.setOptionA(optionB[i]);
             subject.setOptionA(optionC[i]);
             subject.setOptionA(optionD[i]);
-            subject.setAnswer(answer[i]);
-            subject.setSort(sort[i]);
+            subject.setAnswer(answer[i].charAt(0));
+            subject.setSort(Integer.parseInt(sort[i]));
 
             subjectList.add(subject);
         }
@@ -101,7 +101,7 @@ public class LibraryController {
         Library library = new Library();
         library.setTitle(title);
         library.setDifficulty(difficulty);
-        library.setClassDic(classDic);
+//        library.setClassDic(classDic);
 
         library.setUserId(user.getId());
         if (audioFile != null) {
