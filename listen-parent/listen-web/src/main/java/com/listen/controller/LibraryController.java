@@ -22,7 +22,9 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -64,15 +66,43 @@ public class LibraryController {
     /**
      * 管理员上传听力文件 及题目 子题s
      *
-     * @param library
      * @param audioFile
      * @param request
      * @return
      */
     @RequestMapping(value = "/admin/upload", method = RequestMethod.POST)
     @ResponseBody
-    public ListenResult upload(Library library, List<Subject> subjectList, @RequestParam CommonsMultipartFile audioFile, HttpServletRequest request) throws IOException {
+    public ListenResult upload(Integer count, @RequestParam(value = "audioFile") CommonsMultipartFile audioFile, HttpServletRequest request) throws IOException {
+        List<Subject> subjectList = new ArrayList<>();
+        Map parameterMap = request.getParameterMap();
+        String[] optionA = (String[]) parameterMap.get("optionA");
+        String[] optionB = (String[]) parameterMap.get("optionB");
+        String[] optionC = (String[]) parameterMap.get("optionC");
+        String[] optionD = (String[]) parameterMap.get("optionD");
+        Character[] answer = (Character[]) parameterMap.get("answer");
+        Integer[] sort = (Integer[]) parameterMap.get("sort");
+
+        String title = (String) parameterMap.get("title");
+        Integer difficulty = (Integer) parameterMap.get("difficulty");
+        Integer classDic = (Integer) parameterMap.get("classDic");
+
+        for (int i = 0; i < count; count++) {
+            Subject subject = new Subject();
+            subject.setOptionA(optionA[i]);
+            subject.setOptionA(optionB[i]);
+            subject.setOptionA(optionC[i]);
+            subject.setOptionA(optionD[i]);
+            subject.setAnswer(answer[i]);
+            subject.setSort(sort[i]);
+
+            subjectList.add(subject);
+        }
         User user = (User) request.getAttribute("user");
+        Library library = new Library();
+        library.setTitle(title);
+        library.setDifficulty(difficulty);
+        library.setClassDic(classDic);
+
         library.setUserId(user.getId());
         if (audioFile != null) {
             String postfix = audioFile.getOriginalFilename().substring(audioFile.getOriginalFilename().lastIndexOf("."));
