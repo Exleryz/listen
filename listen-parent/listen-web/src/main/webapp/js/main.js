@@ -81,14 +81,14 @@ $(function () {
         for (var i = 0; i < testBoxNum.length; i++) {
             testBoxNum.eq(i).attr('value', i + 1);
             var lis = testBoxNum.eq(i).find("li");
-            lis.eq(0).find("input").attr("name", "subjectList[" + i + "].sort");
+            lis.eq(0).find("input").attr("name", "sort");
             lis.eq(0).find("input").val(i + 1);
-            lis.eq(1).find("input").attr("name", "subjectList[" + i + "].optionA");
-            lis.eq(2).find("input").attr("name", "subjectList[" + i + "].optionB");
-            lis.eq(3).find("input").attr("name", "subjectList[" + i + "].optionC");
-            lis.eq(4).find("input").attr("name", "subjectList[" + i + "].optionD");
-            lis.eq(5).find("select").attr("name", "subjectList[" + i + "].answer");
-            lis.eq(6).find("input").attr("name", "subjectList[" + i + "].analysis");
+            lis.eq(1).find("input").attr("name", "optionA");
+            lis.eq(2).find("input").attr("name", "optionB");
+            lis.eq(3).find("input").attr("name", "optionC");
+            lis.eq(4).find("input").attr("name", "optionD");
+            lis.eq(5).find("select").attr("name", "answer");
+            lis.eq(6).find("input").attr("name", "analysis");
             $('#sonCount').val(i + 1);
             /* <input type="text" name="subjectList[0].sort"/>
                      <input type="text" name="subjectList[0].answer"/>
