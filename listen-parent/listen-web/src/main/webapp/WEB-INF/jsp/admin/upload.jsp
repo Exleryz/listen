@@ -64,37 +64,37 @@
                 <option>高级</option>
             </select>
         </p></div>
-        <p>子题数：<span id="testNum" name="sonCount"></span></p>
+        <p>子题数：<span id="testNum" name="count"></span></p>
     </div>
     <!-- 子题目设置部分 -->
     <div class="testbox" style="width: 700px" value="">
         <li>
         <label class="layui-form-label">sort：</label>
-        <div class="layui-input-block"><input type="text" value="1" placeholder="请输入" class="layui-input"></div>
+        <div class="layui-input-block"><input type="text" name="sort" value="1" placeholder="请输入" class="layui-input"></div>
         </li>
         <ul>
             <li>
                 <label class="layui-form-label">A：</label>
                 <div class="layui-input-block">
-                    <input type="text" name="subjectList[0].optionA" placeholder="请输入" class="layui-input">
+                    <input type="text" name="optionA" placeholder="请输入" class="layui-input">
                 </div>
             </li>
             <li>
                 <label class="layui-form-label">B：</label>
                 <div class="layui-input-block">
-                    <input type="text" name="subjectList[0].optionB" placeholder="请输入" class="layui-input">
+                    <input type="text" name="optionB" placeholder="请输入" class="layui-input">
                 </div>
             </li>
             <li>
                 <label class="layui-form-label">C：</label>
                 <div class="layui-input-block">
-                    <input type="text" name="subjectList[0].optionC" placeholder="请输入" class="layui-input">
+                    <input type="text" name="optionC" placeholder="请输入" class="layui-input">
                 </div>
             </li>
             <li>
                 <label class="layui-form-label">D：</label>
                 <div class="layui-input-block">
-                    <input type="text" name="subjectList[0].optionD" placeholder="请输入" class="layui-input">
+                    <input type="text" name="optionD" placeholder="请输入" class="layui-input">
                 </div>
             </li>
             <li>
@@ -107,7 +107,6 @@
                         <option value="D">D</option>
                     </select>
                 </div>
-
             </li>
         </ul>
         <!-- 关闭按钮 -->
