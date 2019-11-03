@@ -49,7 +49,7 @@
         <div class="col-md-1"></div>
     </div>
 </header>
-<form class="layui-form" method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath}/library/admin/upload">
+<form class="layui-form" id="form1" method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath}/library/admin/upload">
     <!-- 题目、上传文件 -->
     <div class="headbox layui-row ">
         <p>题目:    <input type="text"  name="title" placeholder="请输入题目"></p>
@@ -59,12 +59,13 @@
         <input type="file" name="audioFile">
         <div><p>等级：
             <select name="difficulty" style="">
-                <option>初级</option>
-                <option>中级</option>
-                <option>高级</option>
+                <option value="1">初级</option>
+                <option value="2">中级</option>
+                <option value="3">高级</option>
             </select>
         </p></div>
-        <p>子题数：<span id="testNum" name="count"></span></p>
+        <p>子题数：<span id="testNum" name="sonCount"></span></p>
+        <input type="hidden" id="count" name="count" value="1">
     </div>
     <!-- 子题目设置部分 -->
     <div class="testbox" style="width: 700px" value="">
@@ -100,7 +101,7 @@
             <li>
                 <label class="layui-form-label" style="width: 100px">正确答案：</label>
                 <div class="layui-input-block">
-                    <select lay-ignore name="subjectList[0].answer">
+                    <select lay-ignore name="answer">
                         <option value="A">A</option>
                         <option value="B">B</option>
                         <option value="C">C</option>
@@ -119,7 +120,7 @@
         <i class="layui-icon">&#xe608;</i>
     </div>
 
-    <button type="submit" class="btn btn-primary">提交</button>
+    <button type="submit" <%--onclick="sub()"--%> class="btn btn-primary">提交</button>
 </form>
 
 <!-- 返回上一层 -->
@@ -153,6 +154,7 @@
             testBoxNum.eq(i).attr('value',i+1);
             // text(i+1);
         }
+        $("#count").val(testBoxNum)
     }
     // 获得目前总共多少div块数量
     function getTestBoxNum(){
@@ -165,6 +167,26 @@
         getTestBoxNum();
         setNum();
     }
+
+   function sub(){
+debugger;
+
+       // parent.layer.close(index); //再执行关闭
+        $.ajax({
+            async: false,
+            type: "POST",
+            url:'${pageContext.request.contextPath}/library/admin/upload',
+            contentType : "application/x-www-form-urlencoded; charset=utf-8",
+            data:$("#form1").serialize(),
+            dataType: "text",
+            success: function () {
+                alert(11)
+            },
+            error: function () {
+                alert(22)
+            }
+        })
+   }
 </script>
 </body>
 </html>
