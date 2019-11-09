@@ -47,6 +47,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         // 5. 取到用户信息 登录状态
         User user = (User) result.getData();
         // 6. 把用户信息放到request中 只需要在controller中判断request中是否包含user信息 放行
+        request.setAttribute("token", token);
         request.setAttribute("user", user);
         return true;
     }

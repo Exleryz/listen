@@ -146,6 +146,9 @@ public final class CookieUtils {
                 cookie.setMaxAge(cookieMaxage);
             if (null != request) {// 设置域名的cookie
                 String domainName = getDomainName(request);
+                if (!domainName.contains("www")) {
+                    domainName = "www" + domainName;
+                }
                 System.out.println(domainName);
                 if (!"localhost".equals(domainName)) {
                     cookie.setDomain(domainName);
@@ -195,6 +198,7 @@ public final class CookieUtils {
         String domainName = null;
 
         String serverName = request.getRequestURL().toString();
+        System.out.println(serverName);
         if (serverName == null || serverName.equals("")) {
             domainName = "";
         } else {
@@ -225,7 +229,7 @@ public final class CookieUtils {
             String[] ary = domainName.split("\\:");
             domainName = ary[0];
         }
-        return domainName;
+        return "www.suanlifield.com";
     }
 
 }

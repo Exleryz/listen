@@ -130,7 +130,7 @@ header .navbar-brand{
 }
 .footer{
     background-color: #333;
-    height: 100px;
+    /*height: 100px;*/
     padding: 30px;
     margin-top: 20px;
 }

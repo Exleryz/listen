@@ -125,6 +125,10 @@ public class UserServiceImpl implements UserService {
         return ListenResult.success(user);
     }
 
+    public void setUserByToken(String token, User user) {
+        RedisHelper.set(JEDIS_KEY + token, JsonUtils.objectToJson(user), SESSION_EXPIRE, 2);
+    }
+
     /**
      * 初始化学生等级
      *
@@ -132,11 +136,12 @@ public class UserServiceImpl implements UserService {
      * @param score
      */
     @Override
-    public ListenResult initGradeCode(User user, Float score) {
+    public ListenResult initGradeCode(String token, User user, Float score) {
         user.setCurrentCheck(0);
         // <= 70 1 <= 90 2 >90 3
         user.setGrade(score <= 70 ? 1 : score <= 90 ? 2 : 3);
-        int i = userMapper.updateByPrimaryKey(user);
+        int i = userMapper.updateByPrimaryKeySelective(user);
+        setUserByToken(token, user);
         if (i > 0) {
             return ListenResult.success(null);
         }
@@ -160,7 +165,7 @@ public class UserServiceImpl implements UserService {
         // fixme 此处可能空指针异常 关我屁事
         if (user.getCurrentCheck() + 1 == checkPoint && libraryPool.getScore() <= sysUserLibraryPool.getScore()) {
             user.setCurrentCheck(checkPoint);
-            userMapper.updateByPrimaryKey(user);
+            userMapper.updateByPrimaryKeySelective(user);
         }
         return insert == 0 ? ListenResult.error("提交试卷保存失败") : ListenResult.success("成绩上传成功");
     }

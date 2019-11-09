@@ -141,7 +141,21 @@
                 }
         }
         alert(score);
-        window.location.href = '${pageContext.request.contextPath}/StudentAction_submitGrade?score=' + score;
+        $.ajax({
+            async: false,
+            type: "POST",
+            url: '${pageContext.request.contextPath}/user/submitGrade?score=' + score,
+            contentType: "application/x-www-form-urlencoded",
+            data: {'score': score},
+            dataType: "json",
+            success: function (data) {
+                window.location.href = '${pageContext.request.contextPath}/page/user/home.html';
+            },
+            error: function (data) {
+                alert("请先完成全部题目")
+            }
+        })
+        <%--window.location.href = '${pageContext.request.contextPath}/page/user/home.html';--%>
         if (mi == 0 && se == 0) {
             alert("做题超时，已自动提交");
         } else {

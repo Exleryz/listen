@@ -56,7 +56,7 @@ public class ClassDicServiceImpl implements ClassDicService {
         }
         classDic.setGmtModified(DateUtils.DateToString(new Date(), DateUtils.YYYYMMDDHHMMSS));
         classDic.setFlag(0);
-        classDicMapper.updateByPrimaryKey(classDic);
+        classDicMapper.updateByPrimaryKeySelective(classDic);
         return ListenResult.success(null);
     }
 

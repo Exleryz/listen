@@ -31,7 +31,7 @@
             dataType: "json",
             success: function (data) {
                 if (data['flag']) {
-                    window.location.href = '${pageContext.request.contextPath}/index';
+                    window.location.href = '${pageContext.request.contextPath}/page/user/login';
                 } else {
                     alert(data['msg']);
                 }

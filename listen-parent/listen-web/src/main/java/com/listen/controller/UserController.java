@@ -5,6 +5,7 @@ import com.listen.common.utils.ListenResult;
 import com.listen.pojo.SysUserLibraryPool;
 import com.listen.pojo.User;
 import com.listen.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +23,8 @@ import javax.servlet.http.HttpServletRequest;
  * Time 2018-08-30 14:28
  * Description:
  */
+
+@Slf4j
 @Controller
 public class UserController {
 
@@ -62,11 +65,13 @@ public class UserController {
     @ResponseBody
     public ListenResult submitGrade(Float score, HttpServletRequest request) {
         User user = (User) request.getAttribute("user");
+        String token = (String) request.getAttribute("token");
         // 参数检查
-        if (null != user.getGrade() || null == score || null == user.getId()) {
+        System.out.println(String.format("user: %s, %s, %s, %s", user, user.getGrade(), user.getId(), score));
+        if (null == user.getGrade() || null == score || null == user.getId()) {
             return ListenResult.error("获取用户初始等级失败");
         }
-        ListenResult result = userService.initGradeCode(user, score);
+        ListenResult result = userService.initGradeCode(token, user, score);
         return result;
     }
 

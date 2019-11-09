@@ -55,7 +55,7 @@ public interface UserService {
      * @param score
      * @return
      */
-    ListenResult initGradeCode(User user, Float score);
+    ListenResult initGradeCode(String token, User user, Float score);
 
     /**
      * 保存试卷分数

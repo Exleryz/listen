@@ -1,5 +1,6 @@
 package com.listen.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
  *  
  */
 
+@Slf4j
 @Controller
 @RequestMapping("/page")
 public class RedirectController {
@@ -43,6 +45,7 @@ public class RedirectController {
         } else {
             path = folderName + "/" + pageName;
         }
+        log.info("{}/{}", folderName, pageName);
         modelAndView.addObject("user", request.getAttribute("user"));
         modelAndView.setViewName(path);
         return modelAndView;
