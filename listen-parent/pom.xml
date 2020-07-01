@@ -42,7 +42,7 @@
         <jedis.version>3.0.1</jedis.version>
         <activemq.version>5.11.2</activemq.version>
         <freemarker.version>2.3.23</freemarker.version>
-        <quartz.version>2.2.2</quartz.version>
+        <quartz.version>2.3.2</quartz.version>
         <lombok.version>1.16.6</lombok.version>
     </properties>
     <dependencyManagement>
